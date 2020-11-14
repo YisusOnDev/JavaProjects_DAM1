@@ -1,7 +1,5 @@
 package mainapp;
 
-import models.CuentaCorriente;
-import models.Persona;
 import utils.Utils;
 
 public class MainApp {
@@ -9,8 +7,7 @@ public class MainApp {
 	public static void main(String[] args) {
 		Utils.mainMenu();
 	}
-	
-	
+
 // No divertido...
 //	public static void main(String[] args) {
 //		CuentaCorriente cuentaPaco = new CuentaCorriente(00001, 5014.90, null);
