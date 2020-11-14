@@ -4,7 +4,6 @@ import java.util.Random;
 import java.util.Scanner;
 
 public class yArrays {
-
 	static Random rnd = new Random();
 	static Scanner sc = new Scanner(System.in);
 
