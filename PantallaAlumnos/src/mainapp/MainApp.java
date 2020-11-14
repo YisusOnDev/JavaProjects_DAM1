@@ -73,6 +73,7 @@ public class MainApp {
 		textNumAlum.setBounds(118, 79, 86, 20);
 		frame.getContentPane().add(textNumAlum);
 		textNumAlum.setColumns(10);
+		textNumAlum.setEditable(false);
 
 		textNombreAlum = new JTextField();
 		textNombreAlum.setBounds(118, 110, 152, 20);
@@ -116,13 +117,13 @@ public class MainApp {
 		JButton btnSiguiente = new JButton("Siguiente");
 		btnSiguiente.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				if (indiceListaAlumnos < listaAlumnos.size() -1) {
+				if (indiceListaAlumnos < listaAlumnos.size() - 1) {
 					mostrarAlumno(listaAlumnos, ++indiceListaAlumnos);
 				} else {
 					indiceListaAlumnos = 0;
 					mostrarAlumno(listaAlumnos, indiceListaAlumnos);
 				}
-				
+
 			}
 		});
 		btnSiguiente.setBounds(118, 211, 89, 23);
@@ -138,23 +139,72 @@ public class MainApp {
 		frame.getContentPane().add(btnSalir);
 
 		JButton btnNuevo = new JButton("Nuevo");
+		btnNuevo.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				String newIndex = Integer.toString(listaAlumnos.size() + 1);
+				textNumAlum.setText(newIndex);
+				textNombreAlum.setText("");
+				textGrupoAlum.setText("");
+			}
+		});
 		btnNuevo.setBounds(335, 78, 89, 23);
 		frame.getContentPane().add(btnNuevo);
 
 		JButton btnGuardar = new JButton("Guardar");
 		btnGuardar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				String indiceAlumno = textNumAlum.getText();
-				
+				boolean canSave = true;
+				for (Alumno a : listaAlumnos) {
+					if (a.getNombre().equals(textNombreAlum.getText())) {
+						canSave = false;
+					}
+				}
+				if (canSave && !textNumAlum.getText().equals("") && !textGrupoAlum.getText().equals("")) {
+					int indiceALumnoInt = Integer.parseInt(textNumAlum.getText());
+					String nombreAlumno = textNombreAlum.getText();
+					String grupoAlumno = textGrupoAlum.getText();
+					Alumno newAlumno = new Alumno(indiceALumnoInt, nombreAlumno, grupoAlumno);
+					listaAlumnos.add(newAlumno);
+				}
+
 			}
 		});
 		btnGuardar.setBounds(335, 109, 89, 23);
 		frame.getContentPane().add(btnGuardar);
+
+		JButton btnModificar = new JButton("Modificar Actual");
+		btnModificar.addActionListener(new ActionListener() {
+
+			public void actionPerformed(ActionEvent arg0) {
+				if (!textNumAlum.getText().equals("") && !textGrupoAlum.getText().equals("")) {
+					for (Alumno a : listaAlumnos) {
+						if (a.getNum().equals(textNumAlum.getText())) {
+							int indiceAlumno = Integer.parseInt(textNumAlum.getText());
+							indiceAlumno--;
+							String nombreAlumno = textNombreAlum.getText();
+							String grupoAlumno = textGrupoAlum.getText();
+
+							Alumno alumnoToEdit = listaAlumnos.get(indiceAlumno);
+
+							alumnoToEdit.setNombre(nombreAlumno);
+							alumnoToEdit.setGrupo(grupoAlumno);
+						}
+					}
+
+				}
+
+			}
+
+		});
+		btnModificar.setBounds(280, 140, 144, 23);
+		frame.getContentPane().add(btnModificar);
 		frame.setBounds(100, 100, 450, 300);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
+
 	/**
 	 * Recibe una lista y un indice y muestra lo que ahí en él.
+	 * 
 	 * @param lista
 	 * @param indice
 	 */
@@ -163,5 +213,4 @@ public class MainApp {
 		textNombreAlum.setText(lista.get(indice).getNombre());
 		textGrupoAlum.setText(lista.get(indice).getGrupo());
 	}
-
 }
