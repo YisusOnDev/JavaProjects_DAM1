@@ -1,7 +1,5 @@
 package mainapp;
 
-import java.util.ArrayList;
-
 import models.CuentaCorriente;
 import models.Persona;
 import utils.Utils;
