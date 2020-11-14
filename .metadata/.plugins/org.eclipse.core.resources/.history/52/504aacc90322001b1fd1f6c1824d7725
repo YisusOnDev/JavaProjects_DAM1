@@ -1,0 +1,17 @@
+package yArrays;
+
+public class test {
+
+	public static void main(String[] args) {
+		int fil = 1 + rnd.nextInt(4); // Genera random filas para la matriz
+		int col = 1 + rnd.nextInt(4); // Genera random columnas para la matriz
+		int[][] matriz = new int[fil][col]; // Matriz principal
+		int[] array = new int[4]; // Array para pruebas
+		
+		for (int i = 0; i < a.length; i++) {
+			 m[indice][i] = a[i];
+		}
+
+	}
+
+}

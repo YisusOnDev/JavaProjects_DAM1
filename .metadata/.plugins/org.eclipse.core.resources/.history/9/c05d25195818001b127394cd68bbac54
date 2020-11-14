@@ -1,0 +1,26 @@
+package yArrays;
+
+public class yArrays {
+	/**
+	 * Devuelve un vector con los números de la diagonal de la matriz.
+	 * 
+	 * @param m es la matriz que recibe
+	 * @return devuelve el vector con los numeros que forman la diagonal
+	 */
+	public static int[][] diagonal(int[][] m) {
+		for (int i = 0; i < m.length; i++) {
+			for (int j = 0; j < m[i].length; j++) {
+				if (i!=j) {
+					m[i][j] = 0;
+				}
+			}
+		}
+		return m;
+	}
+	
+	public static int[][] generarMatriz(int[][] m) {
+		
+		return m;
+	}
+
+}

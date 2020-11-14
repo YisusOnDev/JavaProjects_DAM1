@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<section name="Workbench">
+	<section name="org.eclipse.ui.texteditor.FindReplaceDialog">
+		<item key="wrap" value="true"/>
+		<item key="casesensitive" value="false"/>
+		<item key="wholeword" value="false"/>
+		<item key="incremental" value="false"/>
+		<item key="isRegEx" value="false"/>
+		<item key="selection" value="getFila"/>
+		<list key="findhistory">
+			<item value="getFila"/>
+			<item value="try"/>
+			<item value="invertir"/>
+			<item value="arrays"/>
+			<item value="mostrarAlumnos"/>
+			<item value="if"/>
+			<item value="mostrarCompleto"/>
+			<item value="exit"/>
+			<item value="System.console().readLine()"/>
+			<item value="VACIO"/>
+			<item value="mina"/>
+			<item value="esValido"/>
+			<item value="aB"/>
+			<item value="notaBaja"/>
+			<item value="totalNotas"/>
+		</list>
+		<list key="replacehistory">
+			<item value="sc.nextLine()"/>
+			<item value="Double.parseDouble"/>
+			<item value="sc"/>
+		</list>
+	</section>
+	<section name="org.eclipse.ui.texteditor.FindReplaceDialog_dialogBounds">
+		<item key="DIALOG_X_ORIGIN" value="1386"/>
+		<item key="DIALOG_Y_ORIGIN" value="243"/>
+		<item key="DIALOG_WIDTH" value="284"/>
+		<item key="DIALOG_HEIGHT" value="391"/>
+		<item key="DIALOG_FONT_NAME" value="1|Segoe UI|9.0|0|WINDOWS|1|-12|0|0|0|400|0|0|0|1|0|0|0|0|Segoe UI"/>
+	</section>
+	<section name="org.eclipse.ui.texteditor.GotoLineAction$GotoLineDialog_dialogBounds">
+		<item key="DIALOG_X_ORIGIN" value="729"/>
+		<item key="DIALOG_Y_ORIGIN" value="408"/>
+	</section>
+</section>

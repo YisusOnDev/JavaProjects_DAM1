@@ -1,0 +1,15 @@
+package yArrays;
+
+public class test {
+
+	public static void main(String[] args) {
+		int[][] matriz = new int{1,1,1}{1,1,1}; // Matriz principal
+		int[] array = new int[aLength]; // Array para pruebas
+		
+		for (int i = 0; i < a.length; i++) {
+			 m[indice][i] = a[i];
+		}
+
+	}
+
+}

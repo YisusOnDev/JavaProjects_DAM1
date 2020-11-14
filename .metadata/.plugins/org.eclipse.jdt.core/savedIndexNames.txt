@@ -1,0 +1,4 @@
+INDEX VERSION 1.131+D:\Users\Yisus\Documents\Yisus Things\SYNC\CFGS 1\Eclipse Works\.metadata\.plugins\org.eclipse.jdt.core
+2905949048.index
+2183981301.index
+486896520.index

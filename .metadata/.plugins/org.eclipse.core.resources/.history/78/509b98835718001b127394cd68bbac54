@@ -1,0 +1,16 @@
+package yArrays;
+
+import java.util.Random;
+
+public class yArrays_tests {
+
+	public static void main(String[] args) {
+		// Tester for fucntions
+
+		Random rnd = new Random();
+		int fil = 001 + rnd.nextInt(999);
+		int col = 001 + rnd.nextInt(999);
+
+	}
+
+}

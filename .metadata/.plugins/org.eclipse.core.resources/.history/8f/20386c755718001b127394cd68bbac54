@@ -1,0 +1,21 @@
+package yArrays;
+
+public class yArrays_tests {
+
+	public static void main(String[] args) {
+		// Tester for fucntions
+		
+		int fil = (int)Math.random();
+		int col = (int)Math.random();
+		int[][] testMatriz = new int [fil][col]; 
+		int[][] vector;
+		int total;
+		vector = yArrays.diagonal(testMatriz);
+		
+		for (int i = 0; i < vector.length; i++) {
+			System.out.println(vector[i]);
+		}
+
+	}
+
+}
