@@ -1,4 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<session version="1.0">
-<refactoring comment="Rename resource &apos;EEDD/newfile.erm&apos; to &apos;alumnos_pluginermaster.erm&apos;" description="Rename resource &apos;newfile.erm&apos;" flags="7" id="org.eclipse.ltk.core.refactoring.rename.resource" input="newfile.erm" name="alumnos_pluginermaster.erm" stamp="1604995412281" updateReferences="true"/>
-</session>

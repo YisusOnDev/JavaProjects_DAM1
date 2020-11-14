@@ -1,4 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<session version="1.0">
-<refactoring comment="Rename type &apos;t7_libro.ejer2&apos; to &apos;ejer2_7p2&apos;&#x0D;&#x0A;- Original project: &apos;PROG_DAM&apos;&#x0D;&#x0A;- Original element: &apos;t7_libro.ejer2&apos;&#x0D;&#x0A;- Renamed element: &apos;t7_libro.ejer2_7p2&apos;&#x0D;&#x0A;- Update references to refactored element&#x0D;&#x0A;- Update textual occurrences in comments and strings" description="Rename type &apos;ejer2&apos;" flags="589830" id="org.eclipse.jdt.ui.rename.type" input="/src&lt;t7_libro{ejer2.java[ejer2" matchStrategy="1" name="ejer2_7p2" qualified="false" references="true" similarDeclarations="false" stamp="1603091121266" textual="false" version="1.0"/>
-</session>
