@@ -68,12 +68,16 @@ public class Persona {
 		if (cantidad > (double) this.cuenta.getSaldo()) {
 			System.out.println("Eres muy listo no? Más quisieras sacar más de lo que tienes... ¡Mago!");
 		} else {
-			this.cuenta.restarCantidad(cantidad);
+			try {
+				this.cuenta.restarCantidad(cantidad);
+			} catch (Exception e) {
+				System.out.println(e.getMessage());
+			}
 		}
 	}
 
 	public void subirSueldo(double nuevoSueldo) {
-		this.sueldo = nuevoSueldo;
+		this.setSueldo(nuevoSueldo);
 	}
 
 	@Override

@@ -49,7 +49,7 @@ public class Utils {
 	public static void anyadirPersona() {
 		Scanner sc = new Scanner(System.in);
 		nCuentasCreadas += 1;
-		CuentaCorriente nuevaCuenta = new CuentaCorriente(nCuentasCreadas, 0, null);
+		CuentaCorriente nuevaCuenta = new CuentaCorriente(nCuentasCreadas, 0);
 
 		String nombre;
 		String primerApellido;
@@ -117,15 +117,13 @@ public class Utils {
 						double cantidad;
 						System.out.print("Escribe la cantidad a sacar: ");
 						cantidad = Double.parseDouble(sc.nextLine());
-						if (cantidad <= pSeleccionada.getCuenta().getSaldo()) {
+						try {
 							pSeleccionada.sacarPasta(cantidad);
-							System.out.println("Has sacado: " + cantidad + " dineros.");
-							mainMenu();
-						} else {
-							System.out.println("No puedes sacar más dinero del que tienes.");
-							seleccionarPersona();
+							System.out.println("Has sacado " + cantidad + "dineros.");
+						} catch (Exception e){
+							System.out.println(e.getMessage());
 						}
-
+						mainMenu();
 						sc.close();
 						return;
 					case 3:
@@ -204,9 +202,9 @@ public class Utils {
 	}
 
 	public static void personasDeRelleno() {
-		CuentaCorriente cuentaPaco = new CuentaCorriente(00001, 5014.90, null);
-		CuentaCorriente cuentaPepe = new CuentaCorriente(00002, 9523.55, null);
-		CuentaCorriente cuentaRatata = new CuentaCorriente(00003, 3541.10, null);
+		CuentaCorriente cuentaPaco = new CuentaCorriente(00001, 5014.90);
+		CuentaCorriente cuentaPepe = new CuentaCorriente(00002, 9523.55);
+		CuentaCorriente cuentaRatata = new CuentaCorriente(00003, 3541.10);
 		Persona Paco = new Persona("Paco", "Puas, Rodriguez", "55695412L", 1065.50, cuentaPaco);
 		Persona Pepe = new Persona("Pepe", "Ramirez, Fernandez", "44569825D", 965.75, cuentaPepe);
 		Persona Ratata = new Persona("Rata", "Dominguez Pavon", "55632568M", 1500.25, cuentaRatata);

@@ -4,7 +4,6 @@ public class CuentaCorriente {
 
 	private int numeroCuenta;
 	private double saldo;
-	private Persona titular;
 
 	/**
 	 * Constructor CuentaCorriente
@@ -13,11 +12,10 @@ public class CuentaCorriente {
 	 * @param saldo
 	 * @param titular
 	 */
-	public CuentaCorriente(int numeroCuenta, double saldo, Persona titular) {
+	public CuentaCorriente(int numeroCuenta, double saldo  ) {
 		super();
 		this.numeroCuenta = numeroCuenta;
 		this.saldo = saldo;
-		this.titular = titular;
 	}
 
 	public int getNumeroCuenta() {
@@ -35,22 +33,14 @@ public class CuentaCorriente {
 	public void setSaldo(double saldo) {
 		this.saldo = saldo;
 	}
-
-	public Persona getTitular() {
-		return titular;
-	}
-
-	public void setTitular(Persona titular) {
-		this.titular = titular;
-	}
 	
 	public void sumarCantidad(double cantidad) {
 		this.saldo += cantidad;
 	}
 	
-	public void restarCantidad(double cantidad) {
+	public void restarCantidad(double cantidad) throws Exception {
 		if (cantidad > this.saldo) {
-			System.out.println("Eres muy listo no? Más quisieras sacar más de lo que tienes... ¡Mago!");
+			throw new Exception("Eres muy listo no? Más quisieras sacar más de lo que tienes... ¡Mago!");
 		} else {
 			this.saldo -= cantidad;
 		}
@@ -58,7 +48,7 @@ public class CuentaCorriente {
 
 	@Override
 	public String toString() {
-		return "CuentaCorriente [numeroCuenta=" + numeroCuenta + ", saldo=" + saldo + ", titular=" + titular + "]";
+		return "CuentaCorriente [numeroCuenta=" + numeroCuenta + ", saldo=" + saldo + "]";
 	}
 
 }
