@@ -20,6 +20,9 @@ public class Controller {
 	static ClinicaVeterinaria Clinica = new ClinicaVeterinaria();
 
 	public void run() {
+		System.out.println("1");
+
+		System.out.println("2");
 		mainMenu();
 	}
 
@@ -32,7 +35,14 @@ public class Controller {
 				crearAnimal(ConsoleHelper.definirAnimalMenu());
 				break;
 			case 2:
-
+				String nombreAnimal = ConsoleHelper.leerString("Introduce el nombre del animal a modificar el comentario: ");
+				if (Clinica.BuscarAnimal(nombreAnimal) != null) {
+					String nuevaDescripcionAnimal = ConsoleHelper.leerString("Introduce la nueva descripción del animal: ");
+					Clinica.ModificarComentarioAnimal(nombreAnimal, nuevaDescripcionAnimal);
+				} else {
+					System.out.println("No se ha encontrado ese animal en nuestra base de datos.");
+					mainMenu();
+				}
 				break;
 			case 3:
 				System.out.println(Clinica);
