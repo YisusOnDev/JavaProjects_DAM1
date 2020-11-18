@@ -105,13 +105,13 @@ public class MainApp {
 			public void actionPerformed(ActionEvent arg0) {
 				if (indiceListaAlumnos > 0) {
 					mostrarAlumno(listaAlumnos, --indiceListaAlumnos);
-				} else {
+				} /*else {
 					indiceListaAlumnos = listaAlumnos.size() - 1;
 					mostrarAlumno(listaAlumnos, indiceListaAlumnos);
-				}
+				}*/
 			}
 		});
-		btnAnterior.setBounds(19, 211, 89, 23);
+		btnAnterior.setBounds(19, 182, 89, 23);
 		frame.getContentPane().add(btnAnterior);
 
 		JButton btnSiguiente = new JButton("Siguiente");
@@ -119,14 +119,14 @@ public class MainApp {
 			public void actionPerformed(ActionEvent arg0) {
 				if (indiceListaAlumnos < listaAlumnos.size() - 1) {
 					mostrarAlumno(listaAlumnos, ++indiceListaAlumnos);
-				} else {
+				} /*else {
 					indiceListaAlumnos = 0;
 					mostrarAlumno(listaAlumnos, indiceListaAlumnos);
-				}
+				}*/
 
 			}
 		});
-		btnSiguiente.setBounds(118, 211, 89, 23);
+		btnSiguiente.setBounds(115, 182, 89, 23);
 		frame.getContentPane().add(btnSiguiente);
 
 		JButton btnSalir = new JButton("Salir");
@@ -135,7 +135,7 @@ public class MainApp {
 				frame.dispose();
 			}
 		});
-		btnSalir.setBounds(335, 211, 89, 23);
+		btnSalir.setBounds(335, 182, 89, 23);
 		frame.getContentPane().add(btnSalir);
 
 		JButton btnNuevo = new JButton("Nuevo");
@@ -198,6 +198,15 @@ public class MainApp {
 		});
 		btnModificar.setBounds(280, 140, 144, 23);
 		frame.getContentPane().add(btnModificar);
+
+		JLabel lblInfoLabel1 = new JLabel(
+				"Anterior/Siguiente - Moverse entre alumnos | Nuevo/Guardar - crea y guarda un");
+		lblInfoLabel1.setBounds(10, 210, 414, 20);
+		frame.getContentPane().add(lblInfoLabel1);
+
+		JLabel lblNuevoAlumno = new JLabel("nuevo alumno. | Modificar actual - modifica un alumno existente.");
+		lblNuevoAlumno.setBounds(10, 230, 414, 20);
+		frame.getContentPane().add(lblNuevoAlumno);
 		frame.setBounds(100, 100, 450, 300);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
