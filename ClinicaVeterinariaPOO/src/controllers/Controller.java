@@ -20,9 +20,6 @@ public class Controller {
 	static ClinicaVeterinaria Clinica = new ClinicaVeterinaria();
 
 	public void run() {
-		System.out.println("1");
-
-		System.out.println("2");
 		mainMenu();
 	}
 
