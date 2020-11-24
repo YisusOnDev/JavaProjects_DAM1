@@ -6,22 +6,25 @@ import java.util.Random;
 
 public class Baraja {
 
-	private ArrayList<Carta> listaCartas = new ArrayList<Carta>();
+	private ArrayList<Carta> listaCartas;
+	private final int MAXCartas = 40;
+	private final int MINCartas = 1;
 
 	public Baraja() {
-		listaCartas.clear();
+		listaCartas = new ArrayList<Carta>();
 	}
 
 	public Baraja(int tipoBraja) {
+		listaCartas = new ArrayList<Carta>();
 		switch (tipoBraja) {
 		case 1:
-			for (int i = 1; i < 40; i++) {
+			for (int i = MINCartas; i < MAXCartas; i++) {
 				Carta carta = new Carta(i);
 				listaCartas.add(carta);
 			}
 			return;
 		case 2:
-			for (int i = 1; i < 40; i++) {
+			for (int i = MINCartas; i < MAXCartas; i++) {
 				Carta carta = new Carta(i);
 				listaCartas.add(carta);
 				listaCartas.add(carta); // Sucio...
@@ -32,6 +35,8 @@ public class Baraja {
 	}
 
 	public Baraja(int tipoBraja, boolean barajar) {
+		listaCartas = new ArrayList<Carta>();
+
 		switch (tipoBraja) {
 		case 1:
 			for (int i = 1; i < 40; i++) {
@@ -49,9 +54,8 @@ public class Baraja {
 
 		}
 
-		if (barajar) {
-			Collections.shuffle(listaCartas, new Random());
-		}
+		if (barajar)
+			barajar();
 	}
 
 	public void barajar() {
@@ -68,7 +72,6 @@ public class Baraja {
 				listaCartas.remove(0);
 			}
 		}
-
 	}
 
 	public Carta robar() {
@@ -79,11 +82,26 @@ public class Baraja {
 			listaCartas.remove(0);
 			return cartaRobada;
 		}
+	}
 
+	public void InsertaCartaFinal(int idCarta) {
+		listaCartas.add(new Carta(idCarta));
+	}
+
+	public void InsertaCartaPrincipio(int idCarta) {
+		listaCartas.add(0, new Carta(idCarta));
+	}
+
+	public void InsertaCartaFinal(Carta c) {
+		listaCartas.add(c);
+	}
+
+	public int getNumeroCartas() {
+		return listaCartas.size();
 	}
 
 	public boolean isVacia() {
 		return listaCartas.isEmpty();
 	}
-
+	
 }
