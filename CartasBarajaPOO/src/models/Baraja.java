@@ -10,10 +10,18 @@ public class Baraja {
 	private final int MAXCartas = 40;
 	private final int MINCartas = 1;
 
+	/**
+	 * Crea una baraja vacia
+	 */
 	public Baraja() {
 		listaCartas = new ArrayList<Carta>();
 	}
 
+	/**
+	 * Crea una baraja de "X" tipo
+	 * 
+	 * @param tipoBraja el tipo de baraja que queremos (1. 40 cartas o 2. 80 cartas)
+	 */
 	public Baraja(int tipoBraja) {
 		listaCartas = new ArrayList<Carta>();
 		switch (tipoBraja) {
@@ -34,6 +42,12 @@ public class Baraja {
 		}
 	}
 
+	/**
+	 * Crea una baraja de "X" tipo y además puedes barajar la misma al momento
+	 * 
+	 * @param tipoBraja 1 o 2 (1. 40 cartas 2. 80 cartas)
+	 * @param barajar   true baraja, false no baraja
+	 */
 	public Baraja(int tipoBraja, boolean barajar) {
 		listaCartas = new ArrayList<Carta>();
 
@@ -58,10 +72,18 @@ public class Baraja {
 			barajar();
 	}
 
+	/**
+	 * Baraja la baraja de cartas
+	 */
 	public void barajar() {
 		Collections.shuffle(listaCartas, new Random());
 	}
 
+	/**
+	 * Corta la baraja en X posicion.
+	 * 
+	 * @param posicion la posicion donde quieres cortar la baraja
+	 */
 	public void cortar(int posicion) {
 		if (posicion > listaCartas.size() || posicion <= 0) {
 			System.out.println(
@@ -74,6 +96,11 @@ public class Baraja {
 		}
 	}
 
+	/**
+	 * Roba una carta de la baraja
+	 * 
+	 * @return la carta robada
+	 */
 	public Carta robar() {
 		if (isVacia()) {
 			return null;
@@ -84,24 +111,49 @@ public class Baraja {
 		}
 	}
 
+	/**
+	 * Inserta una carta al final de la baraja
+	 * 
+	 * @param idCarta la id de la carta a introducir
+	 */
 	public void InsertaCartaFinal(int idCarta) {
 		listaCartas.add(new Carta(idCarta));
 	}
 
+	/**
+	 * Inserta una carta al principio de la baraja
+	 * 
+	 * @param idCarta la id de la carta a introducir
+	 */
 	public void InsertaCartaPrincipio(int idCarta) {
 		listaCartas.add(0, new Carta(idCarta));
 	}
 
+	/**
+	 * Inserta una carta al final de la baraja
+	 * 
+	 * @param c la CARTA a introducir
+	 */
 	public void InsertaCartaFinal(Carta c) {
 		listaCartas.add(c);
 	}
 
+	/**
+	 * Consigue la cantidad de cartas que hay en la baraja
+	 * 
+	 * @return la cantidad de cartas que hay en la baraja
+	 */
 	public int getNumeroCartas() {
 		return listaCartas.size();
 	}
 
+	/**
+	 * Chequea si la baraja esta vacia o no
+	 * 
+	 * @return true si esta vacia, false si no esta vacia
+	 */
 	public boolean isVacia() {
 		return listaCartas.isEmpty();
 	}
-	
+
 }

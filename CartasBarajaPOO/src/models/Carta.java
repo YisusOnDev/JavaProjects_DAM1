@@ -6,6 +6,12 @@ public class Carta {
 	private int paloCarta;
 	private int idCarta;
 
+	/**
+	 * Constructor de carta indicando el numero de carta y el palo de la carta.
+	 * 
+	 * @param numeroCarta Numero de la carta
+	 * @param paloCarta   Palo de la carta
+	 */
 	public Carta(int numeroCarta, int paloCarta) {
 		super();
 		this.numeroCarta = numeroCarta;
@@ -13,6 +19,11 @@ public class Carta {
 		this.idCarta = (paloCarta * 10 + numeroCarta);
 	}
 
+	/**
+	 * Constructor de carta indicando el id correspondiente a la carta
+	 * 
+	 * @param id Id correspondiente de la carta
+	 */
 	public Carta(int id) {
 		this.idCarta = id;
 		if (id % 10 == 0) {
@@ -24,18 +35,38 @@ public class Carta {
 		}
 	}
 
+	/**
+	 * Consigue el número de una carta
+	 * 
+	 * @return El numero de la carta
+	 */
 	public int getNumeroCarta() {
 		return numeroCarta;
 	}
 
+	/**
+	 * Consigue el palo de una carta
+	 * 
+	 * @return El palo de la carta
+	 */
 	public int getPaloCarta() {
 		return paloCarta;
 	}
 
+	/**
+	 * COnsigue el id de una carta
+	 * 
+	 * @return El id de la carta
+	 */
 	public int getIdCarta() {
 		return idCarta;
 	}
 
+	/**
+	 * Conseguir el nombre correspondiente al numero de la carta.
+	 * 
+	 * @return El nombre de la carta en si.
+	 */
 	public String getNombreNumero() {
 		switch (numeroCarta) {
 		case 1:
@@ -63,6 +94,11 @@ public class Carta {
 		}
 	}
 
+	/**
+	 * Devuelve el nombre del palo al que pertenece una carta
+	 * 
+	 * @return El palo al que pertenece la carta
+	 */
 	public String getNombrePalo() {
 		switch (paloCarta) {
 		case 0:
@@ -78,10 +114,20 @@ public class Carta {
 		}
 	}
 
+	/**
+	 * Devuelve el nombre completo de la carta
+	 * 
+	 * @return Nombre de la carta + Palo al que pertenece
+	 */
 	public String getNombreCarta() {
 		return getNombreNumero() + " de " + getNombrePalo();
 	}
 
+	/**
+	 * Con el numero de carta, consigue el valor de la misma en el Tute
+	 * 
+	 * @return Valor de la carta en el juego del tute
+	 */
 	public int getValorTute() {
 		switch (numeroCarta) {
 		case 1:
@@ -99,6 +145,11 @@ public class Carta {
 		return 0;
 	}
 
+	/**
+	 * Con el numero de carta, consigue el valor de la misma en el Mus
+	 * 
+	 * @return Valor de la carta en el juego del mus
+	 */
 	public int getValorMus() {
 		switch (numeroCarta) {
 		case 1:
@@ -118,6 +169,11 @@ public class Carta {
 		}
 	}
 
+	/**
+	 * Con el numero de carta, consigue el valor de la misma en el "7 y media"
+	 * 
+	 * @return Valor de la carta en el juego de la "7 y media"
+	 */
 	public double getValor7ymedia() {
 		switch (numeroCarta) {
 		case 8:
