@@ -1,6 +1,7 @@
 package controllers;
 
 import models.Baraja;
+import models.Mano;
 import models.Carta;
 import utils.ConsoleHelper;
 

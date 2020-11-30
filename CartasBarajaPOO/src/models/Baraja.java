@@ -6,7 +6,7 @@ import java.util.Random;
 
 public class Baraja {
 
-	private ArrayList<Carta> listaCartas;
+	protected ArrayList<Carta> listaCartas;
 	private final int MAXCartas = 40;
 	private final int MINCartas = 1;
 
