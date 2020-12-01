@@ -20,4 +20,8 @@ public class Mesa {
 		
 	}
 	
+	protected void addCartaABaraja() {
+		baraja.InsertaCartaFinal(1);
+	}
+	
 }
