@@ -15,7 +15,9 @@ public class Mesa {
 	}
 	
 	protected List<Carta> robarVariasCartas(int n) {
-		//TODO
+		for (int i = n; i > 0; i--) {
+			
+		}
 		return null;
 		
 	}
