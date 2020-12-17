@@ -120,27 +120,27 @@ public class PokemonView {
 		lblPokeAbility = new JLabel("Habilidad:");
 		lblPokeAbility.setBounds(10, 61, 59, 14);
 		pokeInfoPanel.add(lblPokeAbility);
-		
+
 		lblPokeNameText = new JLabel("");
 		lblPokeNameText.setBounds(70, 11, 239, 14);
 		pokeInfoPanel.add(lblPokeNameText);
-		
+
 		lblPokeCategoryText = new JLabel("");
 		lblPokeCategoryText.setBounds(85, 36, 224, 14);
 		pokeInfoPanel.add(lblPokeCategoryText);
-		
+
 		lblPokeAbilityText = new JLabel("");
 		lblPokeAbilityText.setBounds(77, 61, 232, 14);
 		pokeInfoPanel.add(lblPokeAbilityText);
-		
+
 		lblPokeHeighText = new JLabel("");
 		lblPokeHeighText.setBounds(102, 86, 64, 14);
 		pokeInfoPanel.add(lblPokeHeighText);
-		
+
 		lblPokeWeightText = new JLabel("");
 		lblPokeWeightText.setBounds(232, 86, 77, 14);
 		pokeInfoPanel.add(lblPokeWeightText);
-		
+
 		lblPokeDescriptionText = new JLabel("");
 		lblPokeDescriptionText.setVerticalAlignment(SwingConstants.TOP);
 		lblPokeDescriptionText.setHorizontalAlignment(SwingConstants.LEFT);
@@ -196,19 +196,19 @@ public class PokemonView {
 	private void showPokemon(int index) {
 		String currentName = allPokemons.get(index).getName();
 		String currentCategories = PokemonDAO.getStringCategories(allPokemons.get(index).getName());
-		String currentDescription = "<html><p>"+allPokemons.get(index).getDescription()+"</p></html>";
+		String currentDescription = "<html><p>" + allPokemons.get(index).getDescription() + "</p></html>";
 		String currentHeight = String.valueOf(allPokemons.get(index).getHeight());
 		String currentWeight = String.valueOf(allPokemons.get(index).getWeight());
 		String currentAbility = allPokemons.get(index).getAbility();
 		String currentUrl = allPokemons.get(index).getImageURL();
-		
+
 		lblPokeNameText.setText(currentName);
 		lblPokeCategoryText.setText(currentCategories);
 		lblPokeDescriptionText.setText(currentDescription);
 		lblPokeHeighText.setText(currentHeight);
 		lblPokeWeightText.setText(currentWeight);
 		lblPokeAbilityText.setText(currentAbility);
-		
+
 		// Set preview image.
 		BufferedImage img = null;
 		try {
@@ -220,6 +220,5 @@ public class PokemonView {
 		ImageIcon imageIcon = new ImageIcon(dimg);
 		lblPreviewImage.setIcon(imageIcon);
 	}
-	
-	
+
 }

@@ -21,8 +21,31 @@ public class PokemonDAO {
 		this.weight = weight;
 		this.ability = ability;
 		this.imageURL = imageURL;
-
 		this.categories = getStringCategories(name);
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public float getHeight() {
+		return height;
+	}
+
+	public float getWeight() {
+		return weight;
+	}
+
+	public String getAbility() {
+		return ability;
+	}
+
+	public String getImageURL() {
+		return imageURL;
 	}
 
 	public static ArrayList<PokemonDAO> getAllPokemons() {
@@ -49,54 +72,6 @@ public class PokemonDAO {
 
 		// If SQL check failed
 		return null;
-	}
-
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	public String getDescription() {
-		return description;
-	}
-
-	public void setDescription(String description) {
-		this.description = description;
-	}
-
-	public float getHeight() {
-		return height;
-	}
-
-	public void setHeight(float height) {
-		this.height = height;
-	}
-
-	public float getWeight() {
-		return weight;
-	}
-
-	public void setWeight(float weight) {
-		this.weight = weight;
-	}
-
-	public String getAbility() {
-		return ability;
-	}
-
-	public void setAbility(String ability) {
-		this.ability = ability;
-	}
-
-	public String getImageURL() {
-		return imageURL;
-	}
-
-	public void setImageURL(String imageURL) {
-		this.imageURL = imageURL;
 	}
 
 	public static String getStringCategories(String name) {

@@ -105,10 +105,10 @@ public class MainApp {
 			public void actionPerformed(ActionEvent arg0) {
 				if (indiceListaAlumnos > 0) {
 					mostrarAlumno(listaAlumnos, --indiceListaAlumnos);
-				} /*else {
-					indiceListaAlumnos = listaAlumnos.size() - 1;
-					mostrarAlumno(listaAlumnos, indiceListaAlumnos);
-				}*/
+				} /*
+					 * else { indiceListaAlumnos = listaAlumnos.size() - 1;
+					 * mostrarAlumno(listaAlumnos, indiceListaAlumnos); }
+					 */
 			}
 		});
 		btnAnterior.setBounds(19, 182, 89, 23);
@@ -119,10 +119,10 @@ public class MainApp {
 			public void actionPerformed(ActionEvent arg0) {
 				if (indiceListaAlumnos < listaAlumnos.size() - 1) {
 					mostrarAlumno(listaAlumnos, ++indiceListaAlumnos);
-				} /*else {
-					indiceListaAlumnos = 0;
-					mostrarAlumno(listaAlumnos, indiceListaAlumnos);
-				}*/
+				} /*
+					 * else { indiceListaAlumnos = 0; mostrarAlumno(listaAlumnos,
+					 * indiceListaAlumnos); }
+					 */
 
 			}
 		});
