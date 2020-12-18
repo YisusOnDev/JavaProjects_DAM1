@@ -6,15 +6,22 @@ import java.awt.Image;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
+import java.io.BufferedInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.URL;
 import java.util.ArrayList;
 
 import javax.imageio.ImageIO;
+import javax.sound.sampled.AudioFormat;
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import javax.swing.border.LineBorder;
@@ -43,6 +50,7 @@ public class PokemonView {
 	private JLabel lblPokeHeighText;
 	private JLabel lblPokeWeightText;
 	private JLabel lblPokeDescriptionText;
+	private JButton btnPlaySoundButton;
 
 	private int indexPokmeonList = 0;
 	private ArrayList<PokemonDAO> allPokemons;
@@ -122,7 +130,7 @@ public class PokemonView {
 		pokeInfoPanel.add(lblPokeAbility);
 
 		lblPokeNameText = new JLabel("");
-		lblPokeNameText.setBounds(70, 11, 239, 14);
+		lblPokeNameText.setBounds(70, 11, 140, 14);
 		pokeInfoPanel.add(lblPokeNameText);
 
 		lblPokeCategoryText = new JLabel("");
@@ -146,6 +154,10 @@ public class PokemonView {
 		lblPokeDescriptionText.setHorizontalAlignment(SwingConstants.LEFT);
 		lblPokeDescriptionText.setBounds(102, 111, 207, 92);
 		pokeInfoPanel.add(lblPokeDescriptionText);
+
+		btnPlaySoundButton = new JButton("Sonido");
+		btnPlaySoundButton.setBounds(220, 7, 89, 23);
+		pokeInfoPanel.add(btnPlaySoundButton);
 
 		btnPokeNext = new JButton("Siguiente");
 		btnPokeNext.setBounds(124, 288, 89, 23);
@@ -174,6 +186,24 @@ public class PokemonView {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				previousPokemon();
+			}
+
+		});
+		
+		btnSignOut.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				frame.dispose();
+				JOptionPane.showMessageDialog(frame, "You signed out", "INFO", JOptionPane.INFORMATION_MESSAGE);
+				new LoginView();
+			}
+
+		});
+
+		btnPlaySoundButton.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				playCustomSound(indexPokmeonList);
 			}
 
 		});
@@ -219,6 +249,13 @@ public class PokemonView {
 		Image dimg = img.getScaledInstance(lblPreviewImage.getWidth(), lblPreviewImage.getHeight(), Image.SCALE_SMOOTH);
 		ImageIcon imageIcon = new ImageIcon(dimg);
 		lblPreviewImage.setIcon(imageIcon);
+	}
+
+	private void playCustomSound(int indexPokmeonList) {
+		String soundURL = allPokemons.get(indexPokmeonList).getSoundURL();
+
+		// Todo play ogg sounds...?
+
 	}
 
 }

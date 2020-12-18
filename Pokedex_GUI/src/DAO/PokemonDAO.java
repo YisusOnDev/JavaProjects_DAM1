@@ -11,9 +11,10 @@ public class PokemonDAO {
 	protected String categories;
 	protected String ability;
 	protected String imageURL;
+	protected String soundURL;
 	protected static ArrayList<PokemonDAO> pokemons;
 
-	protected PokemonDAO(String name, String description, float height, float weight, String ability, String imageURL) {
+	protected PokemonDAO(String name, String description, float height, float weight, String ability, String imageURL, String soundURL) {
 		super();
 		this.name = name;
 		this.description = description;
@@ -21,6 +22,7 @@ public class PokemonDAO {
 		this.weight = weight;
 		this.ability = ability;
 		this.imageURL = imageURL;
+		this.soundURL = soundURL;
 		this.categories = getStringCategories(name);
 	}
 
@@ -47,6 +49,10 @@ public class PokemonDAO {
 	public String getImageURL() {
 		return imageURL;
 	}
+	
+	public String getSoundURL() {
+		return soundURL;
+	}
 
 	public static ArrayList<PokemonDAO> getAllPokemons() {
 		pokemons = new ArrayList<PokemonDAO>();
@@ -59,7 +65,7 @@ public class PokemonDAO {
 			while (rs.next()) {
 				PokemonDAO pokemon = new PokemonDAO(rs.getString("Nombre"), rs.getString("Descripcion"),
 						rs.getFloat("Altura"), rs.getFloat("Peso"), rs.getString("Habilidad"),
-						rs.getString("ImagenURL"));
+						rs.getString("ImagenURL"), rs.getString("SonidoURL"));
 				pokemons.add(pokemon);
 				System.out.println("Pokemon Added");
 			}
