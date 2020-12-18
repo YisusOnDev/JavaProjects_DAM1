@@ -6,17 +6,12 @@ import java.awt.Image;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
-import java.io.BufferedInputStream;
 import java.io.IOException;
-import java.io.InputStream;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 
 import javax.imageio.ImageIO;
-import javax.sound.sampled.AudioFormat;
-import javax.sound.sampled.AudioInputStream;
-import javax.sound.sampled.AudioSystem;
-import javax.sound.sampled.Clip;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -27,6 +22,8 @@ import javax.swing.SwingConstants;
 import javax.swing.border.LineBorder;
 
 import DAO.PokemonDAO;
+import javazoom.jlgui.basicplayer.BasicPlayer;
+import javazoom.jlgui.basicplayer.BasicPlayerException;
 
 public class PokemonView {
 
@@ -189,7 +186,7 @@ public class PokemonView {
 			}
 
 		});
-		
+
 		btnSignOut.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -254,7 +251,13 @@ public class PokemonView {
 	private void playCustomSound(int indexPokmeonList) {
 		String soundURL = allPokemons.get(indexPokmeonList).getSoundURL();
 
-		// Todo play ogg sounds...?
+		BasicPlayer player = new BasicPlayer();
+		try {
+		    player.open(new URL(soundURL));
+		    player.play();
+		} catch (BasicPlayerException | MalformedURLException e) {
+		    e.printStackTrace();
+		}
 
 	}
 
