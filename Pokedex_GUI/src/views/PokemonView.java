@@ -224,8 +224,8 @@ public class PokemonView {
 		String currentName = allPokemons.get(index).getName();
 		String currentCategories = PokemonDAO.getStringCategories(allPokemons.get(index).getName());
 		String currentDescription = "<html><p>" + allPokemons.get(index).getDescription() + "</p></html>";
-		String currentHeight = String.valueOf(allPokemons.get(index).getHeight());
-		String currentWeight = String.valueOf(allPokemons.get(index).getWeight());
+		String currentHeight = String.valueOf(allPokemons.get(index).getHeight()) + "m";
+		String currentWeight = String.valueOf(allPokemons.get(index).getWeight()) + "kg";
 		String currentAbility = allPokemons.get(index).getAbility();
 		String currentUrl = allPokemons.get(index).getImageURL();
 
