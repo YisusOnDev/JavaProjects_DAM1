@@ -24,6 +24,7 @@ import javax.swing.border.LineBorder;
 import DAO.PokemonDAO;
 import javazoom.jlgui.basicplayer.BasicPlayer;
 import javazoom.jlgui.basicplayer.BasicPlayerException;
+import models.Pokemon;
 
 public class PokemonView {
 
@@ -50,7 +51,7 @@ public class PokemonView {
 	private JButton btnPlaySoundButton;
 
 	private int indexPokmeonList = 0;
-	private ArrayList<PokemonDAO> allPokemons;
+	private ArrayList<Pokemon> allPokemons;
 
 	/**
 	 * Create the application.
@@ -63,7 +64,7 @@ public class PokemonView {
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
-		allPokemons = new ArrayList<PokemonDAO>();
+		allPokemons = new ArrayList<Pokemon>();
 		frame = new JFrame();
 		frame.setBounds(100, 100, 580, 395);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

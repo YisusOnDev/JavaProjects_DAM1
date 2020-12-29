@@ -24,6 +24,7 @@ public class LoginView {
 	private JLabel lblPassword;
 	private JButton btnLogin;
 	private JLabel lblBienvenido;
+	private JButton btnRegister;
 
 	/**
 	 * Create the application.
@@ -66,13 +67,17 @@ public class LoginView {
 		frame.getContentPane().add(passwordField);
 
 		btnLogin = new JButton("Log in");
-		btnLogin.setBounds(124, 144, 89, 23);
+		btnLogin.setBounds(91, 144, 89, 23);
 		frame.getContentPane().add(btnLogin);
 
 		lblBienvenido = new JLabel("Welcome");
 		lblBienvenido.setFont(new Font("Trebuchet MS", Font.BOLD, 16));
 		lblBienvenido.setBounds(124, 11, 107, 42);
 		frame.getContentPane().add(lblBienvenido);
+		
+		btnRegister = new JButton("Register");
+		btnRegister.setBounds(190, 144, 89, 23);
+		frame.getContentPane().add(btnRegister);
 	}
 
 	private void setListeners() {
@@ -94,6 +99,14 @@ public class LoginView {
 
 		passwordField.addKeyListener(loginLogic);
 		tfUsername.addKeyListener(loginLogic);
+
+		btnRegister.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				frame.dispose();
+				new RegisterView();
+			}
+		});
 	}
 
 	private void loginPressed() {

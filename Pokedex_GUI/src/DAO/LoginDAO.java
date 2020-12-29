@@ -27,28 +27,4 @@ public class LoginDAO {
 		// If SQL check failed
 		return false;
 	}
-
-	/**
-	 * Method to get all users of the database.
-	 * 
-	 * @return Console Print with usernames with theirs password.
-	 */
-	public static boolean showAllUsers() {
-
-		try (Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/bd_prog1", "root", "");
-				Statement stmt = conn.createStatement();
-				ResultSet rs = stmt.executeQuery("SELECT * FROM users;")) {
-
-			// loop through the result set
-			while (rs.next()) {
-				System.out.println(rs.getString("Username") + "\t" + rs.getString("Password"));
-			}
-
-		} catch (SQLException ex) {
-			System.out.println(ex.getMessage());
-		}
-
-		// If SQL check failed
-		return false;
-	}
 }
