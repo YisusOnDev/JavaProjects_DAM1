@@ -8,7 +8,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 public class UserDAO {
-	
+
 	/**
 	 * Method to get all users of the database.
 	 * 
@@ -32,9 +32,10 @@ public class UserDAO {
 		// If SQL check failed
 		return false;
 	}
-	
+
 	/**
 	 * Check if a username already exist
+	 * 
 	 * @param username the username to check
 	 * @return if exist or not (true or false)
 	 */
@@ -42,7 +43,7 @@ public class UserDAO {
 
 		try (Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/bd_prog1", "root", "");
 				Statement stmt = conn.createStatement();
-				ResultSet rs = stmt.executeQuery("SELECT * FROM users WHERE username = '" + username +"'")) {
+				ResultSet rs = stmt.executeQuery("SELECT * FROM users WHERE username = '" + username + "'")) {
 
 			return rs.next();
 
@@ -53,24 +54,40 @@ public class UserDAO {
 		// If SQL check failed
 		return false;
 	}
-	
+
 	public void registerUser(String username, String password) {
 		try {
 			Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/bd_prog1", "root", "");
 			String query = " INSERT INTO users (Username, Password)" + " values (?, ?)";
 
-			// create the mysql insert preparedstatement
+			// create the mysql insert prepared statement
 			PreparedStatement preparedStmt = conn.prepareStatement(query);
 			preparedStmt.setString(1, username);
 			preparedStmt.setString(2, password);
 
 			preparedStmt.execute();
-			
+
 			conn.close();
 		} catch (Exception e) {
 			System.err.println("Got an exception!");
 			System.err.println(e.getMessage());
 		}
 	}
-	
+
+	public static boolean havePermission(String username) {
+		try (Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/bd_prog1", "root", "");
+				Statement stmt = conn.createStatement();
+				ResultSet rs = stmt.executeQuery("SELECT * FROM users WHERE Username = '" + username + "'"
+						+ " AND IsAdmin = '" + 1 + "'")) {
+
+			return rs.next();
+
+		} catch (SQLException ex) {
+			System.out.println(ex.getMessage());
+		}
+
+		// If SQL check failed
+		return false;
+	}
+
 }

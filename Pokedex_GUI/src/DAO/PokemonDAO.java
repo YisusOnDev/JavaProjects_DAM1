@@ -1,7 +1,12 @@
 package DAO;
 
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import models.Pokemon;
 
@@ -16,7 +21,7 @@ public class PokemonDAO {
 
 			// loop through the result set
 			while (rs.next()) {
-				Pokemon pokemon = new Pokemon(rs.getString("Nombre"), rs.getString("Descripcion"),
+				Pokemon pokemon = new Pokemon(rs.getInt("Numero"), rs.getString("Nombre"), rs.getString("Descripcion"),
 						rs.getFloat("Altura"), rs.getFloat("Peso"), rs.getString("Habilidad"),
 						rs.getString("ImagenURL"), rs.getString("SonidoURL"));
 				pokemons.add(pokemon);
@@ -44,10 +49,10 @@ public class PokemonDAO {
 
 			// loop through the result set
 			while (rs.next()) {
-				toReturnCategories = toReturnCategories + rs.getString("tipo") + " ";
+				toReturnCategories = toReturnCategories + rs.getString("tipo") + "|";
 			}
 
-			return toReturnCategories;
+			return Arrays.asList(toReturnCategories.split("\\|")).toString();
 
 		} catch (SQLException ex) {
 			System.out.println(ex.getMessage());

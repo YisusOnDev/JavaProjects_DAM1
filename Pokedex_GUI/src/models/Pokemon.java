@@ -3,6 +3,7 @@ package models;
 import DAO.PokemonDAO;
 
 public class Pokemon {
+	protected int pId;
 	protected String name;
 	protected String description;
 	protected float height;
@@ -12,8 +13,9 @@ public class Pokemon {
 	protected String imageURL;
 	protected String soundURL;
 
-	public Pokemon(String name, String description, float height, float weight, String ability, String imageURL, String soundURL) {
+	public Pokemon(int pId, String name, String description, float height, float weight, String ability, String imageURL, String soundURL) {
 		super();
+		this.pId = pId;
 		this.name = name;
 		this.description = description;
 		this.height = height;
@@ -38,6 +40,14 @@ public class Pokemon {
 
 	public float getWeight() {
 		return weight;
+	}
+
+	public int getpId() {
+		return pId;
+	}
+
+	public void setpId(int pId) {
+		this.pId = pId;
 	}
 
 	public String getAbility() {

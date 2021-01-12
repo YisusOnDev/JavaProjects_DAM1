@@ -115,7 +115,7 @@ public class LoginView {
 		if (LoginDAO.login(username, password)) {
 			System.out.println("Login successfull...");
 			frame.dispose();
-			new PokemonView();
+			new PokemonView(username );
 		} else {
 			System.out.println("Login failed...");
 

@@ -27,7 +27,7 @@ import javazoom.jlgui.basicplayer.BasicPlayer;
 import javazoom.jlgui.basicplayer.BasicPlayerException;
 import models.Pokemon;
 
-public class PokemonView {
+public class AdminView {
 
 	private JFrame frame;
 	private JLabel lblPokedex;
@@ -51,9 +51,6 @@ public class PokemonView {
 	private JLabel lblPokeDescriptionText;
 	private JButton btnPlaySoundButton;
 	private JLabel lblPokeNum;
-	private JButton btnPokeAdmin;
-	
-	private String username;
 
 	private int indexPokmeonList = 0;
 	private ArrayList<Pokemon> allPokemons;
@@ -62,8 +59,7 @@ public class PokemonView {
 	 * Create the application.
 	 * @param username 
 	 */
-	public PokemonView(String username) {
-		this.username = username;
+	public AdminView() {
 		initialize();
 	}
 
@@ -73,7 +69,7 @@ public class PokemonView {
 	private void initialize() {
 		allPokemons = new ArrayList<Pokemon>();
 		frame = new JFrame();
-		frame.setBounds(100, 100, 580, 395);
+		frame.setBounds(100, 100, 1082, 438);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		setDBPokemons();
@@ -89,11 +85,11 @@ public class PokemonView {
 	}
 
 	private void setUIComponents() {
-		lblPokedex = new JLabel("Pokedex");
+		lblPokedex = new JLabel("[MODO ADMIN]");
 		lblPokedex.setHorizontalAlignment(SwingConstants.CENTER);
 		lblPokedex.setForeground(Color.RED);
-		lblPokedex.setFont(new Font("Leelawadee", Font.BOLD, 30));
-		lblPokedex.setBounds(171, 11, 192, 46);
+		lblPokedex.setFont(new Font("Leelawadee", Font.BOLD, 22));
+		lblPokedex.setBounds(10, 3, 187, 38);
 		frame.getContentPane().add(lblPokedex);
 
 		label = new JLabel();
@@ -142,6 +138,11 @@ public class PokemonView {
 		lblPokeCategoryText.setBounds(85, 36, 224, 14);
 		pokeInfoPanel.add(lblPokeCategoryText);
 
+		lblPokeAbilityText = new JLabel("");
+		lblPokeAbilityText.setVerticalAlignment(SwingConstants.TOP);
+		lblPokeAbilityText.setBounds(70, 61, 232, 14);
+		pokeInfoPanel.add(lblPokeAbilityText);
+
 		lblPokeHeighText = new JLabel("");
 		lblPokeHeighText.setBounds(102, 86, 64, 14);
 		pokeInfoPanel.add(lblPokeHeighText);
@@ -159,11 +160,6 @@ public class PokemonView {
 		btnPlaySoundButton = new JButton("Sonido");
 		btnPlaySoundButton.setBounds(220, 7, 89, 23);
 		pokeInfoPanel.add(btnPlaySoundButton);
-		
-				lblPokeAbilityText = new JLabel("");
-				lblPokeAbilityText.setBounds(70, 61, 232, 14);
-				pokeInfoPanel.add(lblPokeAbilityText);
-				lblPokeAbilityText.setVerticalAlignment(SwingConstants.TOP);
 
 		btnPokeNext = new JButton("Siguiente");
 		btnPokeNext.setBounds(124, 288, 89, 23);
@@ -182,15 +178,6 @@ public class PokemonView {
 		lblPokeNum.setFont(new Font("Tahoma", Font.BOLD, 12));
 		lblPokeNum.setBounds(26, 253, 187, 28);
 		frame.getContentPane().add(lblPokeNum);
-		
-		btnPokeAdmin = new JButton("Panel Admin");
-		btnPokeAdmin.setVerticalAlignment(SwingConstants.TOP);
-		btnPokeAdmin.setBounds(438, 15, 105, 23);
-		frame.getContentPane().add(btnPokeAdmin);
-		
-		if (!UserDAO.havePermission(username)) {
-			btnPokeAdmin.setVisible(false);
-		}
 		
 	}
 
@@ -225,17 +212,6 @@ public class PokemonView {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				playCustomSound(indexPokmeonList);
-			}
-
-		});
-		
-		btnPokeAdmin.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				if (UserDAO.havePermission(username)) {
-					frame.dispose();
-					new AdminView();
-				}
 			}
 
 		});
