@@ -362,7 +362,7 @@ public class AdminView {
 		lblPokeCategoryInsert.setBounds(10, 142, 59, 14);
 		pokeInsertPanel.add(lblPokeCategoryInsert);
 		
-		txtCategoryInsert = new JTextField("Semilla");
+		txtCategoryInsert = new JTextField("");
 		txtCategoryInsert.setBounds(102, 142, 307, 14);
 		pokeInsertPanel.add(txtCategoryInsert);
 
@@ -466,8 +466,12 @@ public class AdminView {
 			String category = txtPokeCategory.getText();
 			String description = txtPokeDescriptionText.getText();
 			int[] nTypes = listPokeTypesEdit.getSelectedIndices();
-			//TODO UPDATE LIST VALUES ON EDIT....
-			allPokemons.get(indexPokmeonList).updatePokemon(name, ability, height, weight, category, description, nTypes, sTypes);
+			
+			List<String> lTypes = listPokeTypesEdit.getSelectedValuesList();
+			String[] sTypes = new String[lTypes.size()];
+			String[] finalSTypes = lTypes.toArray(sTypes);
+			
+			allPokemons.get(indexPokmeonList).updatePokemon(name, ability, height, weight, category, description, nTypes, finalSTypes);
 		} else {
 			JOptionPane.showMessageDialog(frame, "No puedes dejar campos vacíos, ni sin seleccionar, ni con valores incorrectos...", "ERROR", JOptionPane.ERROR_MESSAGE);
 		}
