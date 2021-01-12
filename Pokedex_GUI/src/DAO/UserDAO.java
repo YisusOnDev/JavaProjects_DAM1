@@ -74,7 +74,7 @@ public class UserDAO {
 		}
 	}
 
-	public static boolean havePermission(String username) {
+	public boolean havePermission(String username) {
 		try (Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/bd_prog1", "root", "");
 				Statement stmt = conn.createStatement();
 				ResultSet rs = stmt.executeQuery("SELECT * FROM users WHERE Username = '" + username + "'"

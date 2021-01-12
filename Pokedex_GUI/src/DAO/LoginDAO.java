@@ -11,7 +11,7 @@ public class LoginDAO {
 	 * @param password the password that user typed
 	 * @return boolean true or falses
 	 */
-	public static boolean login(String username, String password) {
+	public boolean login(String username, String password) {
 
 		try (Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/bd_prog1", "root", "");
 				Statement stmt = conn.createStatement();

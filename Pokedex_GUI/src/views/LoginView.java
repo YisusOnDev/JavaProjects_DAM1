@@ -112,7 +112,7 @@ public class LoginView {
 	private void loginPressed() {
 		String username = tfUsername.getText();
 		String password = new String(passwordField.getPassword());
-		if (LoginDAO.login(username, password)) {
+		if (new LoginDAO().login(username, password)) {
 			System.out.println("Login successfull...");
 			frame.dispose();
 			new PokemonView(username );

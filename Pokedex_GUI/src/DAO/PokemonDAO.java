@@ -2,18 +2,19 @@ package DAO;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.LinkedHashMap;
 
 import models.Pokemon;
 
 public class PokemonDAO {
-	
-	public static ArrayList<Pokemon> getAllPokemons() {
-		ArrayList<Pokemon>pokemons = new ArrayList<Pokemon>();
+
+	public ArrayList<Pokemon> getAllPokemons() {
+		ArrayList<Pokemon> pokemons = new ArrayList<Pokemon>();
 
 		try (Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/bd_prog1", "root", "");
 				Statement stmt = conn.createStatement();
@@ -23,7 +24,7 @@ public class PokemonDAO {
 			while (rs.next()) {
 				Pokemon pokemon = new Pokemon(rs.getInt("Numero"), rs.getString("Nombre"), rs.getString("Descripcion"),
 						rs.getFloat("Altura"), rs.getFloat("Peso"), rs.getString("Habilidad"),
-						rs.getString("ImagenURL"), rs.getString("SonidoURL"));
+						rs.getString("Categoria"), rs.getString("ImagenURL"), rs.getString("SonidoURL"));
 				pokemons.add(pokemon);
 				System.out.println("Pokemon Added");
 			}
@@ -38,8 +39,9 @@ public class PokemonDAO {
 		return null;
 	}
 
-	public static String getStringCategories(String name) {
-		String toReturnCategories = "";
+	public String[] getPokeCategories(String name) {
+		ArrayList<String> typesToReturn = new ArrayList<String>();
+		String[] toReturn;
 
 		try (Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/bd_prog1", "root", "");
 				Statement stmt = conn.createStatement();
@@ -49,17 +51,109 @@ public class PokemonDAO {
 
 			// loop through the result set
 			while (rs.next()) {
-				toReturnCategories = toReturnCategories + rs.getString("tipo") + "|";
+				typesToReturn.add(rs.getString("tipo"));
 			}
-
-			return Arrays.asList(toReturnCategories.split("\\|")).toString();
+			toReturn = new String[typesToReturn.size()];
+			return typesToReturn.toArray(toReturn);
 
 		} catch (SQLException ex) {
 			System.out.println(ex.getMessage());
 		}
 
-		// If SQL check failed
-		return "Categories not found...";
+		return null;
+
+	}
+
+	public LinkedHashMap<String, Integer> getAvailableCategories() {
+		LinkedHashMap<String, Integer> availableTypes = new LinkedHashMap<String, Integer>();
+		try (Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/bd_prog1", "root", "");
+				Statement stmt = conn.createStatement();
+				ResultSet rs = stmt.executeQuery("SELECT * from tipos")) {
+
+			// loop through the result set
+			while (rs.next()) {
+				availableTypes.put(rs.getString("Tipo"), rs.getInt("codTipo"));
+			}
+			System.out.println(availableTypes);
+			return availableTypes;
+
+		} catch (SQLException ex) {
+			System.out.println(ex.getMessage());
+		}
+
+		return null;
+
+	}
+
+	public void updateDBPokemon(Pokemon pokemon) {
+		try {
+			Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/bd_prog1", "root", "");
+			String query = " UPDATE pokemon SET Nombre = ?, Descripcion = ?, Altura = ?, Peso = ?, Categoria = ?, Habilidad = ?, ImagenURL = ?, SonidoURL = ?"
+					+ " WHERE Numero = '" + pokemon.getpId() + "'";
+
+			// create the mysql insert prepared statement
+			PreparedStatement preparedStmt = conn.prepareStatement(query);
+			preparedStmt.setString(1, pokemon.getName());
+			preparedStmt.setString(2, pokemon.getDescription());
+			preparedStmt.setFloat(3, pokemon.getHeight());
+			preparedStmt.setFloat(4, pokemon.getWeight());
+			preparedStmt.setString(5, pokemon.getCategory());
+			preparedStmt.setString(6, pokemon.getAbility());
+			preparedStmt.setString(7, pokemon.getImageURL());
+			preparedStmt.setString(8, pokemon.getSoundURL());
+
+			preparedStmt.execute();
+
+			conn.close();
+		} catch (Exception e) {
+			System.err.println("Got an exception!");
+			System.err.println(e.getMessage());
+		}
+
+	}
+
+	public void deleteCurrentTypes(int pId) {
+		try {
+			Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/bd_prog1", "root", "");
+				String query = " DELETE from pokemon_tipos WHERE Numero = " + pId;
+				PreparedStatement preparedStmt = conn.prepareStatement(query);
+				preparedStmt.execute();
+			
+	
+				conn.close();
+		} catch (Exception e) {
+			System.out.println("INSERT QUERY ERROR");
+			System.err.println(e.getMessage());
+		}
+
+	}
+
+	public void insertTypes(int pId, int[] tipos) {
+		
+		for (int i = 0; i < tipos.length; i++) {
+			System.out.println(tipos[i]);
+		}
+		
+		try {
+			Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/bd_prog1", "root", "");
+			for (int i = 0; i < tipos.length; i++) {
+				System.out.println("AAAA");
+				String query = " INSERT INTO pokemon_tipos (Numero, CodigoTipo)" + " values (?, ?)";
+
+				// create the mysql insert prepared statement
+				PreparedStatement preparedStmt = conn.prepareStatement(query);
+				preparedStmt.setInt(1, pId);
+				preparedStmt.setInt(2, tipos[i] + 1);
+
+				preparedStmt.execute();
+			}
+
+			conn.close();
+		} catch (Exception e) {
+			System.out.println("INSERT QUERY ERROR");
+			System.err.println(e.getMessage());
+		}
+
 	}
 
 }

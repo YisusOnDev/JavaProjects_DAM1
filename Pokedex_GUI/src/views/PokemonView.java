@@ -18,6 +18,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JTextArea;
 import javax.swing.SwingConstants;
 import javax.swing.border.LineBorder;
 
@@ -38,29 +39,32 @@ public class PokemonView {
 	private JLabel lblPokeDescription;
 	private JLabel lblPokeHeigh;
 	private JLabel lblPokeWeight;
-	private JLabel lblPokeCategory;
+	private JLabel lblPokeTypes;
 	private JLabel lblPokeAbility;
 	private JButton btnPokeNext;
 	private JButton btnPokePrevious;
 	private JButton btnSignOut;
 	private JLabel lblPokeNameText;
-	private JLabel lblPokeCategoryText;
+	private JLabel lblPokeTypesText;
 	private JLabel lblPokeAbilityText;
 	private JLabel lblPokeHeighText;
 	private JLabel lblPokeWeightText;
-	private JLabel lblPokeDescriptionText;
+	private JTextArea lblPokeDescriptionText;
 	private JButton btnPlaySoundButton;
 	private JLabel lblPokeNum;
 	private JButton btnPokeAdmin;
+	private JButton btnSearch;
 	
 	private String username;
 
 	private int indexPokmeonList = 0;
 	private ArrayList<Pokemon> allPokemons;
+	private JLabel lblPokeCategoryText;
+	private JLabel lblPokeCategory;
 
 	/**
-	 * Create the application.
-	 * @param username 
+	 * Create the application with Admin check support
+	 * @param username the username who logged in 
 	 */
 	public PokemonView(String username) {
 		this.username = username;
@@ -73,7 +77,7 @@ public class PokemonView {
 	private void initialize() {
 		allPokemons = new ArrayList<Pokemon>();
 		frame = new JFrame();
-		frame.setBounds(100, 100, 580, 395);
+		frame.setBounds(100, 100, 580, 445);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		setDBPokemons();
@@ -85,7 +89,7 @@ public class PokemonView {
 	}
 
 	private void setDBPokemons() {
-		allPokemons = PokemonDAO.getAllPokemons();
+		allPokemons = new PokemonDAO().getAllPokemons();
 	}
 
 	private void setUIComponents() {
@@ -106,7 +110,7 @@ public class PokemonView {
 
 		pokeInfoPanel = new JPanel();
 		pokeInfoPanel.setBorder(new LineBorder(new Color(0, 255, 255), 5, true));
-		pokeInfoPanel.setBounds(223, 60, 319, 251);
+		pokeInfoPanel.setBounds(223, 60, 319, 304);
 		frame.getContentPane().add(pokeInfoPanel);
 		pokeInfoPanel.setLayout(null);
 
@@ -115,55 +119,67 @@ public class PokemonView {
 		pokeInfoPanel.add(lblPokeName);
 
 		lblPokeDescription = new JLabel("Descripci\u00F3n:");
-		lblPokeDescription.setBounds(10, 111, 82, 14);
+		lblPokeDescription.setBounds(10, 138, 82, 14);
 		pokeInfoPanel.add(lblPokeDescription);
 
 		lblPokeHeigh = new JLabel("Altura:");
-		lblPokeHeigh.setBounds(10, 86, 82, 14);
+		lblPokeHeigh.setBounds(10, 111, 82, 14);
 		pokeInfoPanel.add(lblPokeHeigh);
 
 		lblPokeWeight = new JLabel("Peso:");
-		lblPokeWeight.setBounds(176, 86, 46, 14);
+		lblPokeWeight.setBounds(176, 111, 46, 14);
 		pokeInfoPanel.add(lblPokeWeight);
 
-		lblPokeCategory = new JLabel("Categor\u00EDa:");
-		lblPokeCategory.setBounds(10, 36, 65, 14);
-		pokeInfoPanel.add(lblPokeCategory);
+		lblPokeTypes = new JLabel("Tipo:");
+		lblPokeTypes.setBounds(10, 36, 65, 14);
+		pokeInfoPanel.add(lblPokeTypes);
 
 		lblPokeAbility = new JLabel("Habilidad:");
-		lblPokeAbility.setBounds(10, 61, 59, 14);
+		lblPokeAbility.setBounds(10, 86, 59, 14);
 		pokeInfoPanel.add(lblPokeAbility);
 
 		lblPokeNameText = new JLabel("");
-		lblPokeNameText.setBounds(70, 11, 140, 14);
+		lblPokeNameText.setBounds(79, 11, 140, 14);
 		pokeInfoPanel.add(lblPokeNameText);
 
-		lblPokeCategoryText = new JLabel("");
-		lblPokeCategoryText.setBounds(85, 36, 224, 14);
-		pokeInfoPanel.add(lblPokeCategoryText);
+		lblPokeTypesText = new JLabel("");
+		lblPokeTypesText.setBounds(80, 36, 224, 14);
+		pokeInfoPanel.add(lblPokeTypesText);
 
 		lblPokeHeighText = new JLabel("");
-		lblPokeHeighText.setBounds(102, 86, 64, 14);
+		lblPokeHeighText.setBounds(79, 111, 64, 14);
 		pokeInfoPanel.add(lblPokeHeighText);
 
 		lblPokeWeightText = new JLabel("");
-		lblPokeWeightText.setBounds(232, 86, 77, 14);
+		lblPokeWeightText.setBounds(232, 111, 77, 14);
 		pokeInfoPanel.add(lblPokeWeightText);
 
-		lblPokeDescriptionText = new JLabel("");
-		lblPokeDescriptionText.setVerticalAlignment(SwingConstants.TOP);
-		lblPokeDescriptionText.setHorizontalAlignment(SwingConstants.LEFT);
-		lblPokeDescriptionText.setBounds(102, 111, 207, 92);
+		lblPokeDescriptionText = new JTextArea("");
+		lblPokeDescriptionText.setWrapStyleWord(true);
+		lblPokeDescriptionText.setFont(new Font("Tahoma", Font.BOLD, 11));
+		lblPokeDescriptionText.setBounds(89, 136, 215, 131);
+		lblPokeDescriptionText.setEditable(false);
+		lblPokeDescriptionText.setLineWrap(true);
+		lblPokeDescriptionText.setOpaque(false);
 		pokeInfoPanel.add(lblPokeDescriptionText);
 
 		btnPlaySoundButton = new JButton("Sonido");
 		btnPlaySoundButton.setBounds(220, 7, 89, 23);
 		pokeInfoPanel.add(btnPlaySoundButton);
 		
-				lblPokeAbilityText = new JLabel("");
-				lblPokeAbilityText.setBounds(70, 61, 232, 14);
-				pokeInfoPanel.add(lblPokeAbilityText);
-				lblPokeAbilityText.setVerticalAlignment(SwingConstants.TOP);
+		lblPokeAbilityText = new JLabel("");
+		lblPokeAbilityText.setBounds(79, 86, 225, 14);
+		pokeInfoPanel.add(lblPokeAbilityText);
+		lblPokeAbilityText.setVerticalAlignment(SwingConstants.TOP);
+		
+		lblPokeCategoryText = new JLabel("Semilla");
+		lblPokeCategoryText.setVerticalAlignment(SwingConstants.TOP);
+		lblPokeCategoryText.setBounds(79, 61, 225, 14);
+		pokeInfoPanel.add(lblPokeCategoryText);
+		
+		lblPokeCategory = new JLabel("Categoria:");
+		lblPokeCategory.setBounds(10, 61, 59, 14);
+		pokeInfoPanel.add(lblPokeCategory);
 
 		btnPokeNext = new JButton("Siguiente");
 		btnPokeNext.setBounds(124, 288, 89, 23);
@@ -174,7 +190,7 @@ public class PokemonView {
 		frame.getContentPane().add(btnPokePrevious);
 
 		btnSignOut = new JButton("Cerrar sesi\u00F3n");
-		btnSignOut.setBounds(412, 322, 130, 23);
+		btnSignOut.setBounds(412, 375, 130, 23);
 		frame.getContentPane().add(btnSignOut);
 		
 		lblPokeNum = new JLabel("N\u00FAmero:");
@@ -188,7 +204,11 @@ public class PokemonView {
 		btnPokeAdmin.setBounds(438, 15, 105, 23);
 		frame.getContentPane().add(btnPokeAdmin);
 		
-		if (!UserDAO.havePermission(username)) {
+		btnSearch = new JButton("Buscar");
+		btnSearch.setBounds(75, 322, 89, 23);
+		frame.getContentPane().add(btnSearch);
+		
+		if (!new UserDAO().havePermission(username)) {
 			btnPokeAdmin.setVisible(false);
 		}
 		
@@ -232,10 +252,8 @@ public class PokemonView {
 		btnPokeAdmin.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				if (UserDAO.havePermission(username)) {
-					frame.dispose();
-					new AdminView();
-				}
+				frame.dispose();
+				new AdminView(username);
 			}
 
 		});
@@ -258,8 +276,9 @@ public class PokemonView {
 	private void showPokemon(int index) {
 		String currentNumber = String.valueOf(allPokemons.get(index).getpId());
 		String currentName = allPokemons.get(index).getName();
-		String currentCategories = PokemonDAO.getStringCategories(allPokemons.get(index).getName());
-		String currentDescription = "<html><p>" + allPokemons.get(index).getDescription() + "</p></html>";
+		String currentTypes = allPokemons.get(index).getStringTypes();
+		String currentCategory = allPokemons.get(index).getCategory();
+		String currentDescription = allPokemons.get(index).getDescription();
 		String currentHeight = String.valueOf(allPokemons.get(index).getHeight()) + "m";
 		String currentWeight = String.valueOf(allPokemons.get(index).getWeight()) + "kg";
 		String currentAbility = allPokemons.get(index).getAbility();
@@ -267,11 +286,12 @@ public class PokemonView {
 
 		lblPokeNum.setText("Número: " + currentNumber);
 		lblPokeNameText.setText(currentName);
-		lblPokeCategoryText.setText(currentCategories);
+		lblPokeTypesText.setText(currentTypes);
 		lblPokeDescriptionText.setText(currentDescription);
 		lblPokeHeighText.setText(currentHeight);
 		lblPokeWeightText.setText(currentWeight);
 		lblPokeAbilityText.setText(currentAbility);
+		lblPokeCategoryText.setText(currentCategory);
 
 		// Set preview image.
 		BufferedImage img = null;
