@@ -6,14 +6,10 @@ import java.awt.Image;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
-import java.io.IOException;
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 
-import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -28,9 +24,8 @@ import javax.swing.SwingConstants;
 import javax.swing.border.LineBorder;
 
 import DAO.PokemonDAO;
-import javazoom.jlgui.basicplayer.BasicPlayer;
-import javazoom.jlgui.basicplayer.BasicPlayerException;
 import models.Pokemon;
+import models.Utils;
 
 public class AdminView {
 
@@ -126,21 +121,31 @@ public class AdminView {
 		frame.setVisible(true);
 	}
 
+	/**
+	 * Method that fills the 2 JList with all available pokemon types.
+	 */
 	private void fillTypes() {
 		String[] types = new String[availableTypes.size()];
 		String[] toSet = availableTypes.keySet().toArray(types);
 		listPokeTypesEdit.setListData(toSet);
+		listTypesInsert.setListData(toSet);
 	}
 
 	private void setDBPokemons() {
 		allPokemons = new PokemonDAO().getAllPokemons();
 	}
 
+	/**
+	 * Method that gets all pokemon types available from db.
+	 */
 	private void setAvailableTypes() {
 		availableTypes = new PokemonDAO().getAvailableCategories();
 
 	}
 
+	/**
+	 * Method that sets all UI Components
+	 */
 	private void setUIComponents() {
 		lblPokedex = new JLabel("[MODO ADMIN]");
 		lblPokedex.setHorizontalAlignment(SwingConstants.CENTER);
@@ -221,27 +226,27 @@ public class AdminView {
 
 		listPokeTypesEdit = new JList<String>();
 		typeScrollPain.setViewportView(listPokeTypesEdit);
-		
+
 		lblPokeImageEdit = new JLabel("URL de imagen");
 		lblPokeImageEdit.setBounds(10, 167, 89, 14);
 		pokeEditPanel.add(lblPokeImageEdit);
-		
+
 		lblUrlDelSonidoEdit = new JLabel("URL del sonido");
 		lblUrlDelSonidoEdit.setBounds(10, 192, 89, 14);
 		pokeEditPanel.add(lblUrlDelSonidoEdit);
-		
+
 		txtPokeImgUrlText = new JTextField("");
 		txtPokeImgUrlText.setBounds(102, 167, 200, 14);
 		pokeEditPanel.add(txtPokeImgUrlText);
-		
+
 		txtPokeSoundURLText = new JTextField("");
 		txtPokeSoundURLText.setBounds(102, 192, 200, 14);
 		pokeEditPanel.add(txtPokeSoundURLText);
-		
+
 		lblPokeCategory = new JLabel("Categor\u00EDa:");
 		lblPokeCategory.setBounds(10, 146, 59, 14);
 		pokeEditPanel.add(lblPokeCategory);
-		
+
 		txtPokeCategory = new JTextField("Semilla");
 		txtPokeCategory.setBounds(70, 146, 232, 14);
 		pokeEditPanel.add(txtPokeCategory);
@@ -345,23 +350,23 @@ public class AdminView {
 		txtSoundInsert = new JTextField("");
 		txtSoundInsert.setBounds(102, 192, 307, 14);
 		pokeInsertPanel.add(txtSoundInsert);
-		
+
 		lblPokeTypesInsert = new JLabel("Tipo:");
 		lblPokeTypesInsert.setBounds(10, 36, 65, 14);
 		pokeInsertPanel.add(lblPokeTypesInsert);
-		
+
 		typeScrollPainInsert = new JScrollPane();
 		typeScrollPainInsert.setBounds(102, 36, 307, 95);
 		pokeInsertPanel.add(typeScrollPainInsert);
-		
+
 		listTypesInsert = new JList<String>();
 		typeScrollPainInsert.setViewportView(listTypesInsert);
 		listTypesInsert.setSelectedIndices(new int[] {});
-		
+
 		lblPokeCategoryInsert = new JLabel("Categor\u00EDa:");
 		lblPokeCategoryInsert.setBounds(10, 142, 59, 14);
 		pokeInsertPanel.add(lblPokeCategoryInsert);
-		
+
 		txtCategoryInsert = new JTextField("");
 		txtCategoryInsert.setBounds(102, 142, 307, 14);
 		pokeInsertPanel.add(txtCategoryInsert);
@@ -419,7 +424,11 @@ public class AdminView {
 		btnPlaySoundButton.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				playCustomSound(indexPokmeonList);
+				if (Utils.playSound(allPokemons.get(indexPokmeonList).getSoundURL()) == false) {
+					JOptionPane.showMessageDialog(frame,
+							allPokemons.get(indexPokmeonList).getName() + " no tiene sonido disponible", "ERROR",
+							JOptionPane.ERROR_MESSAGE);
+				}
 			}
 
 		});
@@ -431,50 +440,204 @@ public class AdminView {
 			}
 
 		});
+
+		btnClearNewPokeAreas.addMouseListener(new MouseAdapter() {
+			public void mouseClicked(MouseEvent e) {
+				clearInsertTextBoxes();
+			}
+
+		});
+
+		btnPokeAddNew.addMouseListener(new MouseAdapter() {
+			public void mouseClicked(MouseEvent e) {
+				insertNewPokemon();
+			}
+
+		});
 	}
 
-	private boolean checkEditValue() {
+	private void clearInsertTextBoxes() {
+		txtInsertName.setText("");
+		listTypesInsert.setSelectedIndices(new int[0]);
+		txtCategoryInsert.setText("");
+		txtImageInsert.setText("");
+		txtSoundInsert.setText("");
+		txtAbilityInsert.setText("");
+		txtHeighInsert.setText("");
+		txtWeightInsert.setText("");
+		txtDescriptionInsert.setText("");
+
+	}
+
+	private String checkEditValues() {
 
 		if (txtPokeNameText.getText().isBlank() || txtPokeAbilityText.getText().isBlank()
 				|| txtPokeHeighText.getText().isBlank() || txtPokeWeightText.getText().isBlank()
-				|| txtPokeDescriptionText.getText().isBlank()) {
-			return true;
+				|| txtPokeDescriptionText.getText().isBlank() || txtPokeDescriptionText.getText().isBlank()) {
+			return "blank";
 		}
 
 		try {
 			Float.parseFloat(txtPokeHeighText.getText());
 			Float.parseFloat(txtPokeWeightText.getText());
 		} catch (NumberFormatException e) {
-			return true;
+			return "numberformat";
 		}
-		
-		
-		if (listPokeTypesEdit.getSelectedIndices().length == 0) {
-			return true;
-		}
-		
 
-		return false;
+		if (listPokeTypesEdit.getSelectedIndices().length == 0) {
+			return "notypes";
+		}
+
+		if (!Utils.checkIfUrlIsAnImage(txtPokeImgUrlText.getText())) {
+			return "img";
+		}
+
+		if (Utils.playSound(txtPokeSoundURLText.getText()) == false) {
+			return "sound";
+		}
+
+		return "ok";
 	}
 
 	private void editCurrentPokemon() {
-		if (!checkEditValue()) {
+		String isValid = checkEditValues();
+		switch (isValid) {
+		case "ok":
 			String name = txtPokeNameText.getText();
 			String ability = txtPokeAbilityText.getText();
 			float height = Float.parseFloat(txtPokeHeighText.getText());
 			float weight = Float.parseFloat(txtPokeWeightText.getText());
 			String category = txtPokeCategory.getText();
 			String description = txtPokeDescriptionText.getText();
+			String imageUrl = txtPokeImgUrlText.getText();
+			String soundUrl = txtPokeSoundURLText.getText();
 			int[] nTypes = listPokeTypesEdit.getSelectedIndices();
-			
+
 			List<String> lTypes = listPokeTypesEdit.getSelectedValuesList();
 			String[] sTypes = new String[lTypes.size()];
 			String[] finalSTypes = lTypes.toArray(sTypes);
-			
-			allPokemons.get(indexPokmeonList).updatePokemon(name, ability, height, weight, category, description, nTypes, finalSTypes);
-		} else {
-			JOptionPane.showMessageDialog(frame, "No puedes dejar campos vacíos, ni sin seleccionar, ni con valores incorrectos...", "ERROR", JOptionPane.ERROR_MESSAGE);
+
+			allPokemons.get(indexPokmeonList).updatePokemon(name, ability, height, weight, category, description,
+					imageUrl, soundUrl, nTypes, finalSTypes);
+
+			JOptionPane.showMessageDialog(frame, "Pokemon editado correctamente.", "AVISO",
+					JOptionPane.INFORMATION_MESSAGE);
+			break;
+
+		case "blank":
+			JOptionPane.showMessageDialog(frame, "No puedes dejar campos vacíos", "ERROR", JOptionPane.ERROR_MESSAGE);
+			break;
+
+		case "numberformat":
+			JOptionPane.showMessageDialog(frame,
+					"Los valores peso y altura solo aceptan números (1.1, 2.3, 44.4...). Por favor, introducelos correctamente",
+					"ERROR", JOptionPane.ERROR_MESSAGE);
+			break;
+
+		case "notypes":
+			JOptionPane.showMessageDialog(frame, "Por favor selecciona al menos un tipo", "ERROR",
+					JOptionPane.ERROR_MESSAGE);
+			break;
+
+		case "img":
+			JOptionPane.showMessageDialog(frame, "La URL de la imagen debe ser una URL correcta a una imagen", "ERROR",
+					JOptionPane.ERROR_MESSAGE);
+			break;
+
+		case "sound":
+			JOptionPane.showMessageDialog(frame, "La URL del sonido debe ser una URL correcta a un sonido", "ERROR",
+					JOptionPane.ERROR_MESSAGE);
+			break;
 		}
+
+	}
+
+	private String checkInsertValues() {
+
+		if (txtInsertName.getText().isBlank() || txtCategoryInsert.getText().isBlank()
+				|| txtImageInsert.getText().isBlank() || txtSoundInsert.getText().isBlank()
+				|| txtAbilityInsert.getText().isBlank() || txtDescriptionInsert.getText().isBlank()) {
+			return "blank";
+		}
+
+		try {
+			Float.parseFloat(txtWeightInsert.getText());
+			Float.parseFloat(txtHeighInsert.getText());
+		} catch (NumberFormatException e) {
+			return "numberformat";
+		}
+
+		if (listTypesInsert.getSelectedIndices().length == 0) {
+			return "notypes";
+		}
+
+		if (!Utils.checkIfUrlIsAnImage(txtImageInsert.getText())) {
+			return "img";
+		}
+
+		if (Utils.playSound(txtSoundInsert.getText()) == false) {
+			return "sound";
+		}
+
+		return "ok";
+	}
+
+	private void insertNewPokemon() {
+		String isValid = checkInsertValues();
+
+		switch (isValid) {
+		case "ok":
+			int id = allPokemons.size() + 1;
+			String name = txtInsertName.getText();
+			String ability = txtPokeAbilityText.getText();
+			float height = Float.parseFloat(txtHeighInsert.getText());
+			float weight = Float.parseFloat(txtWeightInsert.getText());
+			String category = txtCategoryInsert.getText();
+			String description = txtDescriptionInsert.getText();
+			String soundURL = txtSoundInsert.getText();
+			String imageURL = txtImageInsert.getText();
+
+			int[] nTypes = listTypesInsert.getSelectedIndices();
+			List<String> lTypes = listTypesInsert.getSelectedValuesList();
+			String[] sTypes = new String[lTypes.size()];
+			String[] finalSTypes = lTypes.toArray(sTypes);
+
+			Pokemon pokemonToAdd = new Pokemon(id, name, description, height, weight, ability, category, imageURL,
+					soundURL, finalSTypes);
+
+			allPokemons.add(pokemonToAdd);
+
+			pokemonToAdd.insertNewPokemon(nTypes);
+			clearInsertTextBoxes();
+			break;
+
+		case "blank":
+			JOptionPane.showMessageDialog(frame, "No puedes dejar campos vacíos", "ERROR", JOptionPane.ERROR_MESSAGE);
+			break;
+
+		case "numberformat":
+			JOptionPane.showMessageDialog(frame,
+					"Los valores peso y altura solo aceptan números (1.1, 2.3, 44.4...). Por favor, introducelos correctamente",
+					"ERROR", JOptionPane.ERROR_MESSAGE);
+			break;
+
+		case "notypes":
+			JOptionPane.showMessageDialog(frame, "Por favor selecciona al menos un tipo", "ERROR",
+					JOptionPane.ERROR_MESSAGE);
+			break;
+
+		case "img":
+			JOptionPane.showMessageDialog(frame, "La URL de la imagen debe ser una URL correcta a una imagen", "ERROR",
+					JOptionPane.ERROR_MESSAGE);
+			break;
+
+		case "sound":
+			JOptionPane.showMessageDialog(frame, "La URL del sonido debe ser una URL correcta a un sonido", "ERROR",
+					JOptionPane.ERROR_MESSAGE);
+			break;
+
+		}
+
 	}
 
 	private void nextPokemon() {
@@ -520,26 +683,21 @@ public class AdminView {
 		txtPokeSoundURLText.setText(currentSoundURL);
 
 		// Set preview image.
-		BufferedImage img = null;
-		try {
-			img = ImageIO.read(new URL(currentImageUrl));
-		} catch (IOException e) {
-			e.printStackTrace();
+		BufferedImage img = Utils.getBuferedImageIfValid(currentImageUrl);
+		if (img != null) {
+			Image dimg = img.getScaledInstance(lblPreviewImage.getWidth(), lblPreviewImage.getHeight(),
+					Image.SCALE_SMOOTH);
+			ImageIcon imageIcon = new ImageIcon(dimg);
+			lblPreviewImage.setIcon(imageIcon);
+		} else {
+			BufferedImage rescueImg = Utils.getBuferedImageIfValid(
+					"https://upload.wikimedia.org/wikipedia/commons/5/51/Pokebola-pokeball-png-0.png");
+			Image dimg = rescueImg.getScaledInstance(lblPreviewImage.getWidth(), lblPreviewImage.getHeight(),
+					Image.SCALE_SMOOTH);
+			ImageIcon imageIcon = new ImageIcon(dimg);
+			lblPreviewImage.setIcon(imageIcon);
+			JOptionPane.showMessageDialog(frame, currentName + " no dispone de imagen aún", "ERROR",
+					JOptionPane.ERROR_MESSAGE);
 		}
-		Image dimg = img.getScaledInstance(lblPreviewImage.getWidth(), lblPreviewImage.getHeight(), Image.SCALE_SMOOTH);
-		ImageIcon imageIcon = new ImageIcon(dimg);
-		lblPreviewImage.setIcon(imageIcon);
-	}
-
-	private void playCustomSound(int indexPokmeonList) {
-		String soundURL = allPokemons.get(indexPokmeonList).getSoundURL();
-		BasicPlayer player = new BasicPlayer();
-		try {
-			player.open(new URL(soundURL));
-			player.play();
-		} catch (BasicPlayerException | MalformedURLException e) {
-			e.printStackTrace();
-		}
-
 	}
 }

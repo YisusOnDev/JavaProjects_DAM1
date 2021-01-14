@@ -28,6 +28,21 @@ public class Pokemon {
 		this.soundURL = soundURL;
 		this.types = new PokemonDAO().getPokeCategories(name);
 	}
+	
+	public Pokemon(int pId, String name, String description, float height, float weight, String ability,
+			String category, String imageURL, String soundURL, String[] types) {
+		super();
+		this.pId = pId;
+		this.name = name;
+		this.description = description;
+		this.height = height;
+		this.weight = weight;
+		this.category = category;
+		this.ability = ability;
+		this.imageURL = imageURL;
+		this.soundURL = soundURL;
+		this.types = types;
+	}
 
 	public void setName(String name) {
 		this.name = name;
@@ -121,18 +136,26 @@ public class Pokemon {
 		return toReturn;
 	}
 
-	public void updatePokemon(String name, String ability, float height, float weight, String category, String description, int[] nTypes, String[] sTypes) {
+	public void updatePokemon(String name, String ability, float height, float weight, String category, String description, String imageUrl, String soundUrl, int[] nTypes, String[] sTypes) {
 		this.name = name;
 		this.ability = ability;
 		this.height = height;
 		this.weight = weight;
 		this.category = category;
 		this.description = description;
+		this.imageURL = imageUrl;
+		this.soundURL = soundUrl;
 		this.types = sTypes;
 
 		new PokemonDAO().updateDBPokemon(this);
 		new PokemonDAO().deleteCurrentTypes(this.pId);
 		new PokemonDAO().insertTypes(this.pId, nTypes);
+	}
+
+	public void insertNewPokemon(int[] nTypes) {
+		new PokemonDAO().insertDBPokemon(this);
+		new PokemonDAO().insertTypes(this.pId, nTypes);
+		
 	}
 
 }

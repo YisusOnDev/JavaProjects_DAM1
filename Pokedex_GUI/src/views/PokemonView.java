@@ -7,7 +7,6 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 
@@ -24,9 +23,8 @@ import javax.swing.border.LineBorder;
 
 import DAO.PokemonDAO;
 import DAO.UserDAO;
-import javazoom.jlgui.basicplayer.BasicPlayer;
-import javazoom.jlgui.basicplayer.BasicPlayerException;
 import models.Pokemon;
+import models.Utils;
 
 public class PokemonView {
 
@@ -54,7 +52,7 @@ public class PokemonView {
 	private JLabel lblPokeNum;
 	private JButton btnPokeAdmin;
 	private JButton btnSearch;
-	
+
 	private String username;
 
 	private int indexPokmeonList = 0;
@@ -64,7 +62,8 @@ public class PokemonView {
 
 	/**
 	 * Create the application with Admin check support
-	 * @param username the username who logged in 
+	 * 
+	 * @param username the username who logged in
 	 */
 	public PokemonView(String username) {
 		this.username = username;
@@ -166,17 +165,17 @@ public class PokemonView {
 		btnPlaySoundButton = new JButton("Sonido");
 		btnPlaySoundButton.setBounds(220, 7, 89, 23);
 		pokeInfoPanel.add(btnPlaySoundButton);
-		
+
 		lblPokeAbilityText = new JLabel("");
 		lblPokeAbilityText.setBounds(79, 86, 225, 14);
 		pokeInfoPanel.add(lblPokeAbilityText);
 		lblPokeAbilityText.setVerticalAlignment(SwingConstants.TOP);
-		
+
 		lblPokeCategoryText = new JLabel("Semilla");
 		lblPokeCategoryText.setVerticalAlignment(SwingConstants.TOP);
 		lblPokeCategoryText.setBounds(79, 61, 225, 14);
 		pokeInfoPanel.add(lblPokeCategoryText);
-		
+
 		lblPokeCategory = new JLabel("Categoria:");
 		lblPokeCategory.setBounds(10, 61, 59, 14);
 		pokeInfoPanel.add(lblPokeCategory);
@@ -192,26 +191,26 @@ public class PokemonView {
 		btnSignOut = new JButton("Cerrar sesi\u00F3n");
 		btnSignOut.setBounds(412, 375, 130, 23);
 		frame.getContentPane().add(btnSignOut);
-		
+
 		lblPokeNum = new JLabel("N\u00FAmero:");
 		lblPokeNum.setHorizontalAlignment(SwingConstants.CENTER);
 		lblPokeNum.setFont(new Font("Tahoma", Font.BOLD, 12));
 		lblPokeNum.setBounds(26, 253, 187, 28);
 		frame.getContentPane().add(lblPokeNum);
-		
+
 		btnPokeAdmin = new JButton("Panel Admin");
 		btnPokeAdmin.setVerticalAlignment(SwingConstants.TOP);
 		btnPokeAdmin.setBounds(438, 15, 105, 23);
 		frame.getContentPane().add(btnPokeAdmin);
-		
+
 		btnSearch = new JButton("Buscar");
 		btnSearch.setBounds(75, 322, 89, 23);
 		frame.getContentPane().add(btnSearch);
-		
+
 		if (!new UserDAO().havePermission(username)) {
 			btnPokeAdmin.setVisible(false);
 		}
-		
+
 	}
 
 	private void setListeners() {
@@ -244,11 +243,11 @@ public class PokemonView {
 		btnPlaySoundButton.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				playCustomSound(indexPokmeonList);
+				Utils.playSound(allPokemons.get(indexPokmeonList).getSoundURL());
 			}
 
 		});
-		
+
 		btnPokeAdmin.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -276,13 +275,14 @@ public class PokemonView {
 	private void showPokemon(int index) {
 		String currentNumber = String.valueOf(allPokemons.get(index).getpId());
 		String currentName = allPokemons.get(index).getName();
-		String currentTypes = allPokemons.get(index).getStringTypes();
-		String currentCategory = allPokemons.get(index).getCategory();
-		String currentDescription = allPokemons.get(index).getDescription();
 		String currentHeight = String.valueOf(allPokemons.get(index).getHeight()) + "m";
 		String currentWeight = String.valueOf(allPokemons.get(index).getWeight()) + "kg";
+		String currentDescription = allPokemons.get(index).getDescription();
 		String currentAbility = allPokemons.get(index).getAbility();
-		String currentUrl = allPokemons.get(index).getImageURL();
+		String currentImageUrl = allPokemons.get(index).getImageURL();
+		String currentSoundURL = allPokemons.get(index).getSoundURL();
+		String currentTypes = allPokemons.get(index).getStringTypes();
+		String currentCategory = allPokemons.get(index).getCategory();
 
 		lblPokeNum.setText("Número: " + currentNumber);
 		lblPokeNameText.setText(currentName);
@@ -294,27 +294,21 @@ public class PokemonView {
 		lblPokeCategoryText.setText(currentCategory);
 
 		// Set preview image.
-		BufferedImage img = null;
-		try {
-			img = ImageIO.read(new URL(currentUrl));
-		} catch (IOException e) {
-			e.printStackTrace();
+		BufferedImage img = Utils.getBuferedImageIfValid(currentImageUrl);
+		if (img != null) {
+			Image dimg = img.getScaledInstance(lblPreviewImage.getWidth(), lblPreviewImage.getHeight(),
+					Image.SCALE_SMOOTH);
+			ImageIcon imageIcon = new ImageIcon(dimg);
+			lblPreviewImage.setIcon(imageIcon);
+		} else {
+			BufferedImage rescueImg = Utils.getBuferedImageIfValid(
+					"https://upload.wikimedia.org/wikipedia/commons/5/51/Pokebola-pokeball-png-0.png");
+			Image dimg = rescueImg.getScaledInstance(lblPreviewImage.getWidth(), lblPreviewImage.getHeight(),
+					Image.SCALE_SMOOTH);
+			ImageIcon imageIcon = new ImageIcon(dimg);
+			lblPreviewImage.setIcon(imageIcon);
+			JOptionPane.showMessageDialog(frame, currentName + " no dispone de imagen aún", "ERROR",
+					JOptionPane.ERROR_MESSAGE);
 		}
-		Image dimg = img.getScaledInstance(lblPreviewImage.getWidth(), lblPreviewImage.getHeight(), Image.SCALE_SMOOTH);
-		ImageIcon imageIcon = new ImageIcon(dimg);
-		lblPreviewImage.setIcon(imageIcon);
-	}
-
-	private void playCustomSound(int indexPokmeonList) {
-		String soundURL = allPokemons.get(indexPokmeonList).getSoundURL();
-
-		BasicPlayer player = new BasicPlayer();
-		try {
-		    player.open(new URL(soundURL));
-		    player.play();
-		} catch (BasicPlayerException | MalformedURLException e) {
-		    e.printStackTrace();
-		}
-
 	}
 }

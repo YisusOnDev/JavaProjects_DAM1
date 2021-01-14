@@ -26,7 +26,6 @@ public class PokemonDAO {
 						rs.getFloat("Altura"), rs.getFloat("Peso"), rs.getString("Habilidad"),
 						rs.getString("Categoria"), rs.getString("ImagenURL"), rs.getString("SonidoURL"));
 				pokemons.add(pokemon);
-				System.out.println("Pokemon Added");
 			}
 
 			return pokemons;
@@ -74,7 +73,7 @@ public class PokemonDAO {
 			while (rs.next()) {
 				availableTypes.put(rs.getString("Tipo"), rs.getInt("codTipo"));
 			}
-			System.out.println(availableTypes);
+			
 			return availableTypes;
 
 		} catch (SQLException ex) {
@@ -83,6 +82,31 @@ public class PokemonDAO {
 
 		return null;
 
+	}
+	
+	public void insertDBPokemon(Pokemon pokemon) {
+		try {
+			Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/bd_prog1", "root", "");
+			String query = " INSERT INTO pokemon (Numero, Nombre, Descripcion, Altura, Peso, Categoria, Habilidad, ImagenURL, SonidoURL)" + " VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+			// create the mysql insert prepared statement
+			PreparedStatement preparedStmt = conn.prepareStatement(query);
+			preparedStmt.setInt(1, pokemon.getpId()); 
+			preparedStmt.setString(2, pokemon.getName());
+			preparedStmt.setString(3, pokemon.getDescription());
+			preparedStmt.setFloat(4, pokemon.getHeight());
+			preparedStmt.setFloat(5, pokemon.getWeight());
+			preparedStmt.setString(6, pokemon.getCategory());
+			preparedStmt.setString(7, pokemon.getAbility());
+			preparedStmt.setString(8, pokemon.getImageURL());
+			preparedStmt.setString(9, pokemon.getSoundURL());
+
+			preparedStmt.execute();
+
+			conn.close();
+		} catch (Exception e) {
+			System.err.println(e.getMessage());
+		}
+		
 	}
 
 	public void updateDBPokemon(Pokemon pokemon) {
@@ -106,7 +130,6 @@ public class PokemonDAO {
 
 			conn.close();
 		} catch (Exception e) {
-			System.err.println("Got an exception!");
 			System.err.println(e.getMessage());
 		}
 
@@ -122,23 +145,16 @@ public class PokemonDAO {
 	
 				conn.close();
 		} catch (Exception e) {
-			System.out.println("INSERT QUERY ERROR");
 			System.err.println(e.getMessage());
 		}
 
 	}
 
 	public void insertTypes(int pId, int[] tipos) {
-		
-		for (int i = 0; i < tipos.length; i++) {
-			System.out.println(tipos[i]);
-		}
-		
 		try {
 			Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/bd_prog1", "root", "");
 			for (int i = 0; i < tipos.length; i++) {
-				System.out.println("AAAA");
-				String query = " INSERT INTO pokemon_tipos (Numero, CodigoTipo)" + " values (?, ?)";
+				String query = " INSERT INTO pokemon_tipos (Numero, CodigoTipo)" + " VALUES (?, ?)";
 
 				// create the mysql insert prepared statement
 				PreparedStatement preparedStmt = conn.prepareStatement(query);
@@ -150,7 +166,6 @@ public class PokemonDAO {
 
 			conn.close();
 		} catch (Exception e) {
-			System.out.println("INSERT QUERY ERROR");
 			System.err.println(e.getMessage());
 		}
 

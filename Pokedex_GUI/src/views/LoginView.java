@@ -113,12 +113,9 @@ public class LoginView {
 		String username = tfUsername.getText();
 		String password = new String(passwordField.getPassword());
 		if (new LoginDAO().login(username, password)) {
-			System.out.println("Login successfull...");
 			frame.dispose();
 			new PokemonView(username );
 		} else {
-			System.out.println("Login failed...");
-
 			JOptionPane.showMessageDialog(frame, "Login failed", "ERROR", JOptionPane.ERROR_MESSAGE);
 		}
 	}
