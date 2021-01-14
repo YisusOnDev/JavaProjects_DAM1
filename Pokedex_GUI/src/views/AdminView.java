@@ -71,14 +71,11 @@ public class AdminView {
 	private JButton btnPokeAddNew;
 	private JButton btnClearNewPokeAreas;
 	private JButton btnPokeEdit;
-
 	private JScrollPane typeScrollPain;
 	private JList<String> listPokeTypesEdit;
-
 	private int indexPokmeonList = 0;
 	private ArrayList<Pokemon> allPokemons;
 	private LinkedHashMap<String, Integer> availableTypes;
-
 	private String currentUsername;
 	private JLabel lblPokeImageEdit;
 	private JLabel lblUrlDelSonidoEdit;
@@ -91,6 +88,9 @@ public class AdminView {
 	private JScrollPane typeScrollPainInsert;
 	private JLabel lblPokeCategoryInsert;
 	private JTextField txtCategoryInsert;
+	private JButton btnPokeDelete;
+	private JLabel lblPokeIdInsert;
+	private JTextField txtPokeIdInsert;
 
 	/**
 	 * Create the application.
@@ -131,6 +131,9 @@ public class AdminView {
 		listTypesInsert.setListData(toSet);
 	}
 
+	/**
+	 * Get pokemon' ArrayList from db and sets to local ArrayList variable.
+	 */
 	private void setDBPokemons() {
 		allPokemons = new PokemonDAO().getAllPokemons();
 	}
@@ -304,7 +307,7 @@ public class AdminView {
 		pokeInsertPanel.add(lblPokeHeighInsert);
 
 		lblPokeWeightInsert = new JLabel("Peso:");
-		lblPokeWeightInsert.setBounds(276, 242, 46, 14);
+		lblPokeWeightInsert.setBounds(157, 242, 46, 14);
 		pokeInsertPanel.add(lblPokeWeightInsert);
 
 		lblPokeAbilityInsert = new JLabel("Habilidad:");
@@ -320,11 +323,11 @@ public class AdminView {
 		pokeInsertPanel.add(txtAbilityInsert);
 
 		txtHeighInsert = new JTextField("");
-		txtHeighInsert.setBounds(102, 242, 64, 14);
+		txtHeighInsert.setBounds(102, 242, 45, 14);
 		pokeInsertPanel.add(txtHeighInsert);
 
 		txtWeightInsert = new JTextField("");
-		txtWeightInsert.setBounds(332, 242, 77, 14);
+		txtWeightInsert.setBounds(203, 242, 55, 14);
 		pokeInsertPanel.add(txtWeightInsert);
 
 		txtDescriptionInsert = new JTextArea("");
@@ -371,6 +374,14 @@ public class AdminView {
 		txtCategoryInsert.setBounds(102, 142, 307, 14);
 		pokeInsertPanel.add(txtCategoryInsert);
 
+		lblPokeIdInsert = new JLabel("Pokedex ID:");
+		lblPokeIdInsert.setBounds(268, 242, 76, 14);
+		pokeInsertPanel.add(lblPokeIdInsert);
+
+		txtPokeIdInsert = new JTextField("");
+		txtPokeIdInsert.setBounds(354, 242, 55, 14);
+		pokeInsertPanel.add(txtPokeIdInsert);
+
 		btnPokeAddNew = new JButton("A\u00F1adir Pokemon");
 		btnPokeAddNew.setBounds(713, 439, 130, 23);
 		frame.getContentPane().add(btnPokeAddNew);
@@ -383,8 +394,15 @@ public class AdminView {
 		btnPokeEdit.setBounds(412, 439, 130, 23);
 		frame.getContentPane().add(btnPokeEdit);
 
+		btnPokeDelete = new JButton("Borrar Pokemon");
+		btnPokeDelete.setBounds(272, 439, 130, 23);
+		frame.getContentPane().add(btnPokeDelete);
+
 	}
 
+	/**
+	 * Method that set listeners and events
+	 */
 	private void setListeners() {
 		btnPokeNext.addMouseListener(new MouseAdapter() {
 			@Override
@@ -454,6 +472,76 @@ public class AdminView {
 			}
 
 		});
+
+		btnPokeDelete.addMouseListener(new MouseAdapter() {
+			public void mouseClicked(MouseEvent e) {
+				if (new PokemonDAO().deleteCurrentPokemon(allPokemons.get(indexPokmeonList).getpId()) == true) {
+					allPokemons.remove(indexPokmeonList);
+				}
+			}
+
+		});
+	}
+
+	private void nextPokemon() {
+		if (indexPokmeonList < allPokemons.size() - 1) {
+			showPokemon(++indexPokmeonList);
+		}
+
+	}
+
+	private void previousPokemon() {
+		if (indexPokmeonList > 0) {
+			showPokemon(--indexPokmeonList);
+		}
+
+	}
+
+	private void showPokemon(int index) {
+		String currentNumber = String.valueOf(allPokemons.get(index).getpId());
+		String currentName = allPokemons.get(index).getName();
+		String currentHeight = String.valueOf(allPokemons.get(index).getHeight());
+		String currentWeight = String.valueOf(allPokemons.get(index).getWeight());
+		String currentDescription = allPokemons.get(index).getDescription();
+		String currentAbility = allPokemons.get(index).getAbility();
+		String currentImageUrl = allPokemons.get(index).getImageURL();
+		String currentSoundURL = allPokemons.get(indexPokmeonList).getSoundURL();
+		String[] currentTypes = allPokemons.get(index).getTypes();
+		int[] categoriesToSelect = new int[currentTypes.length];
+
+		lblPokeNum.setText("Pokedex ID: " + currentNumber);
+		txtPokeNameText.setText(currentName);
+
+		for (int i = 0; i < currentTypes.length; i++) {
+			categoriesToSelect[i] = availableTypes.get(currentTypes[i]) - 1;
+		}
+
+		listPokeTypesEdit.setSelectedIndices(categoriesToSelect);
+
+		txtPokeDescriptionText.setText(currentDescription);
+		txtPokeHeighText.setText(currentHeight);
+		txtPokeWeightText.setText(currentWeight);
+		txtPokeAbilityText.setText(currentAbility);
+		txtPokeImgUrlText.setText(currentImageUrl);
+		txtPokeSoundURLText.setText(currentSoundURL);
+
+		// Set preview image.
+		BufferedImage img = Utils.getBuferedImageIfValid(currentImageUrl);
+		if (img != null) {
+			Image dimg = img.getScaledInstance(lblPreviewImage.getWidth(), lblPreviewImage.getHeight(),
+					Image.SCALE_SMOOTH);
+			ImageIcon imageIcon = new ImageIcon(dimg);
+			lblPreviewImage.setIcon(imageIcon);
+		} else {
+			BufferedImage rescueImg = Utils.getBuferedImageIfValid(
+					"https://upload.wikimedia.org/wikipedia/commons/5/51/Pokebola-pokeball-png-0.png");
+			Image dimg = rescueImg.getScaledInstance(lblPreviewImage.getWidth(), lblPreviewImage.getHeight(),
+					Image.SCALE_SMOOTH);
+			ImageIcon imageIcon = new ImageIcon(dimg);
+			lblPreviewImage.setIcon(imageIcon);
+			JOptionPane.showMessageDialog(frame, currentName + " no dispone de imagen aún", "ERROR",
+					JOptionPane.ERROR_MESSAGE);
+		}
 	}
 
 	private void clearInsertTextBoxes() {
@@ -469,12 +557,23 @@ public class AdminView {
 
 	}
 
+	/**
+	 * Checks if edit fields values are correct values
+	 * 
+	 * @return true or false
+	 */
 	private String checkEditValues() {
 
 		if (txtPokeNameText.getText().isBlank() || txtPokeAbilityText.getText().isBlank()
 				|| txtPokeHeighText.getText().isBlank() || txtPokeWeightText.getText().isBlank()
 				|| txtPokeDescriptionText.getText().isBlank() || txtPokeDescriptionText.getText().isBlank()) {
 			return "blank";
+		}
+
+		for (Pokemon pokemon : allPokemons) {
+			if (pokemon.getName().equals(txtInsertName.getText())) {
+				return "duplicatename";
+			}
 		}
 
 		try {
@@ -520,12 +619,19 @@ public class AdminView {
 			allPokemons.get(indexPokmeonList).updatePokemon(name, ability, height, weight, category, description,
 					imageUrl, soundUrl, nTypes, finalSTypes);
 
+			showPokemon(indexPokmeonList);
+
 			JOptionPane.showMessageDialog(frame, "Pokemon editado correctamente.", "AVISO",
 					JOptionPane.INFORMATION_MESSAGE);
 			break;
 
 		case "blank":
 			JOptionPane.showMessageDialog(frame, "No puedes dejar campos vacíos", "ERROR", JOptionPane.ERROR_MESSAGE);
+			break;
+
+		case "duplicatename":
+			JOptionPane.showMessageDialog(frame, "Ya existe un pokemon con ese nombre, por favor introduzca otro.",
+					"ERROR", JOptionPane.ERROR_MESSAGE);
 			break;
 
 		case "numberformat":
@@ -552,6 +658,11 @@ public class AdminView {
 
 	}
 
+	/**
+	 * Checks if insert fields values are correct values
+	 * 
+	 * @return true or false
+	 */
 	private String checkInsertValues() {
 
 		if (txtInsertName.getText().isBlank() || txtCategoryInsert.getText().isBlank()
@@ -563,8 +674,21 @@ public class AdminView {
 		try {
 			Float.parseFloat(txtWeightInsert.getText());
 			Float.parseFloat(txtHeighInsert.getText());
+			Integer.parseInt(txtPokeIdInsert.getText());
 		} catch (NumberFormatException e) {
 			return "numberformat";
+		}
+
+		for (Pokemon pokemon : allPokemons) {
+			if (pokemon.getpId() == Integer.parseInt(txtPokeIdInsert.getText())) {
+				return "duplicateid";
+			}
+		}
+
+		for (Pokemon pokemon : allPokemons) {
+			if (pokemon.getName().equals(txtInsertName.getText())) {
+				return "duplicatename";
+			}
 		}
 
 		if (listTypesInsert.getSelectedIndices().length == 0) {
@@ -587,7 +711,7 @@ public class AdminView {
 
 		switch (isValid) {
 		case "ok":
-			int id = allPokemons.size() + 1;
+			int id = Integer.parseInt(txtPokeIdInsert.getText());
 			String name = txtInsertName.getText();
 			String ability = txtPokeAbilityText.getText();
 			float height = Float.parseFloat(txtHeighInsert.getText());
@@ -605,14 +729,25 @@ public class AdminView {
 			Pokemon pokemonToAdd = new Pokemon(id, name, description, height, weight, ability, category, imageURL,
 					soundURL, finalSTypes);
 
+			pokemonToAdd.insertNewPokemon(nTypes);
+
 			allPokemons.add(pokemonToAdd);
 
-			pokemonToAdd.insertNewPokemon(nTypes);
 			clearInsertTextBoxes();
 			break;
 
 		case "blank":
 			JOptionPane.showMessageDialog(frame, "No puedes dejar campos vacíos", "ERROR", JOptionPane.ERROR_MESSAGE);
+			break;
+
+		case "duplicateid":
+			JOptionPane.showMessageDialog(frame, "Ya existe un pokemon con esa Id de Pokedex", "ERROR",
+					JOptionPane.ERROR_MESSAGE);
+			break;
+
+		case "duplicatename":
+			JOptionPane.showMessageDialog(frame, "Ya existe un pokemon con ese nombre, por favor introduzca otro.",
+					"ERROR", JOptionPane.ERROR_MESSAGE);
 			break;
 
 		case "numberformat":
@@ -638,66 +773,5 @@ public class AdminView {
 
 		}
 
-	}
-
-	private void nextPokemon() {
-		if (indexPokmeonList < allPokemons.size() - 1) {
-			showPokemon(++indexPokmeonList);
-		}
-
-	}
-
-	private void previousPokemon() {
-		if (indexPokmeonList > 0) {
-			showPokemon(--indexPokmeonList);
-		}
-
-	}
-
-	private void showPokemon(int index) {
-		String currentNumber = String.valueOf(allPokemons.get(index).getpId());
-		String currentName = allPokemons.get(index).getName();
-		String currentHeight = String.valueOf(allPokemons.get(index).getHeight());
-		String currentWeight = String.valueOf(allPokemons.get(index).getWeight());
-		String currentDescription = allPokemons.get(index).getDescription();
-		String currentAbility = allPokemons.get(index).getAbility();
-		String currentImageUrl = allPokemons.get(index).getImageURL();
-		String currentSoundURL = allPokemons.get(indexPokmeonList).getSoundURL();
-		String[] currentTypes = allPokemons.get(index).getTypes();
-		int[] categoriesToSelect = new int[currentTypes.length];
-
-		lblPokeNum.setText("Número: " + currentNumber);
-		txtPokeNameText.setText(currentName);
-
-		for (int i = 0; i < currentTypes.length; i++) {
-			categoriesToSelect[i] = availableTypes.get(currentTypes[i]) - 1;
-		}
-
-		listPokeTypesEdit.setSelectedIndices(categoriesToSelect);
-
-		txtPokeDescriptionText.setText(currentDescription);
-		txtPokeHeighText.setText(currentHeight);
-		txtPokeWeightText.setText(currentWeight);
-		txtPokeAbilityText.setText(currentAbility);
-		txtPokeImgUrlText.setText(currentImageUrl);
-		txtPokeSoundURLText.setText(currentSoundURL);
-
-		// Set preview image.
-		BufferedImage img = Utils.getBuferedImageIfValid(currentImageUrl);
-		if (img != null) {
-			Image dimg = img.getScaledInstance(lblPreviewImage.getWidth(), lblPreviewImage.getHeight(),
-					Image.SCALE_SMOOTH);
-			ImageIcon imageIcon = new ImageIcon(dimg);
-			lblPreviewImage.setIcon(imageIcon);
-		} else {
-			BufferedImage rescueImg = Utils.getBuferedImageIfValid(
-					"https://upload.wikimedia.org/wikipedia/commons/5/51/Pokebola-pokeball-png-0.png");
-			Image dimg = rescueImg.getScaledInstance(lblPreviewImage.getWidth(), lblPreviewImage.getHeight(),
-					Image.SCALE_SMOOTH);
-			ImageIcon imageIcon = new ImageIcon(dimg);
-			lblPreviewImage.setIcon(imageIcon);
-			JOptionPane.showMessageDialog(frame, currentName + " no dispone de imagen aún", "ERROR",
-					JOptionPane.ERROR_MESSAGE);
-		}
 	}
 }

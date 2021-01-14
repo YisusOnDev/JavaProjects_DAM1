@@ -6,11 +6,8 @@ import java.awt.Image;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
-import java.io.IOException;
-import java.net.URL;
 import java.util.ArrayList;
 
-import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -87,10 +84,16 @@ public class PokemonView {
 		frame.setVisible(true);
 	}
 
+	/**
+	 * Get pokemon' ArrayList from db and sets to local ArrayList variable.
+	 */
 	private void setDBPokemons() {
 		allPokemons = new PokemonDAO().getAllPokemons();
 	}
 
+	/**
+	 * Method that sets all UI Components
+	 */
 	private void setUIComponents() {
 		lblPokedex = new JLabel("Pokedex");
 		lblPokedex.setHorizontalAlignment(SwingConstants.CENTER);
@@ -213,6 +216,9 @@ public class PokemonView {
 
 	}
 
+	/**
+	 * Method that set listeners and events
+	 */
 	private void setListeners() {
 		btnPokeNext.addMouseListener(new MouseAdapter() {
 			@Override
@@ -280,11 +286,10 @@ public class PokemonView {
 		String currentDescription = allPokemons.get(index).getDescription();
 		String currentAbility = allPokemons.get(index).getAbility();
 		String currentImageUrl = allPokemons.get(index).getImageURL();
-		String currentSoundURL = allPokemons.get(index).getSoundURL();
 		String currentTypes = allPokemons.get(index).getStringTypes();
 		String currentCategory = allPokemons.get(index).getCategory();
 
-		lblPokeNum.setText("Número: " + currentNumber);
+		lblPokeNum.setText("Pokedex ID: " + currentNumber);
 		lblPokeNameText.setText(currentName);
 		lblPokeTypesText.setText(currentTypes);
 		lblPokeDescriptionText.setText(currentDescription);

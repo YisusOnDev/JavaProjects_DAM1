@@ -51,7 +51,10 @@ public class RegisterView {
 
 		frame.setVisible(true);
 	}
-
+	
+	/**
+	 * Method that sets all UI Components
+	 */
 	private void setUIComponents() {
 		lblUsername = new JLabel("Username");
 		lblUsername.setBounds(91, 80, 59, 14);
@@ -91,7 +94,10 @@ public class RegisterView {
 		btnCancelRegister.setBounds(178, 175, 89, 23);
 		frame.getContentPane().add(btnCancelRegister);
 	}
-
+	
+	/**
+	 * Method that set listeners and events
+	 */
 	private void setListeners() {
 		btnLogin.addMouseListener(new MouseAdapter() {
 			@Override

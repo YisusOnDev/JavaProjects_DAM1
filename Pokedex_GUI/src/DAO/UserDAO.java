@@ -55,6 +55,12 @@ public class UserDAO {
 		return false;
 	}
 
+	/**
+	 * Method to register a user
+	 * 
+	 * @param username
+	 * @param password
+	 */
 	public void registerUser(String username, String password) {
 		try {
 			Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/bd_prog1", "root", "");
@@ -74,11 +80,17 @@ public class UserDAO {
 		}
 	}
 
+	/**
+	 * Method that check if an user has permission to access admin panel
+	 * 
+	 * @param username
+	 * @return true or false
+	 */
 	public boolean havePermission(String username) {
 		try (Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/bd_prog1", "root", "");
 				Statement stmt = conn.createStatement();
-				ResultSet rs = stmt.executeQuery("SELECT * FROM users WHERE Username = '" + username + "'"
-						+ " AND IsAdmin = '" + 1 + "'")) {
+				ResultSet rs = stmt.executeQuery(
+						"SELECT * FROM users WHERE Username = '" + username + "'" + " AND IsAdmin = '" + 1 + "'")) {
 
 			return rs.next();
 

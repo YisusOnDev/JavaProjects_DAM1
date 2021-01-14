@@ -48,6 +48,9 @@ public class LoginView {
 		frame.setVisible(true);
 	}
 
+	/**
+	 * Method that sets all UI Components
+	 */
 	private void setUIComponents() {
 		lblUsername = new JLabel("Username");
 		lblUsername.setBounds(91, 80, 59, 14);
@@ -74,12 +77,15 @@ public class LoginView {
 		lblBienvenido.setFont(new Font("Trebuchet MS", Font.BOLD, 16));
 		lblBienvenido.setBounds(124, 11, 107, 42);
 		frame.getContentPane().add(lblBienvenido);
-		
+
 		btnRegister = new JButton("Register");
 		btnRegister.setBounds(190, 144, 89, 23);
 		frame.getContentPane().add(btnRegister);
 	}
 
+	/**
+	 * Method that set listeners and events
+	 */
 	private void setListeners() {
 		btnLogin.addMouseListener(new MouseAdapter() {
 			@Override
@@ -114,7 +120,7 @@ public class LoginView {
 		String password = new String(passwordField.getPassword());
 		if (new LoginDAO().login(username, password)) {
 			frame.dispose();
-			new PokemonView(username );
+			new PokemonView(username);
 		} else {
 			JOptionPane.showMessageDialog(frame, "Login failed", "ERROR", JOptionPane.ERROR_MESSAGE);
 		}
