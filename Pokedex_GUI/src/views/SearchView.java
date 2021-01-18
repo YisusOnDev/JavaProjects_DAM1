@@ -4,19 +4,24 @@ import java.awt.Font;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.LinkedHashMap;
+import java.util.List;
 
 import javax.swing.JButton;
+import javax.swing.JCheckBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JList;
+import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
 import DAO.PokemonDAO;
 import models.Pokemon;
-import javax.swing.JCheckBox;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class SearchView {
 
@@ -34,10 +39,9 @@ public class SearchView {
 	private JCheckBox chckbxName;
 	private JCheckBox chckbxTypes;
 	private JCheckBox chckbxNumber;
-	
+
 	private ArrayList<Pokemon> allPokemons;
-	private ArrayList<Pokemon> filteredPokemons;
-	private LinkedHashMap<String, Integer> availableTypes;
+	private LinkedHashMap<String, Integer> availableTypes = new PokemonDAO().getAvailableCategories();
 	private JList<String> listTypes;
 
 	/**
@@ -58,14 +62,14 @@ public class SearchView {
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		frame.setResizable(false);
-		
+
 		setUIComponents();
 		setListeners();
 		fillTypes();
 
 		frame.setVisible(true);
 	}
-	
+
 	/**
 	 * Method that sets all UI Components
 	 */
@@ -77,6 +81,7 @@ public class SearchView {
 		txtNumber = new JTextField();
 		txtNumber.setBounds(144, 64, 183, 20);
 		frame.getContentPane().add(txtNumber);
+		txtNumber.setEnabled(false);
 		txtNumber.setColumns(10);
 
 		lblName = new JLabel("Nombre:");
@@ -100,33 +105,35 @@ public class SearchView {
 		btnReturn = new JButton("Volver");
 		btnReturn.setBounds(189, 212, 89, 23);
 		frame.getContentPane().add(btnReturn);
-		
+
 		txtName = new JTextField();
 		txtName.setColumns(10);
 		txtName.setBounds(144, 92, 183, 20);
+		txtName.setEnabled(false);
 		frame.getContentPane().add(txtName);
-		
+
 		typeScrollPain = new JScrollPane();
 		typeScrollPain.setBounds(144, 120, 183, 66);
 		frame.getContentPane().add(typeScrollPain);
-		
+
 		listTypes = new JList<String>();
 		typeScrollPain.setViewportView(listTypes);
+		listTypes.setEnabled(false);
 		listTypes.setSelectedIndices(new int[] {});
-		
+
 		chckbxNumber = new JCheckBox("");
 		chckbxNumber.setBounds(6, 64, 21, 23);
 		frame.getContentPane().add(chckbxNumber);
-		
+
 		chckbxName = new JCheckBox("");
 		chckbxName.setBounds(6, 90, 21, 23);
 		frame.getContentPane().add(chckbxName);
-		
+
 		chckbxTypes = new JCheckBox("");
 		chckbxTypes.setBounds(6, 116, 21, 23);
 		frame.getContentPane().add(chckbxTypes);
 	}
-	
+
 	/**
 	 * Method that set listeners and events
 	 */
@@ -134,12 +141,10 @@ public class SearchView {
 		btnSearch.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				frame.setVisible(false);
-				searchFilteredPokemon();
-				
-				
-				//new SearchedPokemonView(frame, currentUsername, allPokemons);
-				
+				if (checkInputIsValid()) {
+					searchFilteredPokemon();
+				}
+
 			}
 		});
 
@@ -151,20 +156,122 @@ public class SearchView {
 			}
 		});
 
+		chckbxName.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				if (chckbxName.isSelected()) {
+					txtName.setEnabled(true);
+				} else {
+					txtName.setText("");
+					txtName.setEnabled(false);
+				}
+			}
+		});
+
+		chckbxNumber.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				if (chckbxNumber.isSelected()) {
+					txtNumber.setEnabled(true);
+				} else {
+					txtNumber.setText("");
+					txtNumber.setEnabled(false);
+				}
+			}
+		});
+
+		chckbxTypes.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				if (chckbxTypes.isSelected()) {
+					listTypes.setEnabled(true);
+				} else {
+					listTypes.setSelectedIndices(new int[0]);
+					listTypes.setEnabled(false);
+				}
+			}
+		});
 	}
-	
+
 	/**
 	 * Method that fills the 2 JList with all available pokemon types.
 	 */
 	private void fillTypes() {
-		availableTypes = new PokemonDAO().getAvailableCategories();
 		String[] types = new String[availableTypes.size()];
 		String[] toSet = availableTypes.keySet().toArray(types);
 		listTypes.setListData(toSet);
 	}
-	
+
 	private void searchFilteredPokemon() {
-		filteredPokemons = new ArrayList<Pokemon>();
-		int[] nTypes = listTypes.getSelectedIndices();
+		ArrayList<Pokemon> filteredPokemons = new ArrayList<Pokemon>();
+		boolean canContinue = false;
+		for (Pokemon p : allPokemons) {
+			if (chckbxNumber.isSelected()) {
+				if (p.getpId() != Integer.parseInt(txtNumber.getText())) {
+					canContinue = true;
+				}
+			}
+			if (chckbxName.isSelected()) {
+				if (!p.getName().toLowerCase().equals(txtName.getText().toLowerCase())) {
+					canContinue = true;
+				}
+			}
+			if (chckbxTypes.isSelected()) {
+				List<String> types = Arrays.asList(p.getTypes());
+				String[] currentTypes = new String[availableTypes.size()];
+				String[] toSet = availableTypes.keySet().toArray(currentTypes);
+				for (int i = 0; i < listTypes.getSelectedIndices().length; i++) {
+					String currentType = toSet[listTypes.getSelectedIndices()[i]];
+					if (!types.contains(currentType)) {
+						canContinue = true;
+					}
+				}
+			}
+			if (canContinue) {
+				canContinue = false;
+				continue;
+			}
+			filteredPokemons.add(p);
+
+		}
+
+		if (!filteredPokemons.isEmpty()) {
+			frame.setVisible(false);
+			new SearchedPokemonView(frame, currentUsername, filteredPokemons);
+		} else {
+			JOptionPane.showMessageDialog(frame, "No results found", "ERROR", JOptionPane.ERROR_MESSAGE);
+		}
+
+	}
+
+	private boolean checkInputIsValid() {
+		if (chckbxNumber.isSelected()) {
+			try {
+				Integer.parseInt(txtNumber.getText());
+			} catch (NumberFormatException e) {
+				JOptionPane.showMessageDialog(frame,
+						"If you want to search by Pokedex ID you need to enter a number (int)", "ERROR",
+						JOptionPane.ERROR_MESSAGE);
+				return false;
+			}
+		}
+
+		if (chckbxName.isSelected()) {
+			if (txtName.getText().isBlank()) {
+				JOptionPane.showMessageDialog(frame, "If you want to search by a neme you must enter a name", "ERROR",
+						JOptionPane.ERROR_MESSAGE);
+				return false;
+			}
+		}
+
+		if (chckbxTypes.isSelected()) {
+			if (listTypes.getSelectedIndices().length == 0) {
+				JOptionPane.showMessageDialog(frame, "If you want to search by types you should pick 1 or more types",
+						"ERROR", JOptionPane.ERROR_MESSAGE);
+				return false;
+			}
+		}
+
+		// Also if no checkbox is checked the result will be just all the pokemon'
+
+		return true;
+
 	}
 }

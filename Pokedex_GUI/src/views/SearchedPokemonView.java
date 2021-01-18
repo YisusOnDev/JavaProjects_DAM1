@@ -48,10 +48,8 @@ public class SearchedPokemonView {
 	private JLabel lblPokeNum;
 	private JButton btnPokeAdmin;
 	private JButton btnSearch;
-	private JLabel lblSearchFilter;
 	private JLabel lblPokeCategoryText;
 	private JLabel lblPokeCategory;
-	private JLabel lblSearchText;
 	
 	private String currentUsername;
 	private JFrame parentFrame;
@@ -61,19 +59,22 @@ public class SearchedPokemonView {
 	/**
 	 * Create the application with Admin check support
 	 * 
+	 * @param searchFrame the parent frame
 	 * @param currentUsername the currentUsername who logged in
+	 * @param filteredPokemons the arraylist with all 
 	 */
-	public SearchedPokemonView(JFrame searchFrame, String username, String[] filters, String[] searchs, ArrayList<Pokemon> filteredPokemons) {
+	public SearchedPokemonView(JFrame searchFrame, String username, ArrayList<Pokemon> filteredPokemons) {
 		currentUsername = username;
 		parentFrame = searchFrame;
 		searchedPokemons = filteredPokemons;
-		initialize(filters, searchs);
+		initialize();
 	}
 
 	/**
 	 * Initialize the contents of the frame.
 	 */
-	private void initialize(String[] filters, String[] searchs) {
+	
+	private void initialize() {
 		frame = new JFrame();
 		frame.setBounds(100, 100, 580, 445);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -81,7 +82,6 @@ public class SearchedPokemonView {
 		frame.setResizable(false);
 		setUIComponents();
 		setListeners();
-		setFiltersAndSearchs(filters, searchs);
 		showPokemon(0);
 
 		frame.setVisible(true);
@@ -91,11 +91,11 @@ public class SearchedPokemonView {
 	 * Method that sets all UI Components
 	 */
 	private void setUIComponents() {
-		lblSearched = new JLabel("Pokemon");
+		lblSearched = new JLabel("Resultado de la busqueda");
 		lblSearched.setHorizontalAlignment(SwingConstants.CENTER);
 		lblSearched.setForeground(Color.RED);
 		lblSearched.setFont(new Font("Leelawadee", Font.BOLD, 30));
-		lblSearched.setBounds(21, 11, 192, 46);
+		lblSearched.setBounds(21, 11, 407, 46);
 		frame.getContentPane().add(lblSearched);
 
 		label = new JLabel();
@@ -202,19 +202,9 @@ public class SearchedPokemonView {
 		btnPokeAdmin.setBounds(438, 15, 105, 23);
 		frame.getContentPane().add(btnPokeAdmin);
 
-		btnSearch = new JButton("Buscar");
-		btnSearch.setBounds(75, 322, 89, 23);
+		btnSearch = new JButton("Volver a buscar");
+		btnSearch.setBounds(58, 322, 128, 23);
 		frame.getContentPane().add(btnSearch);
-		
-		lblSearchFilter = new JLabel("Filtro(s): ");
-		lblSearchFilter.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		lblSearchFilter.setBounds(223, 11, 205, 23);
-		frame.getContentPane().add(lblSearchFilter);
-		
-		lblSearchText = new JLabel("B\u00FAsqueda:");
-		lblSearchText.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		lblSearchText.setBounds(223, 34, 205, 23);
-		frame.getContentPane().add(lblSearchText);
 
 		if (!new UserDAO().havePermission(currentUsername)) {
 			btnPokeAdmin.setVisible(false);
@@ -331,10 +321,5 @@ public class SearchedPokemonView {
 			JOptionPane.showMessageDialog(frame, currentName + " no dispone de imagen aún", "ERROR",
 					JOptionPane.ERROR_MESSAGE);
 		}
-	}
-	
-	private void setFiltersAndSearchs(String[] filters, String[] searchs) {
-		// TODO Auto-generated method stub
-		
 	}
 }
