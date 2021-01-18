@@ -98,7 +98,7 @@ public class AdminView {
 	 * @param username
 	 */
 	public AdminView(String username) {
-		this.currentUsername = username;
+		currentUsername = username;
 		initialize();
 	}
 
@@ -111,6 +111,7 @@ public class AdminView {
 		frame.setBounds(100, 100, 1025, 525);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
+		frame.setResizable(false);
 		setDBPokemons();
 		setAvailableTypes();
 		setUIComponents();

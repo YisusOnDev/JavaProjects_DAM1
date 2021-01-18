@@ -18,15 +18,14 @@ import javax.swing.JTextArea;
 import javax.swing.SwingConstants;
 import javax.swing.border.LineBorder;
 
-import DAO.PokemonDAO;
 import DAO.UserDAO;
 import models.Pokemon;
 import models.Utils;
 
-public class PokemonView {
+public class SearchedPokemonView {
 
 	private JFrame frame;
-	private JLabel lblPokedex;
+	private JLabel lblSearched;
 	private JLabel label;
 	private JLabel lblPreviewImage;
 	private JPanel pokeInfoPanel;
@@ -49,59 +48,55 @@ public class PokemonView {
 	private JLabel lblPokeNum;
 	private JButton btnPokeAdmin;
 	private JButton btnSearch;
-
-	private String currentUsername;
-
-	private int indexPokmeonList = 0;
-	private ArrayList<Pokemon> allPokemons;
+	private JLabel lblSearchFilter;
 	private JLabel lblPokeCategoryText;
 	private JLabel lblPokeCategory;
+	private JLabel lblSearchText;
+	
+	private String currentUsername;
+	private JFrame parentFrame;
+	private int indexPokmeonList = 0;
+	private ArrayList<Pokemon> searchedPokemons;
 
 	/**
 	 * Create the application with Admin check support
 	 * 
 	 * @param currentUsername the currentUsername who logged in
 	 */
-	public PokemonView(String username) {
+	public SearchedPokemonView(JFrame searchFrame, String username, String[] filters, String[] searchs, ArrayList<Pokemon> filteredPokemons) {
 		currentUsername = username;
-		initialize();
+		parentFrame = searchFrame;
+		searchedPokemons = filteredPokemons;
+		initialize(filters, searchs);
 	}
 
 	/**
 	 * Initialize the contents of the frame.
 	 */
-	private void initialize() {
-		allPokemons = new ArrayList<Pokemon>();
+	private void initialize(String[] filters, String[] searchs) {
 		frame = new JFrame();
 		frame.setBounds(100, 100, 580, 445);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		frame.setResizable(false);
-		setDBPokemons();
 		setUIComponents();
 		setListeners();
+		setFiltersAndSearchs(filters, searchs);
 		showPokemon(0);
 
 		frame.setVisible(true);
 	}
 
 	/**
-	 * Get pokemon' ArrayList from db and sets to local ArrayList variable.
-	 */
-	private void setDBPokemons() {
-		allPokemons = new PokemonDAO().getAllPokemons();
-	}
-
-	/**
 	 * Method that sets all UI Components
 	 */
 	private void setUIComponents() {
-		lblPokedex = new JLabel("Pokedex");
-		lblPokedex.setHorizontalAlignment(SwingConstants.CENTER);
-		lblPokedex.setForeground(Color.RED);
-		lblPokedex.setFont(new Font("Leelawadee", Font.BOLD, 30));
-		lblPokedex.setBounds(171, 11, 192, 46);
-		frame.getContentPane().add(lblPokedex);
+		lblSearched = new JLabel("Pokemon");
+		lblSearched.setHorizontalAlignment(SwingConstants.CENTER);
+		lblSearched.setForeground(Color.RED);
+		lblSearched.setFont(new Font("Leelawadee", Font.BOLD, 30));
+		lblSearched.setBounds(21, 11, 192, 46);
+		frame.getContentPane().add(lblSearched);
 
 		label = new JLabel();
 		label.setBounds(171, 43, -153, 173);
@@ -210,6 +205,16 @@ public class PokemonView {
 		btnSearch = new JButton("Buscar");
 		btnSearch.setBounds(75, 322, 89, 23);
 		frame.getContentPane().add(btnSearch);
+		
+		lblSearchFilter = new JLabel("Filtro(s): ");
+		lblSearchFilter.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		lblSearchFilter.setBounds(223, 11, 205, 23);
+		frame.getContentPane().add(lblSearchFilter);
+		
+		lblSearchText = new JLabel("B\u00FAsqueda:");
+		lblSearchText.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		lblSearchText.setBounds(223, 34, 205, 23);
+		frame.getContentPane().add(lblSearchText);
 
 		if (!new UserDAO().havePermission(currentUsername)) {
 			btnPokeAdmin.setVisible(false);
@@ -250,7 +255,7 @@ public class PokemonView {
 		btnPlaySoundButton.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				Utils.playSound(allPokemons.get(indexPokmeonList).getSoundURL());
+				Utils.playSound(searchedPokemons.get(indexPokmeonList).getSoundURL());
 			}
 
 		});
@@ -268,7 +273,7 @@ public class PokemonView {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				frame.dispose();
-				new SearchView(currentUsername, allPokemons);
+				parentFrame.setVisible(true);
 			}
 
 		});
@@ -276,7 +281,7 @@ public class PokemonView {
 	}
 
 	private void nextPokemon() {
-		if (indexPokmeonList < allPokemons.size() - 1) {
+		if (indexPokmeonList < searchedPokemons.size() - 1) {
 			showPokemon(++indexPokmeonList);
 		}
 
@@ -290,15 +295,15 @@ public class PokemonView {
 	}
 
 	private void showPokemon(int index) {
-		String currentNumber = String.valueOf(allPokemons.get(index).getpId());
-		String currentName = allPokemons.get(index).getName();
-		String currentHeight = String.valueOf(allPokemons.get(index).getHeight()) + "m";
-		String currentWeight = String.valueOf(allPokemons.get(index).getWeight()) + "kg";
-		String currentDescription = allPokemons.get(index).getDescription();
-		String currentAbility = allPokemons.get(index).getAbility();
-		String currentImageUrl = allPokemons.get(index).getImageURL();
-		String currentTypes = allPokemons.get(index).getStringTypes();
-		String currentCategory = allPokemons.get(index).getCategory();
+		String currentNumber = String.valueOf(searchedPokemons.get(index).getpId());
+		String currentName = searchedPokemons.get(index).getName();
+		String currentHeight = String.valueOf(searchedPokemons.get(index).getHeight()) + "m";
+		String currentWeight = String.valueOf(searchedPokemons.get(index).getWeight()) + "kg";
+		String currentDescription = searchedPokemons.get(index).getDescription();
+		String currentAbility = searchedPokemons.get(index).getAbility();
+		String currentImageUrl = searchedPokemons.get(index).getImageURL();
+		String currentTypes = searchedPokemons.get(index).getStringTypes();
+		String currentCategory = searchedPokemons.get(index).getCategory();
 
 		lblPokeNum.setText("Pokedex ID: " + currentNumber);
 		lblPokeNameText.setText(currentName);
@@ -326,5 +331,10 @@ public class PokemonView {
 			JOptionPane.showMessageDialog(frame, currentName + " no dispone de imagen aún", "ERROR",
 					JOptionPane.ERROR_MESSAGE);
 		}
+	}
+	
+	private void setFiltersAndSearchs(String[] filters, String[] searchs) {
+		// TODO Auto-generated method stub
+		
 	}
 }

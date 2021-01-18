@@ -45,6 +45,7 @@ public class RegisterView {
 		frame.setBounds(100, 100, 378, 248);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
+		frame.setResizable(false);
 
 		setUIComponents();
 		setListeners();
