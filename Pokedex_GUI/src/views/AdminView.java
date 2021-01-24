@@ -482,6 +482,9 @@ public class AdminView {
 		});
 	}
 
+	/**
+	 * Method to delete a pokemon from a team
+	 */
 	private void deletePokemonDialog() {
 
 		String[] options = { "Borrar seleccionado", "Borrar por nombre", "Cancelar" };
@@ -516,7 +519,11 @@ public class AdminView {
 		}
 
 	}
-
+	
+	/**
+	 * Method to delete a pokemon via his username
+	 * @param pokeSearchName
+	 */
 	private void deletePokemonByName(String pokeSearchName) {
 		boolean foundNDeleted = false;
 		for (Pokemon pokemon : allPokemons) {
@@ -535,7 +542,7 @@ public class AdminView {
 		}
 
 	}
-
+	
 	private void nextPokemon() {
 		if (indexPokmeonList < allPokemons.size() - 1) {
 			showPokemon(++indexPokmeonList);
@@ -596,7 +603,10 @@ public class AdminView {
 					JOptionPane.ERROR_MESSAGE);
 		}
 	}
-
+	
+	/**
+	 * Method that clears insert text fields
+	 */
 	private void clearInsertTextBoxes() {
 		txtInsertName.setText("");
 		listTypesInsert.setSelectedIndices(new int[0]);
@@ -650,7 +660,10 @@ public class AdminView {
 
 		return "ok";
 	}
-
+	
+	/**
+	 * Method to edit current pokemon
+	 */
 	private void editCurrentPokemon() {
 		String isValid = checkEditValues();
 		switch (isValid) {
@@ -758,7 +771,10 @@ public class AdminView {
 
 		return "ok";
 	}
-
+	
+	/**
+	 * Method to insert a new pokemon
+	 */
 	private void insertNewPokemon() {
 		String isValid = checkInsertValues();
 

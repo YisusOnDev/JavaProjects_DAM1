@@ -91,7 +91,7 @@ public class Utils {
 		} catch (NumberFormatException e) {
 			return false;
 		}
-		
+
 		if (number >= min && number <= max) {
 			return true;
 		} else {

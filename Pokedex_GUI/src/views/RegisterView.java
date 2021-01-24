@@ -52,7 +52,7 @@ public class RegisterView {
 
 		frame.setVisible(true);
 	}
-	
+
 	/**
 	 * Method that sets all UI Components
 	 */
@@ -95,7 +95,7 @@ public class RegisterView {
 		btnCancelRegister.setBounds(178, 175, 89, 23);
 		frame.getContentPane().add(btnCancelRegister);
 	}
-	
+
 	/**
 	 * Method that set listeners and events
 	 */

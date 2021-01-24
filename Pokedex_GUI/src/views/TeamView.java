@@ -44,6 +44,7 @@ public class TeamView {
 	private JLabel lblPokeNameText;
 	private JLabel lblPokeTypesText;
 	private JLabel lblPokeAbilityText;
+
 	private JLabel lblPokeHeighText;
 	private JLabel lblPokeWeightText;
 	private JTextArea lblPokeDescriptionText;
@@ -58,6 +59,7 @@ public class TeamView {
 	private JMenuItem mntmReleasePokemon;
 	private JMenuItem mntmChangeMote;
 	private JMenuItem mntmChangeLvl;
+	private JLabel lblCurrentPokeNumber;
 
 	private String currentUsername;
 	private int indexPokmeonList = 0;
@@ -268,6 +270,12 @@ public class TeamView {
 		lblPokeNum.setBounds(26, 244, 187, 28);
 		frame.getContentPane().add(lblPokeNum);
 
+		lblCurrentPokeNumber = new JLabel("Pokemon 0/6");
+		lblCurrentPokeNumber.setHorizontalAlignment(SwingConstants.CENTER);
+		lblCurrentPokeNumber.setFont(new Font("Trebuchet MS", Font.BOLD, 14));
+		lblCurrentPokeNumber.setBounds(40, 12, 140, 35);
+		frame.getContentPane().add(lblCurrentPokeNumber);
+
 	}
 
 	/**
@@ -336,13 +344,20 @@ public class TeamView {
 			@Override
 			public void mousePressed(MouseEvent e) {
 				frame.dispose();
-				new SearchView(currentUsername, allPokemons, true);
+				if (new TeamDAO().getTeamPokemons(currentUsername).size() == 6) {
+					JOptionPane.showMessageDialog(frame,
+							"Ya tienes 6 pokemon en tu equipo, antes de meter otro mas debes de liberar a uno.", "INFO",
+							JOptionPane.INFORMATION_MESSAGE);
+				} else {
+					new SearchView(currentUsername, allPokemons, true);
+				}
 			}
 		});
 
 		mntmReleasePokemon.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mousePressed(MouseEvent e) {
+
 				if (!teamPokemons.isEmpty()) {
 					deleteCurrentPokemon();
 					teamPokemons = new TeamDAO().getTeamPokemons(currentUsername);
@@ -411,8 +426,7 @@ public class TeamView {
 								"Poner nivel al pokemon", JOptionPane.INFORMATION_MESSAGE);
 
 						if (!Utils.checkStringIsIntNumberOption(tempLvl, 1, 100)) {
-							JOptionPane.showMessageDialog(frame,
-									"El nivel debe ser un numero entre 1 y 100", "INFO",
+							JOptionPane.showMessageDialog(frame, "El nivel debe ser un numero entre 1 y 100", "INFO",
 									JOptionPane.ERROR_MESSAGE);
 						} else {
 							puttedLvl = Integer.parseInt(tempLvl);
@@ -437,6 +451,9 @@ public class TeamView {
 
 	}
 
+	/**
+	 * Method to delete current pokemon
+	 */
 	private void deleteCurrentPokemon() {
 		if (new TeamDAO().deleteTeamPokemon(teamPokemons.get(indexPokmeonList))) {
 			JOptionPane.showMessageDialog(frame, "Has liberado correctamente al pokemon.", "INFO",
@@ -464,6 +481,8 @@ public class TeamView {
 	}
 
 	private void showPokemon(int index) {
+		int toshowIndex = (index + 1);
+		lblCurrentPokeNumber.setText("Pokemon " + toshowIndex + "/6 ");
 		Pokemon objPokemon = teamPokemons.get(index).getObj();
 		String currentNumber = String.valueOf(objPokemon.getpId());
 		String currentName = objPokemon.getName();

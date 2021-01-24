@@ -1,6 +1,8 @@
 package views;
 
 import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
@@ -20,8 +22,6 @@ import javax.swing.SwingConstants;
 
 import DAO.PokemonDAO;
 import models.Pokemon;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
 
 public class SearchView {
 
@@ -44,7 +44,7 @@ public class SearchView {
 	private LinkedHashMap<String, Integer> availableTypes = new PokemonDAO().getAvailableCategories();
 	private JList<String> listTypes;
 	private boolean parentIsTeam = false;
-	
+
 	/**
 	 * Create the application.
 	 */
@@ -159,7 +159,7 @@ public class SearchView {
 				} else {
 					new PokemonView(currentUsername);
 				}
-				
+
 			}
 		});
 
@@ -205,7 +205,7 @@ public class SearchView {
 		String[] toSet = availableTypes.keySet().toArray(types);
 		listTypes.setListData(toSet);
 	}
-
+	
 	private void searchFilteredPokemon() {
 		ArrayList<Pokemon> filteredPokemons = new ArrayList<Pokemon>();
 		boolean canContinue = false;
@@ -241,12 +241,12 @@ public class SearchView {
 
 		if (!filteredPokemons.isEmpty()) {
 			frame.setVisible(false);
-			if(parentIsTeam) {
+			if (parentIsTeam) {
 				new TeamSearchPokemonView(frame, currentUsername, filteredPokemons);
 			} else {
 				new SearchedPokemonView(frame, currentUsername, filteredPokemons);
 			}
-			
+
 		} else {
 			JOptionPane.showMessageDialog(frame, "No results found", "ERROR", JOptionPane.ERROR_MESSAGE);
 		}

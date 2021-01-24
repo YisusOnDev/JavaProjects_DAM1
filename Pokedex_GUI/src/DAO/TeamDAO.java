@@ -12,15 +12,13 @@ import models.Pokemon;
 import models.PokemonTeam;
 
 public class TeamDAO {
-	/**
-	 * Method that search the received username and password on the database return
-	 * true if exist and is correct, false if is incorrect or not exist
-	 * 
-	 * @param username the username that user typed
-	 * @param password the password that user typed
-	 * @return boolean true or falses
-	 */
 
+	/**
+	 * Method to get a username team pokemon'
+	 * 
+	 * @param username
+	 * @return
+	 */
 	public ArrayList<PokemonTeam> getTeamPokemons(String username) {
 		ArrayList<PokemonTeam> pokemons = new ArrayList<PokemonTeam>();
 
@@ -50,6 +48,11 @@ public class TeamDAO {
 		return null;
 	}
 
+	/**
+	 * Method to add a pokemon to a user team
+	 * 
+	 * @param p Pokemon (object)
+	 */
 	public void addTeamPokemon(PokemonTeam p) {
 		int uid = -1;
 		try {
@@ -79,6 +82,12 @@ public class TeamDAO {
 		p.setUid(uid);
 	}
 
+	/**
+	 * Method to delete a pokemon of an username team
+	 * 
+	 * @param p Pokemon (object)
+	 * @return true if deleted false if fails
+	 */
 	public boolean deleteTeamPokemon(PokemonTeam p) {
 
 		try {
@@ -97,6 +106,11 @@ public class TeamDAO {
 		return false;
 	}
 
+	/**
+	 * Method to update a team pokemon details (mote or lvl)
+	 * 
+	 * @param p Pokemon (object)
+	 */
 	public void updateTeamPokemon(PokemonTeam p) {
 		try {
 			Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/bd_prog1", "root", "");
@@ -116,7 +130,5 @@ public class TeamDAO {
 			System.err.println(e.getMessage());
 		}
 	}
-	
-	
 
 }

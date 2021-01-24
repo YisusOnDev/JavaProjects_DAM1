@@ -4,15 +4,15 @@ import DAO.PokemonDAO;
 
 public class Pokemon {
 	protected int pId; // Pokemon' Pokedex ID
-	protected String name; // Pokemon'  name
-	protected String description;// Pokemon'  description
-	protected float height; // Pokemon'  height
-	protected float weight; // Pokemon'  weight
-	protected String category; // Pokemon'  category
-	protected String types[]; // Pokemon'  type(s)
-	protected String ability; // Pokemon'  ability
-	protected String imageURL; // Pokemon'  image URL
-	protected String soundURL; // Pokemon'  sound URL
+	protected String name; // Pokemon' name
+	protected String description;// Pokemon' description
+	protected float height; // Pokemon' height
+	protected float weight; // Pokemon' weight
+	protected String category; // Pokemon' category
+	protected String types[]; // Pokemon' type(s)
+	protected String ability; // Pokemon' ability
+	protected String imageURL; // Pokemon' image URL
+	protected String soundURL; // Pokemon' sound URL
 
 	/**
 	 * Constructor (1) for Pokemon
@@ -267,19 +267,20 @@ public class Pokemon {
 		}
 		return toReturn;
 	}
-	
+
 	/**
 	 * Method that updates a pokemon in db
-	 * @param name the pokemon' name
-	 * @param ability the pokemon' ability
-	 * @param height the pokemo'n height
-	 * @param weight the pokemon' weight
-	 * @param category the pokemo'n category
+	 * 
+	 * @param name        the pokemon' name
+	 * @param ability     the pokemon' ability
+	 * @param height      the pokemo'n height
+	 * @param weight      the pokemon' weight
+	 * @param category    the pokemo'n category
 	 * @param description the pokemon' description
-	 * @param imageUrl the pokemon' image Url
-	 * @param soundUrl the pokemon' sound Url
-	 * @param nTypes the pokemon' types as int array
-	 * @param sTypes the pokemon' types as String array
+	 * @param imageUrl    the pokemon' image Url
+	 * @param soundUrl    the pokemon' sound Url
+	 * @param nTypes      the pokemon' types as int array
+	 * @param sTypes      the pokemon' types as String array
 	 */
 	public void updatePokemon(String name, String ability, float height, float weight, String category,
 			String description, String imageUrl, String soundUrl, int[] nTypes, String[] sTypes) {
@@ -297,9 +298,10 @@ public class Pokemon {
 		new PokemonDAO().deleteCurrentTypes(this.pId);
 		new PokemonDAO().insertTypes(this.pId, nTypes);
 	}
-	
+
 	/**
 	 * Method to insert a new pokemon
+	 * 
 	 * @param nTypes int array of new pokemon' types
 	 */
 	public void insertNewPokemon(int[] nTypes) {

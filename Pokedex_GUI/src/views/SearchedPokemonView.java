@@ -50,7 +50,7 @@ public class SearchedPokemonView {
 	private JButton btnSearch;
 	private JLabel lblPokeCategoryText;
 	private JLabel lblPokeCategory;
-	
+
 	private String currentUsername;
 	private JFrame parentFrame;
 	private int indexPokmeonList = 0;
@@ -59,9 +59,9 @@ public class SearchedPokemonView {
 	/**
 	 * Create the application with Admin check support
 	 * 
-	 * @param searchFrame the parent frame
-	 * @param currentUsername the currentUsername who logged in
-	 * @param filteredPokemons the arraylist with all 
+	 * @param searchFrame      the parent frame
+	 * @param currentUsername  the currentUsername who logged in
+	 * @param filteredPokemons the arraylist with all filtered pokemons
 	 */
 	public SearchedPokemonView(JFrame searchFrame, String username, ArrayList<Pokemon> filteredPokemons) {
 		currentUsername = username;
@@ -73,7 +73,7 @@ public class SearchedPokemonView {
 	/**
 	 * Initialize the contents of the frame.
 	 */
-	
+
 	private void initialize() {
 		frame = new JFrame();
 		frame.setBounds(100, 100, 580, 445);
@@ -258,7 +258,7 @@ public class SearchedPokemonView {
 			}
 
 		});
-		
+
 		btnSearch.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -267,7 +267,7 @@ public class SearchedPokemonView {
 			}
 
 		});
-		
+
 	}
 
 	private void nextPokemon() {

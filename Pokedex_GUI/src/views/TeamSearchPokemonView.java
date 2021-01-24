@@ -285,6 +285,9 @@ public class TeamSearchPokemonView {
 
 	}
 
+	/**
+	 * Method to add selected pokemon to user team
+	 */
 	private void addPokemonToTeam() {
 		String puttedMote = "Sin mote";
 		int puttedLvl = 1;
@@ -321,13 +324,12 @@ public class TeamSearchPokemonView {
 
 			puttedLvl = Integer.parseInt(tempLvl);
 		}
-		
+
 		PokemonTeam tP = new PokemonTeam(currentUsername, searchedPokemons.get(indexPokmeonList).getpId(), puttedLvl,
 				puttedMote, searchedPokemons.get(indexPokmeonList));
 		new TeamDAO().addTeamPokemon(tP);
-		
-		JOptionPane.showMessageDialog(frame,
-				"Pokemon insertado en tu equipo correctamente", "INFO",
+
+		JOptionPane.showMessageDialog(frame, "Pokemon insertado en tu equipo correctamente", "INFO",
 				JOptionPane.INFORMATION_MESSAGE);
 
 	}
