@@ -248,7 +248,7 @@ public class SearchView {
 			}
 
 		} else {
-			JOptionPane.showMessageDialog(frame, "No results found", "ERROR", JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showMessageDialog(frame, "No se han encontrado resultados", "ERROR", JOptionPane.ERROR_MESSAGE);
 		}
 
 	}
@@ -259,7 +259,7 @@ public class SearchView {
 				Integer.parseInt(txtNumber.getText());
 			} catch (NumberFormatException e) {
 				JOptionPane.showMessageDialog(frame,
-						"If you want to search by Pokedex ID you need to enter a number (int)", "ERROR",
+						"Si quieres bucar por ID de pokedex tienes que introducir un numero entero", "ERROR",
 						JOptionPane.ERROR_MESSAGE);
 				return false;
 			}
@@ -267,7 +267,7 @@ public class SearchView {
 
 		if (chckbxName.isSelected()) {
 			if (txtName.getText().isBlank()) {
-				JOptionPane.showMessageDialog(frame, "If you want to search by a neme you must enter a name", "ERROR",
+				JOptionPane.showMessageDialog(frame, "Si quieres buscar por nombre, debes introducir un nombre", "ERROR",
 						JOptionPane.ERROR_MESSAGE);
 				return false;
 			}
@@ -275,7 +275,7 @@ public class SearchView {
 
 		if (chckbxTypes.isSelected()) {
 			if (listTypes.getSelectedIndices().length == 0) {
-				JOptionPane.showMessageDialog(frame, "If you want to search by types you should pick 1 or more types",
+				JOptionPane.showMessageDialog(frame, "Si quieres buscar por tipos debes de seleccionar al menos 1",
 						"ERROR", JOptionPane.ERROR_MESSAGE);
 				return false;
 			}

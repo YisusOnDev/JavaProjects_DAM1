@@ -299,12 +299,17 @@ public class TeamSearchPokemonView {
 		if (moteDialogResult == 0) {
 			puttedMote = JOptionPane.showInputDialog(frame, "Introduce el mote deseado:", "Poner mote al pokemon",
 					JOptionPane.INFORMATION_MESSAGE);
-			while (puttedMote.isBlank()) {
-				JOptionPane.showMessageDialog(frame, "Por favor, introduce un mote para el pokemon", "INFO",
-						JOptionPane.ERROR_MESSAGE);
-				puttedMote = JOptionPane.showInputDialog(frame, "Introduce el mote deseado:", "Poner mote al pokemon",
-						JOptionPane.INFORMATION_MESSAGE);
+			if (puttedMote != null) {
+				while (puttedMote.isBlank()) {
+					JOptionPane.showMessageDialog(frame, "Por favor, introduce un mote para el pokemon", "INFO",
+							JOptionPane.ERROR_MESSAGE);
+					puttedMote = JOptionPane.showInputDialog(frame, "Introduce el mote deseado:", "Poner mote al pokemon",
+							JOptionPane.INFORMATION_MESSAGE);
+				}
+			} else {
+				puttedMote = "Sin mote";
 			}
+			
 		}
 
 		int lvlDialogButton = JOptionPane.YES_NO_OPTION;
@@ -314,15 +319,17 @@ public class TeamSearchPokemonView {
 		if (lvlDialogResult == 0) {
 			String tempLvl = JOptionPane.showInputDialog(frame, "Introduce el nivel deseado:", "Poner nivel al pokemon",
 					JOptionPane.INFORMATION_MESSAGE);
+			if (tempLvl != null) {
+				while (!Utils.checkStringIsIntNumberOption(tempLvl, 1, 100)) {
+					JOptionPane.showMessageDialog(frame, "Por favor, introduce el nivel (numero, 1 minimo, 100 maximo)",
+							"INFO", JOptionPane.ERROR_MESSAGE);
+					tempLvl = JOptionPane.showInputDialog(frame, "Introduce el nivel deseado:", "Poner nivel al pokemon",
+							JOptionPane.INFORMATION_MESSAGE);
+				}
 
-			while (!Utils.checkStringIsIntNumberOption(tempLvl, 1, 100)) {
-				JOptionPane.showMessageDialog(frame, "Por favor, introduce el nivel (numero, 1 minimo, 100 maximo)",
-						"INFO", JOptionPane.ERROR_MESSAGE);
-				tempLvl = JOptionPane.showInputDialog(frame, "Introduce el nivel deseado:", "Poner nivel al pokemon",
-						JOptionPane.INFORMATION_MESSAGE);
+				puttedLvl = Integer.parseInt(tempLvl);	
 			}
-
-			puttedLvl = Integer.parseInt(tempLvl);
+			
 		}
 
 		PokemonTeam tP = new PokemonTeam(currentUsername, searchedPokemons.get(indexPokmeonList).getpId(), puttedLvl,

@@ -14,6 +14,7 @@ import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
 import DAO.UserDAO;
+import javax.swing.SwingConstants;
 
 public class RegisterView {
 
@@ -57,42 +58,43 @@ public class RegisterView {
 	 * Method that sets all UI Components
 	 */
 	private void setUIComponents() {
-		lblUsername = new JLabel("Username");
-		lblUsername.setBounds(91, 80, 59, 14);
+		lblUsername = new JLabel("Usuario:");
+		lblUsername.setBounds(121, 74, 59, 14);
 		frame.getContentPane().add(lblUsername);
 
 		tfUsername = new JTextField();
-		tfUsername.setBounds(160, 77, 86, 20);
+		tfUsername.setBounds(190, 71, 86, 20);
 		frame.getContentPane().add(tfUsername);
 		tfUsername.setColumns(10);
 
-		lblPassword = new JLabel("Password");
-		lblPassword.setBounds(91, 105, 59, 14);
+		lblPassword = new JLabel("Clave");
+		lblPassword.setBounds(121, 102, 59, 14);
 		frame.getContentPane().add(lblPassword);
 
 		passwordField = new JPasswordField();
-		passwordField.setBounds(160, 102, 86, 20);
+		passwordField.setBounds(190, 99, 86, 20);
 		frame.getContentPane().add(passwordField);
 
-		btnLogin = new JButton("Register");
-		btnLogin.setBounds(79, 175, 89, 23);
+		btnLogin = new JButton("Registrarse");
+		btnLogin.setBounds(83, 172, 97, 23);
 		frame.getContentPane().add(btnLogin);
 
-		lblRegister = new JLabel("Register");
+		lblRegister = new JLabel("Pokedex - Registro");
+		lblRegister.setHorizontalAlignment(SwingConstants.CENTER);
 		lblRegister.setFont(new Font("Trebuchet MS", Font.BOLD, 16));
-		lblRegister.setBounds(124, 11, 107, 42);
+		lblRegister.setBounds(50, 11, 274, 42);
 		frame.getContentPane().add(lblRegister);
 
-		lblRegister2 = new JLabel("Confirm Password");
-		lblRegister2.setBounds(50, 130, 100, 14);
+		lblRegister2 = new JLabel("Confirmar clave:");
+		lblRegister2.setBounds(80, 127, 100, 14);
 		frame.getContentPane().add(lblRegister2);
 
 		passwordField2 = new JPasswordField();
-		passwordField2.setBounds(160, 127, 86, 20);
+		passwordField2.setBounds(190, 124, 86, 20);
 		frame.getContentPane().add(passwordField2);
 
-		btnCancelRegister = new JButton("Cancel");
-		btnCancelRegister.setBounds(178, 175, 89, 23);
+		btnCancelRegister = new JButton("Cancelar");
+		btnCancelRegister.setBounds(190, 172, 89, 23);
 		frame.getContentPane().add(btnCancelRegister);
 	}
 
@@ -135,23 +137,23 @@ public class RegisterView {
 				if (!username.isBlank()) {
 					if (!userDAO.checkUsername(username)) {
 						userDAO.registerUser(username, password2);
-						JOptionPane.showMessageDialog(frame, "You have successfully registered.", "OK",
+						JOptionPane.showMessageDialog(frame, "Te has registrado correctamente.", "OK",
 								JOptionPane.INFORMATION_MESSAGE);
 						setLoginFrame();
 					} else {
-						JOptionPane.showMessageDialog(frame, "That username alredy exist, please try again...", "ERROR",
+						JOptionPane.showMessageDialog(frame, "Ese usuario ya existe, por favor introduce otro", "ERROR",
 								JOptionPane.ERROR_MESSAGE);
 					}
 				} else {
-					JOptionPane.showMessageDialog(frame, "Username can't be empty or only whitespaces...", "ERROR",
+					JOptionPane.showMessageDialog(frame, "El usuario no puede estar vacio o contener espacios en blanco", "ERROR",
 							JOptionPane.ERROR_MESSAGE);
 				}
 			} else {
-				JOptionPane.showMessageDialog(frame, "Passwords doesn't match, please try again...", "ERROR",
+				JOptionPane.showMessageDialog(frame, "Las claves no coinciden", "ERROR",
 						JOptionPane.ERROR_MESSAGE);
 			}
 		} else {
-			JOptionPane.showMessageDialog(frame, "Password can't be empty or only whitespaces...", "ERROR",
+			JOptionPane.showMessageDialog(frame, "La clave no puede estar vacia o contener espacios en blanco", "ERROR",
 					JOptionPane.ERROR_MESSAGE);
 		}
 

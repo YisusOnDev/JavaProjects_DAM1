@@ -14,6 +14,7 @@ import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
 import DAO.LoginDAO;
+import javax.swing.SwingConstants;
 
 public class LoginView {
 
@@ -53,34 +54,35 @@ public class LoginView {
 	 * Method that sets all UI Components
 	 */
 	private void setUIComponents() {
-		lblUsername = new JLabel("Username");
-		lblUsername.setBounds(91, 80, 59, 14);
+		lblUsername = new JLabel("Usuario:");
+		lblUsername.setBounds(103, 79, 59, 14);
 		frame.getContentPane().add(lblUsername);
 
 		tfUsername = new JTextField();
-		tfUsername.setBounds(160, 77, 86, 20);
+		tfUsername.setBounds(172, 76, 86, 20);
 		frame.getContentPane().add(tfUsername);
 		tfUsername.setColumns(10);
 
-		lblPassword = new JLabel("Password");
-		lblPassword.setBounds(91, 105, 59, 14);
+		lblPassword = new JLabel("Clave:");
+		lblPassword.setBounds(103, 104, 59, 14);
 		frame.getContentPane().add(lblPassword);
 
 		passwordField = new JPasswordField();
-		passwordField.setBounds(160, 102, 86, 20);
+		passwordField.setBounds(172, 101, 86, 20);
 		frame.getContentPane().add(passwordField);
 
-		btnLogin = new JButton("Log in");
-		btnLogin.setBounds(91, 144, 89, 23);
+		btnLogin = new JButton("Iniciar sesion");
+		btnLogin.setBounds(71, 144, 119, 23);
 		frame.getContentPane().add(btnLogin);
 
-		lblBienvenido = new JLabel("Welcome");
+		lblBienvenido = new JLabel("Pokedex - Inicio");
+		lblBienvenido.setHorizontalAlignment(SwingConstants.CENTER);
 		lblBienvenido.setFont(new Font("Trebuchet MS", Font.BOLD, 16));
-		lblBienvenido.setBounds(124, 11, 107, 42);
+		lblBienvenido.setBounds(71, 11, 236, 42);
 		frame.getContentPane().add(lblBienvenido);
 
-		btnRegister = new JButton("Register");
-		btnRegister.setBounds(190, 144, 89, 23);
+		btnRegister = new JButton("Registrarse");
+		btnRegister.setBounds(200, 144, 107, 23);
 		frame.getContentPane().add(btnRegister);
 	}
 
@@ -123,7 +125,7 @@ public class LoginView {
 			frame.dispose();
 			new PokemonView(username);
 		} else {
-			JOptionPane.showMessageDialog(frame, "Login failed", "ERROR", JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showMessageDialog(frame, "Datos incorrectos", "ERROR", JOptionPane.ERROR_MESSAGE);
 		}
 	}
 }

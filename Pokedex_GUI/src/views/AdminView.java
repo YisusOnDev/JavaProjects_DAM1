@@ -806,7 +806,7 @@ public class AdminView {
 			break;
 
 		case "blank":
-			JOptionPane.showMessageDialog(frame, "No puedes dejar campos vacíos", "ERROR", JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showMessageDialog(frame, "No puedes dejar campos vacios", "ERROR", JOptionPane.ERROR_MESSAGE);
 			break;
 
 		case "duplicateid":
@@ -821,7 +821,7 @@ public class AdminView {
 
 		case "numberformat":
 			JOptionPane.showMessageDialog(frame,
-					"Los valores peso y altura solo aceptan números (1.1, 2.3, 44.4...). Por favor, introducelos correctamente",
+					"Los valores peso y altura solo aceptan numeros (1.1, 2.3, 44.4...). Por favor, introducelos correctamente",
 					"ERROR", JOptionPane.ERROR_MESSAGE);
 			break;
 

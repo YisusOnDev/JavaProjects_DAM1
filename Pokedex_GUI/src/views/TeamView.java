@@ -75,7 +75,7 @@ public class TeamView {
 	/**
 	 * @wbp.parser.constructor
 	 * 
-	 *                         Create the application with Admin check support
+	 * Create the application with Admin check support
 	 * 
 	 * @param currentUsername the currentUsername who logged in
 	 */
@@ -343,12 +343,12 @@ public class TeamView {
 		mntmSearch.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mousePressed(MouseEvent e) {
-				frame.dispose();
 				if (new TeamDAO().getTeamPokemons(currentUsername).size() == 6) {
 					JOptionPane.showMessageDialog(frame,
 							"Ya tienes 6 pokemon en tu equipo, antes de meter otro mas debes de liberar a uno.", "INFO",
 							JOptionPane.INFORMATION_MESSAGE);
 				} else {
+					frame.dispose();
 					new SearchView(currentUsername, allPokemons, true);
 				}
 			}
@@ -391,17 +391,19 @@ public class TeamView {
 					if (moteDialogResult == 0) {
 						puttedMote = JOptionPane.showInputDialog(frame, "Introduce el mote deseado:",
 								"Poner mote al pokemon", JOptionPane.INFORMATION_MESSAGE);
-
-						if (puttedMote.isBlank()) {
-							JOptionPane.showMessageDialog(frame, "Debes introducir un mote", "INFO",
-									JOptionPane.ERROR_MESSAGE);
-						} else {
-							teamPokemons.get(indexPokmeonList).setMote(puttedMote);
-							new TeamDAO().updateTeamPokemon(teamPokemons.get(indexPokmeonList));
-							JOptionPane.showMessageDialog(frame, "Pokemon actualizado.", "INFO",
-									JOptionPane.INFORMATION_MESSAGE);
-							showPokemon(indexPokmeonList);
+						if (puttedMote != null) {
+							if (puttedMote.isBlank()) {
+								JOptionPane.showMessageDialog(frame, "Debes introducir un mote", "INFO",
+										JOptionPane.ERROR_MESSAGE);
+							} else {
+								teamPokemons.get(indexPokmeonList).setMote(puttedMote);
+								new TeamDAO().updateTeamPokemon(teamPokemons.get(indexPokmeonList));
+								JOptionPane.showMessageDialog(frame, "Pokemon actualizado.", "INFO",
+										JOptionPane.INFORMATION_MESSAGE);
+								showPokemon(indexPokmeonList);
+							}
 						}
+						
 					}
 				} else {
 					JOptionPane.showMessageDialog(frame, "No tienes ningún pokemon en tu equipo aun.", "INFO",

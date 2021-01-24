@@ -276,7 +276,7 @@ public class PokemonView {
 			@Override
 			public void mousePressed(MouseEvent e) {
 				frame.dispose();
-				JOptionPane.showMessageDialog(frame, "You signed out", "INFO", JOptionPane.INFORMATION_MESSAGE);
+				JOptionPane.showMessageDialog(frame, "Has cerrado sesion", "INFO", JOptionPane.INFORMATION_MESSAGE);
 				new LoginView();
 			}
 
