@@ -264,7 +264,7 @@ public class AdminView {
 		frame.getContentPane().add(btnPokePrevious);
 
 		btnSignOut = new JButton("Cerrar sesi\u00F3n");
-		btnSignOut.setBounds(10, 452, 118, 23);
+		btnSignOut.setBounds(10, 439, 118, 23);
 		frame.getContentPane().add(btnSignOut);
 
 		lblPokeNum = new JLabel("N\u00FAmero:");
@@ -286,7 +286,7 @@ public class AdminView {
 		frame.getContentPane().add(lblPokeEdit);
 
 		btnExitAdmin = new JButton("Volver");
-		btnExitAdmin.setBounds(138, 452, 80, 23);
+		btnExitAdmin.setBounds(138, 439, 80, 23);
 		frame.getContentPane().add(btnExitAdmin);
 
 		pokeInsertPanel = new JPanel();
@@ -476,12 +476,64 @@ public class AdminView {
 
 		btnPokeDelete.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent e) {
-				if (new PokemonDAO().deleteCurrentPokemon(allPokemons.get(indexPokmeonList).getpId()) == true) {
-					allPokemons.remove(indexPokmeonList);
-				}
+				deletePokemonDialog();
 			}
 
 		});
+	}
+
+	private void deletePokemonDialog() {
+
+		String[] options = { "Borrar seleccionado", "Borrar por nombre", "Cancelar" };
+		int opc = JOptionPane.showOptionDialog(null, "¿Que deseas hacer?", "Selecciona una opcion",
+				JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, options, options[0]);
+
+		switch (opc) {
+		case 0:
+			if (new PokemonDAO().deleteCurrentPokemon(allPokemons.get(indexPokmeonList).getpId()) == true) {
+				allPokemons.remove(indexPokmeonList);
+				JOptionPane.showMessageDialog(frame, "Pokemon borrado correctamente.", "INFORMACION",
+						JOptionPane.INFORMATION_MESSAGE);
+			}
+			break;
+
+		case 1:
+			String pokeSearchName = JOptionPane.showInputDialog(frame, "Introduce el nombre COMPLETO del pokemon:",
+					"Borrado de pokemon por nombre", JOptionPane.INFORMATION_MESSAGE);
+
+			if (pokeSearchName != null) {
+				if (pokeSearchName.isBlank()) {
+					JOptionPane.showMessageDialog(frame, "Debes introducir el nombre.", "INFO",
+							JOptionPane.ERROR_MESSAGE);
+				} else {
+
+					if (JOptionPane.showConfirmDialog(null, "¿Estás seguro?") == 0) {
+						deletePokemonByName(pokeSearchName);
+					}
+				}
+			}
+			break;
+		}
+
+	}
+
+	private void deletePokemonByName(String pokeSearchName) {
+		boolean foundNDeleted = false;
+		for (Pokemon pokemon : allPokemons) {
+			if (pokemon.getName().toLowerCase().equals(pokeSearchName.toLowerCase())) {
+				new PokemonDAO().deletePokemonFromName(pokemon);
+				JOptionPane.showMessageDialog(frame, "Pokemon borrado correctamente", "INFO",
+						JOptionPane.INFORMATION_MESSAGE);
+				foundNDeleted = true;
+				break;
+			}
+		}
+
+		if (!foundNDeleted) {
+			JOptionPane.showMessageDialog(frame, "No existe ningun pokemon con ese nombre.", "INFO",
+					JOptionPane.INFORMATION_MESSAGE);
+		}
+
 	}
 
 	private void nextPokemon() {

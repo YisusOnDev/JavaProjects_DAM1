@@ -54,12 +54,11 @@ public class TeamView {
 	private JMenuItem mntmReturnPokedex;
 	private JMenuItem mntmSearch;
 	private JMenuItem mntmLogout;
-	private JButton btnReleasePokemon;
 	private JMenu mnActionsMenu;
 	private JMenuItem mntmReleasePokemon;
 	private JMenuItem mntmChangeMote;
 	private JMenuItem mntmChangeLvl;
-	
+
 	private String currentUsername;
 	private int indexPokmeonList = 0;
 	private ArrayList<Pokemon> allPokemons = new ArrayList<Pokemon>();
@@ -74,7 +73,7 @@ public class TeamView {
 	/**
 	 * @wbp.parser.constructor
 	 * 
-	 * Create the application with Admin check support
+	 *                         Create the application with Admin check support
 	 * 
 	 * @param currentUsername the currentUsername who logged in
 	 */
@@ -103,7 +102,7 @@ public class TeamView {
 	 */
 	private void initialize() {
 		frame = new JFrame();
-		frame.setBounds(100, 100, 615, 400);
+		frame.setBounds(100, 100, 615, 375);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		frame.setResizable(false);
@@ -113,8 +112,8 @@ public class TeamView {
 		if (!teamPokemons.isEmpty()) {
 			showPokemon(0);
 		} else {
-			JOptionPane.showMessageDialog(frame, "No tienes ningún pokemon en tu equipo aún. Deberías de añadir 1", "INFO",
-					JOptionPane.INFORMATION_MESSAGE);
+			JOptionPane.showMessageDialog(frame, "No tienes ningún pokemon en tu equipo aún. Deberías de añadir 1",
+					"INFO", JOptionPane.INFORMATION_MESSAGE);
 		}
 
 		frame.setVisible(true);
@@ -138,16 +137,16 @@ public class TeamView {
 
 		mntmLogout = new JMenuItem("Cerrar sesi\u00F3n");
 		mnOptionsMenu.add(mntmLogout);
-		
+
 		mnActionsMenu = new JMenu("Acciones");
 		menuBar.add(mnActionsMenu);
-		
+
 		mntmReleasePokemon = new JMenuItem("Liberar Pokemon");
 		mnActionsMenu.add(mntmReleasePokemon);
-		
+
 		mntmChangeLvl = new JMenuItem("Cambiar nivel");
 		mnActionsMenu.add(mntmChangeLvl);
-		
+
 		mntmChangeMote = new JMenuItem("Cambiar mote");
 		mnActionsMenu.add(mntmChangeMote);
 
@@ -268,10 +267,6 @@ public class TeamView {
 		lblPokeNum.setFont(new Font("Tahoma", Font.BOLD, 12));
 		lblPokeNum.setBounds(26, 244, 187, 28);
 		frame.getContentPane().add(lblPokeNum);
-		
-		btnReleasePokemon = new JButton("Liberar");
-		btnReleasePokemon.setBounds(495, 304, 89, 23);
-		frame.getContentPane().add(btnReleasePokemon);
 
 	}
 
@@ -344,17 +339,18 @@ public class TeamView {
 				new SearchView(currentUsername, allPokemons, true);
 			}
 		});
-		
-		btnReleasePokemon.addMouseListener(new MouseAdapter() {
+
+		mntmReleasePokemon.addMouseListener(new MouseAdapter() {
 			@Override
-			public void mouseClicked(MouseEvent e) {
+			public void mousePressed(MouseEvent e) {
 				if (!teamPokemons.isEmpty()) {
 					deleteCurrentPokemon();
 					teamPokemons = new TeamDAO().getTeamPokemons(currentUsername);
 					if (!teamPokemons.isEmpty()) {
 						showPokemon(0);
 					} else {
-						JOptionPane.showMessageDialog(frame, "Has eliminado el ultimo pokemon que tenias, tu equipo se ha cerrado.", "INFO",
+						JOptionPane.showMessageDialog(frame,
+								"Has eliminado el ultimo pokemon que tenias, tu equipo se ha cerrado.", "INFO",
 								JOptionPane.INFORMATION_MESSAGE);
 						frame.dispose();
 						new PokemonView(currentUsername);
@@ -367,8 +363,80 @@ public class TeamView {
 
 		});
 
+		mntmChangeMote.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mousePressed(MouseEvent e) {
+				if (!teamPokemons.isEmpty()) {
+					String puttedMote;
+
+					int moteDialogButton = JOptionPane.YES_NO_OPTION;
+					int moteDialogResult = JOptionPane.showConfirmDialog(frame, "¿Quieres ponerle un mote al pokemon?",
+							"Poner mote", moteDialogButton);
+
+					if (moteDialogResult == 0) {
+						puttedMote = JOptionPane.showInputDialog(frame, "Introduce el mote deseado:",
+								"Poner mote al pokemon", JOptionPane.INFORMATION_MESSAGE);
+
+						if (puttedMote.isBlank()) {
+							JOptionPane.showMessageDialog(frame, "Debes introducir un mote", "INFO",
+									JOptionPane.ERROR_MESSAGE);
+						} else {
+							teamPokemons.get(indexPokmeonList).setMote(puttedMote);
+							new TeamDAO().updateTeamPokemon(teamPokemons.get(indexPokmeonList));
+							JOptionPane.showMessageDialog(frame, "Pokemon actualizado.", "INFO",
+									JOptionPane.INFORMATION_MESSAGE);
+							showPokemon(indexPokmeonList);
+						}
+					}
+				} else {
+					JOptionPane.showMessageDialog(frame, "No tienes ningún pokemon en tu equipo aun.", "INFO",
+							JOptionPane.INFORMATION_MESSAGE);
+				}
+			}
+
+		});
+
+		mntmChangeLvl.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mousePressed(MouseEvent e) {
+				if (!teamPokemons.isEmpty()) {
+					int puttedLvl = 1;
+
+					int lvlDialogButton = JOptionPane.YES_NO_OPTION;
+					int lvlDialogResult = JOptionPane.showConfirmDialog(frame, "¿Quieres ponerle nivel al pokemon?",
+							"Poner nivel", lvlDialogButton);
+
+					if (lvlDialogResult == 0) {
+						String tempLvl = JOptionPane.showInputDialog(frame, "Introduce el nivel deseado:",
+								"Poner nivel al pokemon", JOptionPane.INFORMATION_MESSAGE);
+
+						if (!Utils.checkStringIsIntNumberOption(tempLvl, 1, 100)) {
+							JOptionPane.showMessageDialog(frame,
+									"El nivel debe ser un numero entre 1 y 100", "INFO",
+									JOptionPane.ERROR_MESSAGE);
+						} else {
+							puttedLvl = Integer.parseInt(tempLvl);
+							teamPokemons.get(indexPokmeonList).setLvl(puttedLvl);
+							new TeamDAO().updateTeamPokemon(teamPokemons.get(indexPokmeonList));
+							JOptionPane.showMessageDialog(frame, "Pokemon actualizado.", "INFO",
+									JOptionPane.INFORMATION_MESSAGE);
+							showPokemon(indexPokmeonList);
+						}
+
+					} else {
+
+					}
+
+				} else {
+					JOptionPane.showMessageDialog(frame, "No tienes ningún pokemon en tu equipo aun.", "INFO",
+							JOptionPane.INFORMATION_MESSAGE);
+				}
+			}
+
+		});
+
 	}
-	
+
 	private void deleteCurrentPokemon() {
 		if (new TeamDAO().deleteTeamPokemon(teamPokemons.get(indexPokmeonList))) {
 			JOptionPane.showMessageDialog(frame, "Has liberado correctamente al pokemon.", "INFO",

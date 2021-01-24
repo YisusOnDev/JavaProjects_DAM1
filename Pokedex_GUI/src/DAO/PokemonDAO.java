@@ -264,4 +264,29 @@ public class PokemonDAO {
 
 		return false;
 	}
+	
+	/**
+	 * Method that deletes all info of a pokemon
+	 * 
+	 * @param getpId the pokedex id of the pokemon
+	 * @return true if done properly, false if fails
+	 */
+	public boolean deletePokemonFromName(Pokemon p) {
+		deleteCurrentTypes(p.getpId());
+
+		try {
+			Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/bd_prog1", "root", "");
+			String query = "DELETE FROM pokemon WHERE Numero =" + p.getpId();
+			PreparedStatement preparedStmt = conn.prepareStatement(query);
+			preparedStmt.execute();
+			conn.close();
+
+			return true;
+
+		} catch (Exception e) {
+			System.err.println(e.getMessage());
+		}
+
+		return false;
+	}
 }

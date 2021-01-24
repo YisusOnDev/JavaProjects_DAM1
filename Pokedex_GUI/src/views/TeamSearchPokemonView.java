@@ -264,9 +264,6 @@ public class TeamSearchPokemonView {
 							JOptionPane.INFORMATION_MESSAGE);
 				} else {
 					addPokemonToTeam();
-					JOptionPane.showMessageDialog(frame,
-							"", "INFO",
-							JOptionPane.INFORMATION_MESSAGE);
 				}
 			}
 
@@ -324,10 +321,14 @@ public class TeamSearchPokemonView {
 
 			puttedLvl = Integer.parseInt(tempLvl);
 		}
-		System.out.println(searchedPokemons.get(indexPokmeonList).getpId());
+		
 		PokemonTeam tP = new PokemonTeam(currentUsername, searchedPokemons.get(indexPokmeonList).getpId(), puttedLvl,
 				puttedMote, searchedPokemons.get(indexPokmeonList));
 		new TeamDAO().addTeamPokemon(tP);
+		
+		JOptionPane.showMessageDialog(frame,
+				"Pokemon insertado en tu equipo correctamente", "INFO",
+				JOptionPane.INFORMATION_MESSAGE);
 
 	}
 
