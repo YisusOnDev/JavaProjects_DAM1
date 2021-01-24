@@ -83,4 +83,19 @@ public class Utils {
 			return false;
 		}
 	}
+
+	public static boolean checkStringIsIntNumberOption(String n, int min, int max) {
+		int number = 0;
+		try {
+			number = Integer.parseInt(n);
+		} catch (NumberFormatException e) {
+			return false;
+		}
+		
+		if (number >= min && number <= max) {
+			return true;
+		} else {
+			return false;
+		}
+	}
 }

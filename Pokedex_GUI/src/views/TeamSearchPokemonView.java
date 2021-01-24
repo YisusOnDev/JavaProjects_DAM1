@@ -12,26 +12,21 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JMenu;
-import javax.swing.JMenuBar;
-import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.SwingConstants;
 import javax.swing.border.LineBorder;
 
-import DAO.PokemonDAO;
 import DAO.TeamDAO;
-import DAO.UserDAO;
 import models.Pokemon;
 import models.PokemonTeam;
 import models.Utils;
 
-public class PokemonView {
+public class TeamSearchPokemonView {
 
 	private JFrame frame;
-	private JLabel lblPokedex;
+	private JLabel lblSearched;
 	private JLabel label;
 	private JLabel lblPreviewImage;
 	private JPanel pokeInfoPanel;
@@ -43,6 +38,7 @@ public class PokemonView {
 	private JLabel lblPokeAbility;
 	private JButton btnPokeNext;
 	private JButton btnPokePrevious;
+	private JButton btnSignOut;
 	private JLabel lblPokeNameText;
 	private JLabel lblPokeTypesText;
 	private JLabel lblPokeAbilityText;
@@ -51,46 +47,40 @@ public class PokemonView {
 	private JTextArea lblPokeDescriptionText;
 	private JButton btnPlaySoundButton;
 	private JLabel lblPokeNum;
-	private JMenuBar menuBar;
-	private JMenu mnMainMenu;
-	private JMenuItem mntmAdminPanel;
-	private JMenuItem mntmSearchPokemon;
-	private JMenuItem mntmLogout;
-	private JMenu mnNewMenu2;
-	private JMenuItem mntmCreateTeam;
-
-	private String currentUsername;
-
-	private int indexPokmeonList = 0;
-	private ArrayList<Pokemon> allPokemons;
-	private ArrayList<PokemonTeam> teamPokemons;
+	private JButton btnSearch;
 	private JLabel lblPokeCategoryText;
 	private JLabel lblPokeCategory;
-	private JMenuItem mntmManageTeam;
+
+	private String currentUsername;
+	private JFrame parentFrame;
+	private int indexPokmeonList = 0;
+	private ArrayList<Pokemon> searchedPokemons;
+	private JButton btnAdd2Team;
 
 	/**
 	 * Create the application with Admin check support
 	 * 
-	 * @param currentUsername the currentUsername who logged in
+	 * @param searchFrame      the parent frame
+	 * @param currentUsername  the currentUsername who logged in
+	 * @param filteredPokemons the arraylist with all
 	 */
-	public PokemonView(String username) {
+	public TeamSearchPokemonView(JFrame searchFrame, String username, ArrayList<Pokemon> filteredPokemons) {
 		currentUsername = username;
+		parentFrame = searchFrame;
+		searchedPokemons = filteredPokemons;
 		initialize();
 	}
 
 	/**
 	 * Initialize the contents of the frame.
 	 */
+
 	private void initialize() {
-		allPokemons = new ArrayList<Pokemon>();
-		teamPokemons = new ArrayList<PokemonTeam>();
 		frame = new JFrame();
-		frame.setBounds(100, 100, 580, 390);
+		frame.setBounds(100, 100, 580, 445);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		frame.setResizable(false);
-
-		setDBPokemons();
 		setUIComponents();
 		setListeners();
 		showPokemon(0);
@@ -99,61 +89,27 @@ public class PokemonView {
 	}
 
 	/**
-	 * Get pokemon' ArrayList from db and sets to local ArrayList variable.
-	 */
-	private void setDBPokemons() {
-		allPokemons = new PokemonDAO().getAllPokemons();
-		teamPokemons = new TeamDAO().getTeamPokemons(currentUsername);
-	}
-
-	/**
 	 * Method that sets all UI Components
 	 */
 	private void setUIComponents() {
-		menuBar = new JMenuBar();
-		frame.setJMenuBar(menuBar);
-
-		mnMainMenu = new JMenu("Opciones");
-		menuBar.add(mnMainMenu);
-
-		mntmAdminPanel = new JMenuItem("Panel Admin");
-		mnMainMenu.add(mntmAdminPanel);
-
-		mntmSearchPokemon = new JMenuItem("Buscar Pokemon");
-		mnMainMenu.add(mntmSearchPokemon);
-
-		mntmLogout = new JMenuItem("Cerrar sesi\u00F3n");
-		mnMainMenu.add(mntmLogout);
-
-		mnNewMenu2 = new JMenu("Equipo");
-		menuBar.add(mnNewMenu2);
-
-		mntmCreateTeam = new JMenuItem("Crear equipo");
-		mnNewMenu2.add(mntmCreateTeam);
-		mntmCreateTeam.setVisible(false);
-
-		mntmManageTeam = new JMenuItem("Gestionar equipo");
-		mnNewMenu2.add(mntmManageTeam);
-		mntmManageTeam.setVisible(false);
-
-		lblPokedex = new JLabel("Pokedex");
-		lblPokedex.setHorizontalAlignment(SwingConstants.CENTER);
-		lblPokedex.setForeground(Color.RED);
-		lblPokedex.setFont(new Font("Leelawadee", Font.BOLD, 30));
-		lblPokedex.setBounds(171, 3, 192, 46);
-		frame.getContentPane().add(lblPokedex);
+		lblSearched = new JLabel("Resultado de la busqueda");
+		lblSearched.setHorizontalAlignment(SwingConstants.CENTER);
+		lblSearched.setForeground(Color.RED);
+		lblSearched.setFont(new Font("Leelawadee", Font.BOLD, 30));
+		lblSearched.setBounds(21, 11, 407, 46);
+		frame.getContentPane().add(lblSearched);
 
 		label = new JLabel();
 		label.setBounds(171, 43, -153, 173);
 		frame.getContentPane().add(label);
 
 		lblPreviewImage = new JLabel("");
-		lblPreviewImage.setBounds(10, 51, 203, 191);
+		lblPreviewImage.setBounds(10, 60, 203, 191);
 		frame.getContentPane().add(lblPreviewImage);
 
 		pokeInfoPanel = new JPanel();
 		pokeInfoPanel.setBorder(new LineBorder(new Color(0, 255, 255), 5, true));
-		pokeInfoPanel.setBounds(223, 50, 319, 252);
+		pokeInfoPanel.setBounds(223, 60, 319, 304);
 		frame.getContentPane().add(pokeInfoPanel);
 		pokeInfoPanel.setLayout(null);
 
@@ -225,30 +181,30 @@ public class PokemonView {
 		pokeInfoPanel.add(lblPokeCategory);
 
 		btnPokeNext = new JButton("Siguiente");
-		btnPokeNext.setBounds(124, 279, 89, 23);
+		btnPokeNext.setBounds(124, 288, 89, 23);
 		frame.getContentPane().add(btnPokeNext);
 
 		btnPokePrevious = new JButton("Anterior");
-		btnPokePrevious.setBounds(26, 279, 89, 23);
+		btnPokePrevious.setBounds(26, 288, 89, 23);
 		frame.getContentPane().add(btnPokePrevious);
+
+		btnSignOut = new JButton("Cerrar sesi\u00F3n");
+		btnSignOut.setBounds(412, 375, 130, 23);
+		frame.getContentPane().add(btnSignOut);
 
 		lblPokeNum = new JLabel("N\u00FAmero:");
 		lblPokeNum.setHorizontalAlignment(SwingConstants.CENTER);
 		lblPokeNum.setFont(new Font("Tahoma", Font.BOLD, 12));
-		lblPokeNum.setBounds(26, 244, 187, 28);
+		lblPokeNum.setBounds(26, 253, 187, 28);
 		frame.getContentPane().add(lblPokeNum);
 
-		if (!new UserDAO().havePermission(currentUsername)) {
-			mntmAdminPanel.setVisible(false);
-		}
+		btnSearch = new JButton("Volver");
+		btnSearch.setBounds(58, 322, 128, 23);
+		frame.getContentPane().add(btnSearch);
 
-		if (userHasTeam()) {
-			mntmManageTeam.setVisible(true);
-			mntmCreateTeam.setVisible(false);
-		} else {
-			mntmManageTeam.setVisible(false);
-			mntmCreateTeam.setVisible(true);
-		}
+		btnAdd2Team = new JButton("A\u00F1adir al equipo");
+		btnAdd2Team.setBounds(272, 375, 130, 23);
+		frame.getContentPane().add(btnAdd2Team);
 
 	}
 
@@ -272,9 +228,9 @@ public class PokemonView {
 
 		});
 
-		mntmLogout.addMouseListener(new MouseAdapter() {
+		btnSignOut.addMouseListener(new MouseAdapter() {
 			@Override
-			public void mousePressed(MouseEvent e) {
+			public void mouseClicked(MouseEvent e) {
 				frame.dispose();
 				JOptionPane.showMessageDialog(frame, "You signed out", "INFO", JOptionPane.INFORMATION_MESSAGE);
 				new LoginView();
@@ -285,47 +241,41 @@ public class PokemonView {
 		btnPlaySoundButton.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				Utils.playSound(allPokemons.get(indexPokmeonList).getSoundURL());
+				Utils.playSound(searchedPokemons.get(indexPokmeonList).getSoundURL());
 			}
 
 		});
 
-		mntmAdminPanel.addMouseListener(new MouseAdapter() {
+		btnSearch.addMouseListener(new MouseAdapter() {
 			@Override
-			public void mousePressed(MouseEvent e) {
+			public void mouseClicked(MouseEvent e) {
 				frame.dispose();
-				new AdminView(currentUsername);
+				parentFrame.setVisible(true);
 			}
+
 		});
 
-		mntmSearchPokemon.addMouseListener(new MouseAdapter() {
+		btnAdd2Team.addMouseListener(new MouseAdapter() {
 			@Override
-			public void mousePressed(MouseEvent e) {
-				frame.dispose();
-				new SearchView(currentUsername, allPokemons, false);
+			public void mouseClicked(MouseEvent e) {
+				if (new TeamDAO().getTeamPokemons(currentUsername).size() == 6) {
+					JOptionPane.showMessageDialog(frame,
+							"Ya tienes 6 pokemon en tu equipo, antes de meter otro mas debes de liberar a uno.", "INFO",
+							JOptionPane.INFORMATION_MESSAGE);
+				} else {
+					addPokemonToTeam();
+					JOptionPane.showMessageDialog(frame,
+							"", "INFO",
+							JOptionPane.INFORMATION_MESSAGE);
+				}
 			}
 
 		});
 
-		mntmCreateTeam.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mousePressed(MouseEvent e) {
-				frame.dispose();
-				new TeamView(currentUsername, allPokemons, teamPokemons);
-			}
-		});
-
-		mntmManageTeam.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mousePressed(MouseEvent e) {
-				frame.dispose();
-				new TeamView(currentUsername, allPokemons, teamPokemons);
-			}
-		});
 	}
 
 	private void nextPokemon() {
-		if (indexPokmeonList < allPokemons.size() - 1) {
+		if (indexPokmeonList < searchedPokemons.size() - 1) {
 			showPokemon(++indexPokmeonList);
 		}
 
@@ -338,20 +288,59 @@ public class PokemonView {
 
 	}
 
-	private boolean userHasTeam() {
-		return !teamPokemons.isEmpty();
+	private void addPokemonToTeam() {
+		String puttedMote = "Sin mote";
+		int puttedLvl = 1;
+
+		int moteDialogButton = JOptionPane.YES_NO_OPTION;
+		int moteDialogResult = JOptionPane.showConfirmDialog(frame, "¿Quieres ponerle un mote al pokemon?",
+				"Poner mote", moteDialogButton);
+
+		if (moteDialogResult == 0) {
+			puttedMote = JOptionPane.showInputDialog(frame, "Introduce el mote deseado:", "Poner mote al pokemon",
+					JOptionPane.INFORMATION_MESSAGE);
+			while (puttedMote.isBlank()) {
+				JOptionPane.showMessageDialog(frame, "Por favor, introduce un mote para el pokemon", "INFO",
+						JOptionPane.ERROR_MESSAGE);
+				puttedMote = JOptionPane.showInputDialog(frame, "Introduce el mote deseado:", "Poner mote al pokemon",
+						JOptionPane.INFORMATION_MESSAGE);
+			}
+		}
+
+		int lvlDialogButton = JOptionPane.YES_NO_OPTION;
+		int lvlDialogResult = JOptionPane.showConfirmDialog(frame, "¿Quieres ponerle nivel al pokemon?", "Poner nivel",
+				lvlDialogButton);
+
+		if (lvlDialogResult == 0) {
+			String tempLvl = JOptionPane.showInputDialog(frame, "Introduce el nivel deseado:", "Poner nivel al pokemon",
+					JOptionPane.INFORMATION_MESSAGE);
+
+			while (!Utils.checkStringIsIntNumberOption(tempLvl, 1, 100)) {
+				JOptionPane.showMessageDialog(frame, "Por favor, introduce el nivel (numero, 1 minimo, 100 maximo)",
+						"INFO", JOptionPane.ERROR_MESSAGE);
+				tempLvl = JOptionPane.showInputDialog(frame, "Introduce el nivel deseado:", "Poner nivel al pokemon",
+						JOptionPane.INFORMATION_MESSAGE);
+			}
+
+			puttedLvl = Integer.parseInt(tempLvl);
+		}
+		System.out.println(searchedPokemons.get(indexPokmeonList).getpId());
+		PokemonTeam tP = new PokemonTeam(currentUsername, searchedPokemons.get(indexPokmeonList).getpId(), puttedLvl,
+				puttedMote, searchedPokemons.get(indexPokmeonList));
+		new TeamDAO().addTeamPokemon(tP);
+
 	}
 
 	private void showPokemon(int index) {
-		String currentNumber = String.valueOf(allPokemons.get(index).getpId());
-		String currentName = allPokemons.get(index).getName();
-		String currentHeight = String.valueOf(allPokemons.get(index).getHeight()) + "m";
-		String currentWeight = String.valueOf(allPokemons.get(index).getWeight()) + "kg";
-		String currentDescription = allPokemons.get(index).getDescription();
-		String currentAbility = allPokemons.get(index).getAbility();
-		String currentImageUrl = allPokemons.get(index).getImageURL();
-		String currentTypes = allPokemons.get(index).getStringTypes();
-		String currentCategory = allPokemons.get(index).getCategory();
+		String currentNumber = String.valueOf(searchedPokemons.get(index).getpId());
+		String currentName = searchedPokemons.get(index).getName();
+		String currentHeight = String.valueOf(searchedPokemons.get(index).getHeight()) + "m";
+		String currentWeight = String.valueOf(searchedPokemons.get(index).getWeight()) + "kg";
+		String currentDescription = searchedPokemons.get(index).getDescription();
+		String currentAbility = searchedPokemons.get(index).getAbility();
+		String currentImageUrl = searchedPokemons.get(index).getImageURL();
+		String currentTypes = searchedPokemons.get(index).getStringTypes();
+		String currentCategory = searchedPokemons.get(index).getCategory();
 
 		lblPokeNum.setText("Pokedex ID: " + currentNumber);
 		lblPokeNameText.setText(currentName);

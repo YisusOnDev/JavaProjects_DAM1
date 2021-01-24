@@ -43,13 +43,15 @@ public class SearchView {
 	private ArrayList<Pokemon> allPokemons;
 	private LinkedHashMap<String, Integer> availableTypes = new PokemonDAO().getAvailableCategories();
 	private JList<String> listTypes;
-
+	private boolean parentIsTeam = false;
+	
 	/**
 	 * Create the application.
 	 */
-	public SearchView(String username, ArrayList<Pokemon> pokeList) {
+	public SearchView(String username, ArrayList<Pokemon> pokeList, boolean parentIsTeamFlag) {
 		currentUsername = username;
 		allPokemons = pokeList;
+		parentIsTeam = parentIsTeamFlag;
 		initialize();
 	}
 
@@ -152,7 +154,12 @@ public class SearchView {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				frame.dispose();
-				new PokemonView(currentUsername);
+				if (parentIsTeam) {
+					new TeamView(currentUsername, allPokemons);
+				} else {
+					new PokemonView(currentUsername);
+				}
+				
 			}
 		});
 
@@ -209,7 +216,7 @@ public class SearchView {
 				}
 			}
 			if (chckbxName.isSelected()) {
-				if (!p.getName().toLowerCase().equals(txtName.getText().toLowerCase())) {
+				if (!p.getName().toLowerCase().contains(txtName.getText().toLowerCase())) {
 					canContinue = true;
 				}
 			}
@@ -234,7 +241,12 @@ public class SearchView {
 
 		if (!filteredPokemons.isEmpty()) {
 			frame.setVisible(false);
-			new SearchedPokemonView(frame, currentUsername, filteredPokemons);
+			if(parentIsTeam) {
+				new TeamSearchPokemonView(frame, currentUsername, filteredPokemons);
+			} else {
+				new SearchedPokemonView(frame, currentUsername, filteredPokemons);
+			}
+			
 		} else {
 			JOptionPane.showMessageDialog(frame, "No results found", "ERROR", JOptionPane.ERROR_MESSAGE);
 		}

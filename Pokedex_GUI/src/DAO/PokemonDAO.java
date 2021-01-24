@@ -45,6 +45,31 @@ public class PokemonDAO {
 		return null;
 	}
 
+	public Pokemon getPokemonFromId(int id) {
+
+		try (Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/bd_prog1", "root", "");
+				Statement stmt = conn.createStatement();
+				ResultSet rs = stmt.executeQuery("SELECT * FROM pokemon WHERE Numero = '" + id + "'")) {
+
+			// loop through the result set
+			if (rs.next()) {
+				// create a pokemon and add to the arraylist for every result set
+				Pokemon pokemon = new Pokemon(rs.getInt("Numero"), rs.getString("Nombre"), rs.getString("Descripcion"),
+						rs.getFloat("Altura"), rs.getFloat("Peso"), rs.getString("Habilidad"),
+						rs.getString("Categoria"), rs.getString("ImagenURL"), rs.getString("SonidoURL"));
+				
+				return pokemon;
+				
+			}
+
+		} catch (SQLException ex) {
+			System.out.println(ex.getMessage());
+		}
+
+		// If SQL check failed
+		return null;
+	}
+
 	/**
 	 * Method to get categories of a pokemon by his name
 	 * 
