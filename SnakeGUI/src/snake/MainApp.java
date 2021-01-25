@@ -50,7 +50,8 @@ public class MainApp {
 		tablero.setBackground(new java.awt.Color(250, 240, 200));
 		tablero.setSize(600, 400);
 
-		// Le damos un enlace al tablero para que sepa quién es su frame (ventana) y así
+		// Le damos un enlace al tablero para que sepa quién es su frame (ventana) y
+		// así
 		// sepa
 		// quién contiene la serpiente y quién controla el juego...
 		tablero.setSnakeFrame(frame);
