@@ -8,77 +8,65 @@ import java.awt.RenderingHints;
 import javax.swing.JPanel;
 
 public class Square {
-	//Constantes. Son las direcciones en las que nuestro cuadrado puede moverse
-    static public final int ARRIBA = 1;
-    static public final int ABAJO = 2;
-    static public final int IZQ = 3;
-    static public final int DER = 4;
+	static public final int Up = 1;
+	static public final int Down = 2;
+	static public final int Left = 3;
+	static public final int Right = 4;
 
+	private int posX;
+	private int posY;
+	private int side;
+	private int squareColor;
 
-    //Atributos -- Estado
+	public Square(int pX, int pY, int l, int cc) {
+		posX = pX;
+		posY = pY;
+		side = l;
+		squareColor = cc;
+	}
 
-    //Necesitamos la posición del cuadrado marcado por su esquina superior izq.
-    private int posX;
-    private int posY;
-    
-    //También necesitamos el lado del cuadrado
-    private int lado;
-    
-    //Ahora el color
-    private int colorCuadrado;
+	// move square(s) (up, right, down or left)
+	public void moveSide(int iDirection) {
+		switch (iDirection) {
+		case Square.Up:
+			posY -= side;
+			break;
+		case Square.Down:
+			posY += side;
+			break;
+		case Square.Left:
+			posX -= side;
+			break;
+		case Square.Right:
+			posX += side;
 
+		}
+	}
 
-    //comportamiento
+	// check if a square if above another
+	public boolean checkIsTouchingItself(Square otroC) {
+		return (otroC.getX() == posX && otroC.getY() == posY);
+	}
 
-    //creación
-    public Square(int pX,int pY,int l, int cc) {
-        posX = pX;
-        posY = pY;
-        lado = l;
-        colorCuadrado = cc;
-    }
+	public int getX() {
+		return posX;
+	}
 
-    //un cuadrado se mueve arriba, abajo, derecha e izquierda
-    public void moverse(int iDireccion) {
-        switch (iDireccion) {
-            case Square.ARRIBA: posY -= lado;   // 1 es arriba
-                    break;
-            case Square.ABAJO: posY += lado;   // 2 es abajo
-                    break;
-            case Square.IZQ: posX -= lado;   // 3 es izquierda
-                    break;
-            case Square.DER: posX += lado;   // 4 es derecha
+	public int getY() {
+		return posY;
+	}
 
-        }
-    }
+	public int getLado() {
+		return side;
+	}
 
-    //un cuadrado puede estar colisionando con otro
-    public boolean estaEncimaDe(Square otroC) {
-    	//en nuestro caso, sólo comprobamos la esquina superior izq 
-    	//almacenada en las posiciones X e Y. No hay otra posibilidad.
-        return (otroC.getX() == posX && otroC.getY() == posY);
-    }
+	public int getColor() {
+		return squareColor;
+	}
 
-    //Métodos de obtención de datos
-    public int getX(){
-        return posX;
-    }
-    public int getY(){
-        return posY;
-    }
-    public int getLado() {return lado;}
-    
-    public int getColor() {
-    	return colorCuadrado;
-    }
-
-    //Un cuadrado tiene que saber pintarse
-    public void pintarse(Graphics2D g) {
-        
-    	g.setColor(new Color(colorCuadrado));
-    	//g.drawRect(posX, posY, lado, lado);
-    	g.fillRect(posX, posY, lado, lado);
-		//g.fillOval(posX, posY, lado, lado);
-		
-    }
+	// paint square "logic"
+	public void paint(Graphics2D g) {
+		g.setColor(new Color(squareColor));
+		g.fillRect(posX, posY, side, side);
+	}
 }
