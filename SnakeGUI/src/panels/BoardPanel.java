@@ -29,6 +29,7 @@ public class BoardPanel extends JPanel {
 
 			// get the snake and print
 			snakeFrame.getSnake().paint(g2d);
+			snakeFrame.getApple().paint(g2d);
 		}
 	}
 }

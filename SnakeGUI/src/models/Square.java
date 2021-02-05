@@ -44,7 +44,7 @@ public class Square {
 	}
 
 	// check if a square if above another
-	public boolean checkIsTouchingItself(Square otroC) {
+	public boolean checkIsTouchingSquare(Square otroC) {
 		return (otroC.getX() == posX && otroC.getY() == posY);
 	}
 

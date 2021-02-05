@@ -19,26 +19,55 @@ public class Snake {
 		squareList.add(new Square(60, 60, 20, (int) (Math.random() * 16000000)));
 
 		// make snake move to down
-		iDirection = Square.Down;
+		int tempDirection = (int) (Math.random() * 4) + 1;
+
+		iDirection = tempDirection;
 
 	}
 
-	// Moverse. Una serpiente sabe moverse
-	public void moveSnake() {
+	// snake movement
+	public void moveSnake(int sHeight, int sWidht) {
+		Square oldSnakeHead;
+		oldSnakeHead = squareList.get(0);
 
-		Square nuevaCabeza;
-		Square antiguaCabeza;
+		int newHeadX = oldSnakeHead.getX();
+		int newHeadY = oldSnakeHead.getY();
 
-		// Primero cogemos la cabeza y la duplicamos
-		antiguaCabeza = squareList.get(0);
-		nuevaCabeza = new Square(antiguaCabeza.getX(), antiguaCabeza.getY(), antiguaCabeza.getLado(),
-				antiguaCabeza.getColor());
+		switch (iDirection) {
+		case (Square.Down):
+			if (oldSnakeHead.getY() >= sHeight) {
+				newHeadY = -20;
+			}
+
+			break;
+		case (Square.Up):
+			if (oldSnakeHead.getY() <= 0) {
+				newHeadY = sHeight;
+			}
+
+			break;
+
+		case (Square.Left):
+			if (oldSnakeHead.getX() <= 0) {
+				newHeadX = sWidht;
+			}
+			break;
+
+		case (Square.Right):
+			if (oldSnakeHead.getX() >= sWidht) {
+				newHeadX = -20;
+			}
+			break;
+		}
+
+		Square newSnakeHead;
+		newSnakeHead = new Square(newHeadX, newHeadY, oldSnakeHead.getLado(), oldSnakeHead.getColor());
 
 		// movemos la cabeza a su nueva posición
-		nuevaCabeza.moveSide(iDirection);
+		newSnakeHead.moveSide(iDirection);
 
 		// la añadimos a la lista
-		squareList.add(0, nuevaCabeza);
+		squareList.add(0, newSnakeHead);
 
 		// borramos el último cuadrado por la cola (pop del basic)
 		squareList.remove(squareList.size() - 1);
@@ -62,10 +91,11 @@ public class Snake {
 	}
 
 	// check if snake "dead" (hitted itself or got out of game area
-	public boolean isDead(int iHeight, int iWeight) {
+	public boolean isDead(int iHeight, int iWidth) {
+
 		boolean result;
 
-		result = (isTouchingItSelf() || isOutOfGameArea(iHeight, iWeight));
+		result = isTouchingItSelf();
 
 		return result;
 	}
@@ -78,23 +108,24 @@ public class Snake {
 		head = squareList.get(0);
 
 		for (iCounter = 1; iCounter < squareList.size(); iCounter++) {
-			if (squareList.get(iCounter).checkIsTouchingItself(head))
+			if (squareList.get(iCounter).checkIsTouchingSquare(head))
 				return true;
 		}
 
 		return false;
 	}
 
-	// check if we get out of game focus (window area)
-	private boolean isOutOfGameArea(int iHeight, int iWeight) {
-		// Use the head square of the snake as "base"
-		Square snakeHead = squareList.get(0);
+	public boolean isOverlappingApple(Square sq) {
+		for (int i = 0; i < squareList.size(); i++) {
+			if (squareList.get(i).checkIsTouchingSquare(sq)) {
+				return true;
+			}
+		}
+		return false;
 
-		return (snakeHead.getX() < 0 || snakeHead.getX() > iWeight || snakeHead.getY() < 0
-				|| snakeHead.getY() > iHeight);
 	}
 
-	// la serpiente también sabe pintarse
+	// paint the snake itself
 	public void paint(Graphics2D g) {
 		int iCounter;
 		for (iCounter = 0; iCounter < squareList.size(); iCounter++) {
@@ -135,6 +166,10 @@ public class Snake {
 	public int getPoints() {
 		// points are just the snake size
 		return squareList.size();
+	}
+
+	public Square getSnakeHead() {
+		return squareList.get(0);
 	}
 
 }

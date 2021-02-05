@@ -2,6 +2,7 @@ package views;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Graphics2D;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
@@ -14,6 +15,7 @@ import javax.swing.JPanel;
 
 import models.KeyboardController;
 import models.Snake;
+import models.Square;
 import panels.BoardPanel;
 
 public class GameView extends JFrame {
@@ -21,6 +23,7 @@ public class GameView extends JFrame {
 	private static final long serialVersionUID = -6786273410349931728L;
 
 	private Snake snake;
+	private Square apple;
 	private boolean playing;
 	private boolean inPauseMenu;
 	private boolean showEndMessage;
@@ -36,10 +39,21 @@ public class GameView extends JFrame {
 	private JButton pause;
 	private KeyboardController myController;
 
-	private boolean hackEnabled = true; // enable or disable godmode (never RIP)
+	private boolean hackEnabled = false; // enable or disable godmode (never RIP)
+
+	private int mapHeight;
+	private int mapWidth;
+
+	final int easyGM = 1;
+	final int normalGM = 2;
+	final int hardGM = 4;
+	final int hardcoreGM = 20;
+	private int selectedGm;
 
 	public GameView() {
+		selectMapSize();
 		snake = new Snake();
+		apple = generateNewApple();
 		playing = false;
 		showEndMessage = false;
 		showing = false;
@@ -55,14 +69,16 @@ public class GameView extends JFrame {
 	}
 
 	private void setUIComponents() {
-		this.setSize(600, 600);
+		this.setSize(mapHeight, mapWidth);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		this.setResizable(false);
 
 		mainPanel = new JPanel(new BorderLayout());
 
 		board = new BoardPanel();
 		board.setBorder(BorderFactory.createLineBorder(Color.black));
-		board.setBackground(new java.awt.Color(250, 240, 200));
+		board.setBackground(new java.awt.Color((int) (Math.random() * 255), (int) (Math.random() * 255),
+				(int) (Math.random() * 255)));
 		board.setSize(600, 400);
 		board.setSnakeFrame(this);
 
@@ -128,6 +144,10 @@ public class GameView extends JFrame {
 		return snake;
 	}
 
+	public Square getApple() {
+		return apple;
+	}
+
 	// change the position where the snake is going
 	public void changeSnakeDirection(int key) {
 		snake.changeDirection(key);
@@ -154,16 +174,47 @@ public class GameView extends JFrame {
 	// if is playing trigger snake movement.
 	private void moveTriggered() {
 		if (playing && !inPauseMenu)
-			snake.moveSnake();
+			snake.moveSnake(board.getHeight(), board.getWidth());
 	}
 
 	// Start a new game. (reset all values)
 	private void startGameAgain() {
 		snake = new Snake();
+		apple = generateNewApple();
 		playing = true;
 		showEndMessage = false;
 		showing = false;
 		inPauseMenu = false;
+		board.setBackground(new java.awt.Color((int) (Math.random() * 255), (int) (Math.random() * 255),
+				(int) (Math.random() * 255)));
+	}
+
+	private Square generateNewApple() {
+		int x = ((int) (Math.random() * (mapWidth / 20)) * 20);
+		int y = ((int) (Math.random() * (mapHeight / 20)) * 20);
+		int color = (int) (Math.random() * 16000000);
+		// new apples can't be eated some times...
+		while (x < 20 || y < 20 || x == 0 || y == 0 || x > 250 || y > 250) {
+			System.out.println("SCORRO");
+			x = ((int) (Math.random() * (mapWidth / 20)) * 20);
+			y = ((int) (Math.random() * (mapHeight / 20)) * 20);
+		}
+		
+		System.out.println(x + " - " + y + " - " + color);
+		Square apple = new Square(x, y, 20, color);
+
+		// Still infinite looping into this...
+		while (snake.isOverlappingApple(apple)) {
+			System.out.println("Checking is overlapping");
+			while (x < 20 || y < 20 || x == 0 || y == 0) {
+				System.out.println("SCORRO 2");
+				x = ((int) (Math.random() * (mapWidth / 20)) * 20);
+				y = ((int) (Math.random() * (mapHeight / 20)) * 20);
+			}
+			apple = new Square(x, y, 20, color);
+		}
+
+		return apple;
 	}
 
 	// check if already dead or is in pause menu
@@ -196,23 +247,79 @@ public class GameView extends JFrame {
 		board.requestFocus();
 	}
 
+	private void selectMapSize() {
+		String[] mapSizes = { "Pequeño", "Mediano", "Grande" };
+
+		Object selected = JOptionPane.showInputDialog(null, "¿Que tamaño de mapa quieres jugar?", "Seleccion de mapas",
+				JOptionPane.DEFAULT_OPTION, null, mapSizes, "0");
+
+		if (selected != null) {
+			String selectedString = selected.toString();
+
+			if (selectedString.equals("Pequeño")) {
+				mapHeight = 400;
+				mapWidth = 400;
+			} else if (selectedString.equals("Mediano")) {
+				mapHeight = 600;
+				mapWidth = 600;
+			} else if (selectedString.equals("Grande")) {
+				mapHeight = 800;
+				mapWidth = 800;
+			}
+		} else {
+			mapHeight = 400;
+			mapWidth = 400;
+		}
+	}
+
+	private void selectGamemode() {
+		String[] gameModes = { "Facil", "Intermedio", "Dificil", "Imposible" };
+
+		Object selected = JOptionPane.showInputDialog(null, "¿En qué dificultad quieres jugar?",
+				"Seleccion de dificultad", JOptionPane.DEFAULT_OPTION, null, gameModes, "0");
+
+		if (selected != null) {
+			String selectedString = selected.toString();
+
+			if (selectedString.equals("Facil")) {
+				selectedGm = easyGM;
+			} else if (selectedString.equals("Intermedio")) {
+				selectedGm = normalGM;
+			} else if (selectedString.equals("Dificil")) {
+				selectedGm = hardGM;
+			} else {
+				selectedGm = hardcoreGM;
+			}
+
+		} else {
+			selectedGm = normalGM;
+		}
+	}
+
 	private void startGame() {
+		// select gamemode first
+		selectGamemode();
+
 		timerCount = 0; // timer for game steps
 
 		while (true) { // main game login run
 
 			// game status update
 			if (timerCount % 20 == 0) {
-				if (timerCount == 60) {
-					timerCount = 0;
-					this.makeBigger();
+				timerCount++;
+				for (int i = 0; i < selectedGm; i++) {
+					this.moveTriggered();
+				}
+
+				if (apple.checkIsTouchingSquare(snake.getSnakeHead())) {
 
 					// We grow up, update points
 					pointsLbl.setText(Integer.toString(this.getSnake().getPoints()));
-				} else {
-					timerCount++;
-					this.moveTriggered();
+					apple = generateNewApple();
+					
+					this.makeBigger();
 				}
+
 				if (!hackEnabled)
 					this.checkStatus(board.getHeight(), board.getWidth()); // Check if already lost the game
 
