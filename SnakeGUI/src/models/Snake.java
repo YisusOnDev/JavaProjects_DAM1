@@ -35,7 +35,7 @@ public class Snake {
 
 		switch (iDirection) {
 		case (Square.Down):
-			if (oldSnakeHead.getY() >= sHeight) {
+			if (oldSnakeHead.getY() >= sHeight - 20) {
 				newHeadY = -20;
 			}
 
@@ -54,22 +54,22 @@ public class Snake {
 			break;
 
 		case (Square.Right):
-			if (oldSnakeHead.getX() >= sWidht) {
+			if (oldSnakeHead.getX() >= sWidht - 20) {
 				newHeadX = -20;
 			}
 			break;
 		}
 
 		Square newSnakeHead;
-		newSnakeHead = new Square(newHeadX, newHeadY, oldSnakeHead.getLado(), oldSnakeHead.getColor());
+		newSnakeHead = new Square(newHeadX, newHeadY, oldSnakeHead.getSide(), oldSnakeHead.getColor());
 
-		// movemos la cabeza a su nueva posición
+		// 
 		newSnakeHead.moveSide(iDirection);
 
-		// la añadimos a la lista
+		// add new square to arraylist of the snake
 		squareList.add(0, newSnakeHead);
 
-		// borramos el último cuadrado por la cola (pop del basic)
+		// delete last square in tail
 		squareList.remove(squareList.size() - 1);
 	}
 
@@ -82,7 +82,7 @@ public class Snake {
 		oldHead = squareList.get(0);
 
 		// clone oldHead (current) and add 1 new square
-		newHead = new Square(oldHead.getX(), oldHead.getY(), oldHead.getLado(), oldHead.getColor());
+		newHead = new Square(oldHead.getX(), oldHead.getY(), oldHead.getSide(), oldHead.getColor());
 
 		newHead.moveSide(iDirection);
 

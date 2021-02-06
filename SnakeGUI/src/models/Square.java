@@ -56,7 +56,7 @@ public class Square {
 		return posY;
 	}
 
-	public int getLado() {
+	public int getSide() {
 		return side;
 	}
 

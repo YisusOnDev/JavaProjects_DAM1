@@ -79,7 +79,7 @@ public class GameView extends JFrame {
 		board.setBorder(BorderFactory.createLineBorder(Color.black));
 		board.setBackground(new java.awt.Color((int) (Math.random() * 255), (int) (Math.random() * 255),
 				(int) (Math.random() * 255)));
-		board.setSize(600, 400);
+		board.setSize(mapHeight, mapWidth);
 		board.setSnakeFrame(this);
 
 		buttons = new JPanel();
@@ -153,6 +153,7 @@ public class GameView extends JFrame {
 		snake.changeDirection(key);
 	}
 
+	// show died message
 	private boolean showEndMessage() {
 		boolean result;
 
@@ -174,7 +175,7 @@ public class GameView extends JFrame {
 	// if is playing trigger snake movement.
 	private void moveTriggered() {
 		if (playing && !inPauseMenu)
-			snake.moveSnake(board.getHeight(), board.getWidth());
+			snake.moveSnake(mapHeight, mapWidth);
 	}
 
 	// Start a new game. (reset all values)
@@ -190,28 +191,24 @@ public class GameView extends JFrame {
 	}
 
 	private Square generateNewApple() {
-		int x = ((int) (Math.random() * (mapWidth / 20)) * 20);
-		int y = ((int) (Math.random() * (mapHeight / 20)) * 20);
-		int color = (int) (Math.random() * 16000000);
-		// new apples can't be eated some times...
-		while (x < 20 || y < 20 || x == 0 || y == 0 || x > 250 || y > 250) {
-			System.out.println("SCORRO");
-			x = ((int) (Math.random() * (mapWidth / 20)) * 20);
-			y = ((int) (Math.random() * (mapHeight / 20)) * 20);
-		}
+		int x = ((int) (Math.random() * (mapWidth / 20))) * 20;
+		int y = ((int) (Math.random() * (mapHeight / 20))) * 20;
+		x -= 20; // avoid out of bounds square
+		y -= 20; // avoid out of bounds square
 		
-		System.out.println(x + " - " + y + " - " + color);
+		int color = (int) (Math.random() * 16000000);
+		
+		while (x < 20 || y < 20 || x == 0 || y == 0 || x > 250 || y > 250) {
+			x = ((int) (Math.random() * (mapWidth / 20))) * 20;
+			y = ((int) (Math.random() * (mapHeight / 20))) * 20;
+			x -= 20; // avoid out of bounds square
+			y -= 20; // avoid out of bounds square
+		}
+
 		Square apple = new Square(x, y, 20, color);
 
-		// Still infinite looping into this...
-		while (snake.isOverlappingApple(apple)) {
-			System.out.println("Checking is overlapping");
-			while (x < 20 || y < 20 || x == 0 || y == 0) {
-				System.out.println("SCORRO 2");
-				x = ((int) (Math.random() * (mapWidth / 20)) * 20);
-				y = ((int) (Math.random() * (mapHeight / 20)) * 20);
-			}
-			apple = new Square(x, y, 20, color);
+		if (snake.isOverlappingApple(apple)) {
+			return generateNewApple();
 		}
 
 		return apple;
@@ -267,8 +264,7 @@ public class GameView extends JFrame {
 				mapWidth = 800;
 			}
 		} else {
-			mapHeight = 400;
-			mapWidth = 400;
+			System.exit(0);
 		}
 	}
 
@@ -277,7 +273,6 @@ public class GameView extends JFrame {
 
 		Object selected = JOptionPane.showInputDialog(null, "¿En qué dificultad quieres jugar?",
 				"Seleccion de dificultad", JOptionPane.DEFAULT_OPTION, null, gameModes, "0");
-
 		if (selected != null) {
 			String selectedString = selected.toString();
 
@@ -292,8 +287,10 @@ public class GameView extends JFrame {
 			}
 
 		} else {
-			selectedGm = normalGM;
+			System.exit(0);
 		}
+
+		this.startGameAgain();
 	}
 
 	private void startGame() {
@@ -316,12 +313,12 @@ public class GameView extends JFrame {
 					// We grow up, update points
 					pointsLbl.setText(Integer.toString(this.getSnake().getPoints()));
 					apple = generateNewApple();
-					
+
 					this.makeBigger();
 				}
 
 				if (!hackEnabled)
-					this.checkStatus(board.getHeight(), board.getWidth()); // Check if already lost the game
+					this.checkStatus(mapHeight, mapWidth); // Check if already lost the game
 
 			} else {
 				timerCount++;
