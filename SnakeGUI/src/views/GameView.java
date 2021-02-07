@@ -44,10 +44,11 @@ public class GameView extends JFrame {
 	private int mapHeight;
 	private int mapWidth;
 
-	final int easyGM = 1;
-	final int normalGM = 2;
-	final int hardGM = 4;
-	final int hardcoreGM = 20;
+	final int easyGM = 5;
+	final int normalGM = 3;
+	final int hardGM = 2;
+	final int hardcoreGM = 1;
+	final int hardcoreGmMoves = 50; // to make hardcore really impossible.
 	private int selectedGm;
 
 	public GameView() {
@@ -304,9 +305,12 @@ public class GameView extends JFrame {
 			// game status update
 			if (timerCount % 20 == 0) {
 				timerCount++;
-				for (int i = 0; i < selectedGm; i++) {
-					this.moveTriggered();
+				if (selectedGm == hardcoreGM) {
+					for (int i = 0; i < hardcoreGmMoves; i++) {
+						this.moveTriggered();
+					}
 				}
+					this.moveTriggered();
 
 				if (apple.checkIsTouchingSquare(snake.getSnakeHead())) {
 
@@ -335,7 +339,7 @@ public class GameView extends JFrame {
 
 			// Let some time to repaint all
 			try {
-				Thread.sleep(5);
+				Thread.sleep(selectedGm);
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
