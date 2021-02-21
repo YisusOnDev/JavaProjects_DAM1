@@ -4,36 +4,47 @@ import models.Arbol;
 import models.Nodo;
 
 public class MainApp {
+
 	public static void main(String[] args) {
 
 		// Creamos la raiz
-		Nodo raiz = new Nodo("~", null);
+		Nodo raiz = new Nodo("~");
 
 		// Creamos nodos y sus papas
-		Nodo nodo2 = new Nodo("pollo", raiz);
-		Nodo nodo7 = new Nodo("cerdo", raiz);
-		Nodo nodo7 = new Nodo("ternera", raiz);
-		Nodo nodo3 = new Nodo("3", nodo2);
-		Nodo nodo4 = new Nodo("4", nodo2);
-		Nodo nodo5 = new Nodo("5", nodo4);
-		Nodo nodo6 = new Nodo("6", nodo4);
-		Nodo nodo8 = new Nodo("8", nodo7);
-		Nodo nodo9 = new Nodo("9", nodo7);
+		Nodo pollo = new Nodo("pollo");
+		Nodo cerdo = new Nodo("cerdo");
+		Nodo ternera = new Nodo("ternera");
+		Nodo uno = new Nodo("uno");
+		Nodo dos = new Nodo("dos");
+		Nodo tres = new Nodo("tres");
+		Nodo cuatro = new Nodo("cuatro");
+		Nodo cinco = new Nodo("cinco");
+		Nodo seis = new Nodo("seis");
 
 		// Establecemos los hijos de cada nodo
-		raiz.setNodoIzq(nodo2);
-		raiz.setNodoDer(nodo7);
-		nodo2.setNodoIzq(nodo3);
-		nodo2.setNodoDer(nodo4);
-		nodo7.setNodoIzq(nodo8);
-		nodo7.setNodoDer(nodo9);
-		nodo4.setNodoIzq(nodo5);
-		nodo4.setNodoDer(nodo6);
+		raiz.agregarHijo(pollo);
+		raiz.agregarHijo(cerdo);
+		raiz.agregarHijo(ternera);
+		pollo.agregarHijo(uno);
+		pollo.agregarHijo(dos);
+		cerdo.agregarHijo(tres);
+		ternera.agregarHijo(cuatro);
+		dos.agregarHijo(cinco);
+		cinco.agregarHijo(seis);
+		Arbol arbol = new Arbol(raiz);
 
-		Arbol arbolito = new Arbol(raiz);
+		// 4.1.- Nodo buscarNodo(String valor);
+		System.out.println(arbol.buscarNodo("pollo") != null);
 
-		arbolito.preOrden();
-		System.out.println("______________\n");
-		arbolito.postOrden();
+		// 4.2.- Nodo insertarNodo(Nodo padre, String valor);
+		arbol.insertarNodo(pollo, "oasis");
+
+		// 4.3.- String path(String valor);
+		System.out.println(new String(arbol.path("oasis")));
+
+		// 4.4.- void mostrarArbol();
+		System.out.println();
+		arbol.mostrarArbol();
 	}
+
 }
