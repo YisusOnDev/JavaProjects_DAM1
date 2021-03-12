@@ -1,0 +1,276 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<editmodel:ClassDiagramEditModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:editmodel="editmodel.xmi" xmlns:options="options.xmi" name="monopoly-i" size="793,1631" id="edu.ncsu.monopoly" metadata="nsuml-1.4" initialized="true" scrolledY="955" tag="10" key="3230303430363135204D6F6E6F706F6C79">
+  <children xsi:type="editmodel:ClassEditModel" name="GameboardTest" location="50,1337" size="191,139" id="edu.ncsu.monopoly/GameboardTest" runTimeClassModel="testAddCell(),testQueryCellIndex(),testCellsForMonopoly(),testPropertyNumberForColor(),testQueryCell()">
+    <children xsi:type="editmodel:CompartmentEditModel"/>
+    <children xsi:type="editmodel:CompartmentEditModel" size="168,90">
+      <children xsi:type="editmodel:MethodEditModel" name="testAddCell" id="edu.ncsu.monopoly/GameboardTest#testAddCell()"/>
+      <children xsi:type="editmodel:MethodEditModel" name="testCellsForMonopoly" id="edu.ncsu.monopoly/GameboardTest#testCellsForMonopoly()"/>
+      <children xsi:type="editmodel:MethodEditModel" name="testPropertyNumberForColor" id="edu.ncsu.monopoly/GameboardTest#testPropertyNumberForColor()"/>
+      <children xsi:type="editmodel:MethodEditModel" name="testQueryCell" id="edu.ncsu.monopoly/GameboardTest#testQueryCell()"/>
+      <children xsi:type="editmodel:MethodEditModel" name="testQueryCellIndex" id="edu.ncsu.monopoly/GameboardTest#testQueryCellIndex()"/>
+    </children>
+    <children xsi:type="editmodel:CompartmentEditModel"/>
+    <classifierPreferences xsi:type="editmodel:UMLClassDiagramClassifierPreference" showStereotype="true" attributeSorter="Natural" methodSorter="Natural" innerClassSorter="Natural" showPublicAttributes="true" showPackageAttributes="true" showStaticAttributes="true" showPublicMethods="true" showPackageMethods="true" showStaticMethods="true" showPublicInnerClasses="true" showPackageInnerClasses="true" showStaticInnerClasses="true" showAttributeProperty="true"/>
+  </children>
+  <children xsi:type="editmodel:ClassEditModel" name="GameMasterTest" location="539,1337" size="149,103" id="edu.ncsu.monopoly/GameMasterTest" runTimeClassModel="testReset(),testTurn(),testInit()">
+    <children xsi:type="editmodel:CompartmentEditModel"/>
+    <children xsi:type="editmodel:CompartmentEditModel" size="77,54">
+      <children xsi:type="editmodel:MethodEditModel" name="testInit" id="edu.ncsu.monopoly/GameMasterTest#testInit()"/>
+      <children xsi:type="editmodel:MethodEditModel" name="testReset" id="edu.ncsu.monopoly/GameMasterTest#testReset()"/>
+      <children xsi:type="editmodel:MethodEditModel" name="testTurn" id="edu.ncsu.monopoly/GameMasterTest#testTurn()"/>
+    </children>
+    <children xsi:type="editmodel:CompartmentEditModel"/>
+    <classifierPreferences xsi:type="editmodel:UMLClassDiagramClassifierPreference" showStereotype="true" attributeSorter="Natural" methodSorter="Natural" innerClassSorter="Natural" showPublicAttributes="true" showPackageAttributes="true" showStaticAttributes="true" showPublicMethods="true" showPackageMethods="true" showStaticMethods="true" showPublicInnerClasses="true" showPackageInnerClasses="true" showStaticInnerClasses="true" showAttributeProperty="true"/>
+  </children>
+  <children xsi:type="editmodel:ClassEditModel" name="PropertyCellTest" location="489,1526" size="148,67" id="edu.ncsu.monopoly/PropertyCellTest" runTimeClassModel="testPlayerAction()">
+    <children xsi:type="editmodel:CompartmentEditModel"/>
+    <children xsi:type="editmodel:CompartmentEditModel" size="110,18">
+      <children xsi:type="editmodel:MethodEditModel" name="testPlayerAction" id="edu.ncsu.monopoly/PropertyCellTest#testPlayerAction()"/>
+    </children>
+    <children xsi:type="editmodel:CompartmentEditModel"/>
+    <classifierPreferences xsi:type="editmodel:UMLClassDiagramClassifierPreference" showStereotype="true" attributeSorter="Natural" methodSorter="Natural" innerClassSorter="Natural" showPublicAttributes="true" showPackageAttributes="true" showStaticAttributes="true" showPublicMethods="true" showPackageMethods="true" showStaticMethods="true" showPublicInnerClasses="true" showPackageInnerClasses="true" showStaticInnerClasses="true" showAttributeProperty="true"/>
+  </children>
+  <children xsi:type="editmodel:ClassEditModel" name="Player" location="513,914" size="147,229" id="edu.ncsu.monopoly/Player" runTimeClassModel="canBuyHouse(),payRentTo(Ledu.ncsu.monopoly.Player;I),checkProperty(Ljava.lang.String;),getMonopolies(),getPropertyNumber(),purchaseProperty(),purchaseHouse(Ljava.lang.String;I),money,getProperty(I),name">
+    <children xsi:type="editmodel:CompartmentEditModel" size="80,36">
+      <children xsi:type="editmodel:AttributeEditModel" name="money" id="edu.ncsu.monopoly/Player#money"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="name" id="edu.ncsu.monopoly/Player#name"/>
+    </children>
+    <children xsi:type="editmodel:CompartmentEditModel" size="124,144">
+      <children xsi:type="editmodel:MethodEditModel" name="canBuyHouse" id="edu.ncsu.monopoly/Player#canBuyHouse()"/>
+      <children xsi:type="editmodel:MethodEditModel" name="checkProperty" id="edu.ncsu.monopoly/Player#checkProperty(Ljava.lang.String;)"/>
+      <children xsi:type="editmodel:MethodEditModel" name="getMonopolies" id="edu.ncsu.monopoly/Player#getMonopolies()"/>
+      <children xsi:type="editmodel:MethodEditModel" name="getProperty" id="edu.ncsu.monopoly/Player#getProperty(I)"/>
+      <children xsi:type="editmodel:MethodEditModel" name="getPropertyNumber" id="edu.ncsu.monopoly/Player#getPropertyNumber()"/>
+      <children xsi:type="editmodel:MethodEditModel" name="payRentTo" id="edu.ncsu.monopoly/Player#payRentTo(Ledu.ncsu.monopoly.Player;I)"/>
+      <children xsi:type="editmodel:MethodEditModel" name="purchaseHouse" id="edu.ncsu.monopoly/Player#purchaseHouse(Ljava.lang.String;I)"/>
+      <children xsi:type="editmodel:MethodEditModel" name="purchaseProperty" id="edu.ncsu.monopoly/Player#purchaseProperty()"/>
+    </children>
+    <children xsi:type="editmodel:CompartmentEditModel"/>
+    <classifierPreferences xsi:type="editmodel:UMLClassDiagramClassifierPreference" showStereotype="true" attributeSorter="Natural" methodSorter="Natural" innerClassSorter="Natural" showPublicAttributes="true" showPackageAttributes="true" showStaticAttributes="true" showPublicMethods="true" showPackageMethods="true" showStaticMethods="true" showPublicInnerClasses="true" showPackageInnerClasses="true" showStaticInnerClasses="true" showAttributeProperty="true"/>
+  </children>
+  <children xsi:type="editmodel:ClassEditModel" name="GameboardCreationTest" location="291,1337" size="198,103" id="edu.ncsu.monopoly/GameboardCreationTest" runTimeClassModel="testCellAddOrder(),testCellAddOrder14(),testGameboardLayout()">
+    <children xsi:type="editmodel:CompartmentEditModel"/>
+    <children xsi:type="editmodel:CompartmentEditModel" size="138,54">
+      <children xsi:type="editmodel:MethodEditModel" name="testCellAddOrder" id="edu.ncsu.monopoly/GameboardCreationTest#testCellAddOrder()"/>
+      <children xsi:type="editmodel:MethodEditModel" name="testCellAddOrder14" id="edu.ncsu.monopoly/GameboardCreationTest#testCellAddOrder14()"/>
+      <children xsi:type="editmodel:MethodEditModel" name="testGameboardLayout" id="edu.ncsu.monopoly/GameboardCreationTest#testGameboardLayout()"/>
+    </children>
+    <children xsi:type="editmodel:CompartmentEditModel"/>
+    <classifierPreferences xsi:type="editmodel:UMLClassDiagramClassifierPreference" showStereotype="true" attributeSorter="Natural" methodSorter="Natural" innerClassSorter="Natural" showPublicAttributes="true" showPackageAttributes="true" showStaticAttributes="true" showPublicMethods="true" showPackageMethods="true" showStaticMethods="true" showPublicInnerClasses="true" showPackageInnerClasses="true" showStaticInnerClasses="true" showAttributeProperty="true"/>
+  </children>
+  <children xsi:type="editmodel:ClassEditModel" name="GameMaster" location="309,914" size="154,373" id="edu.ncsu.monopoly/GameMaster" runTimeClassModel="movePlayer(II),movePlayer(Ledu.ncsu.monopoly.Player;I),turn,rollDice(),getPlayer(I),reset(),setGUI(Ledu.ncsu.monopoly.MonopolyGUI;),instance(),initAmountOfMoney,switchTurn(),getNumberOfPlayers(),playerMoved(Ledu.ncsu.monopoly.Player;),startGame(),getPlayerIndex(Ledu.ncsu.monopoly.Player;),updateGUI(),setNumberOfPlayers(I),MAX_PLAYER,getCurrentPlayer()">
+    <children xsi:type="editmodel:CompartmentEditModel" size="131,54">
+      <children xsi:type="editmodel:AttributeEditModel" name="MAX_PLAYER" id="edu.ncsu.monopoly/GameMaster#MAX_PLAYER"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="initAmountOfMoney" id="edu.ncsu.monopoly/GameMaster#initAmountOfMoney"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="turn" id="edu.ncsu.monopoly/GameMaster#turn"/>
+    </children>
+    <children xsi:type="editmodel:CompartmentEditModel" size="131,270">
+      <children xsi:type="editmodel:MethodEditModel" name="getCurrentPlayer" id="edu.ncsu.monopoly/GameMaster#getCurrentPlayer()"/>
+      <children xsi:type="editmodel:MethodEditModel" name="getNumberOfPlayers" id="edu.ncsu.monopoly/GameMaster#getNumberOfPlayers()"/>
+      <children xsi:type="editmodel:MethodEditModel" name="getPlayer" id="edu.ncsu.monopoly/GameMaster#getPlayer(I)"/>
+      <children xsi:type="editmodel:MethodEditModel" name="getPlayerIndex" id="edu.ncsu.monopoly/GameMaster#getPlayerIndex(Ledu.ncsu.monopoly.Player;)"/>
+      <children xsi:type="editmodel:MethodEditModel" name="instance" id="edu.ncsu.monopoly/GameMaster#instance()"/>
+      <children xsi:type="editmodel:MethodEditModel" name="movePlayer" id="edu.ncsu.monopoly/GameMaster#movePlayer(Ledu.ncsu.monopoly.Player;I)"/>
+      <children xsi:type="editmodel:MethodEditModel" name="movePlayer" id="edu.ncsu.monopoly/GameMaster#movePlayer(II)"/>
+      <children xsi:type="editmodel:MethodEditModel" name="playerMoved" id="edu.ncsu.monopoly/GameMaster#playerMoved(Ledu.ncsu.monopoly.Player;)"/>
+      <children xsi:type="editmodel:MethodEditModel" name="reset" id="edu.ncsu.monopoly/GameMaster#reset()"/>
+      <children xsi:type="editmodel:MethodEditModel" name="rollDice" id="edu.ncsu.monopoly/GameMaster#rollDice()"/>
+      <children xsi:type="editmodel:MethodEditModel" name="setGUI" id="edu.ncsu.monopoly/GameMaster#setGUI(Ledu.ncsu.monopoly.MonopolyGUI;)"/>
+      <children xsi:type="editmodel:MethodEditModel" name="setNumberOfPlayers" id="edu.ncsu.monopoly/GameMaster#setNumberOfPlayers(I)"/>
+      <children xsi:type="editmodel:MethodEditModel" name="startGame" id="edu.ncsu.monopoly/GameMaster#startGame()"/>
+      <children xsi:type="editmodel:MethodEditModel" name="switchTurn" id="edu.ncsu.monopoly/GameMaster#switchTurn()"/>
+      <children xsi:type="editmodel:MethodEditModel" name="updateGUI" id="edu.ncsu.monopoly/GameMaster#updateGUI()"/>
+    </children>
+    <children xsi:type="editmodel:CompartmentEditModel"/>
+    <classifierPreferences xsi:type="editmodel:UMLClassDiagramClassifierPreference" showStereotype="true" attributeSorter="Natural" methodSorter="Natural" innerClassSorter="Natural" showPublicAttributes="true" showPackageAttributes="true" showStaticAttributes="true" showPublicMethods="true" showPackageMethods="true" showStaticMethods="true" showPublicInnerClasses="true" showPackageInnerClasses="true" showStaticInnerClasses="true" showAttributeProperty="true"/>
+  </children>
+  <children xsi:type="editmodel:ClassEditModel" name="CellInfoFormatterTest" location="50,1526" size="180,85" id="edu.ncsu.monopoly/CellInfoFormatterTest" runTimeClassModel="testGoCellTest(),testPropertyCellText()">
+    <children xsi:type="editmodel:CompartmentEditModel"/>
+    <children xsi:type="editmodel:CompartmentEditModel" size="128,36">
+      <children xsi:type="editmodel:MethodEditModel" name="testGoCellTest" id="edu.ncsu.monopoly/CellInfoFormatterTest#testGoCellTest()"/>
+      <children xsi:type="editmodel:MethodEditModel" name="testPropertyCellText" id="edu.ncsu.monopoly/CellInfoFormatterTest#testPropertyCellText()"/>
+    </children>
+    <children xsi:type="editmodel:CompartmentEditModel"/>
+    <classifierPreferences xsi:type="editmodel:UMLClassDiagramClassifierPreference" showStereotype="true" attributeSorter="Natural" methodSorter="Natural" innerClassSorter="Natural" showPublicAttributes="true" showPackageAttributes="true" showStaticAttributes="true" showPublicMethods="true" showPackageMethods="true" showStaticMethods="true" showPublicInnerClasses="true" showPackageInnerClasses="true" showStaticInnerClasses="true" showAttributeProperty="true"/>
+  </children>
+  <children xsi:type="editmodel:ClassEditModel" name="Die" location="687,1526" size="86,67" id="edu.ncsu.monopoly/Die" runTimeClassModel="getRoll()">
+    <children xsi:type="editmodel:CompartmentEditModel"/>
+    <children xsi:type="editmodel:CompartmentEditModel" size="63,18">
+      <children xsi:type="editmodel:MethodEditModel" name="getRoll" id="edu.ncsu.monopoly/Die#getRoll()"/>
+    </children>
+    <children xsi:type="editmodel:CompartmentEditModel"/>
+    <classifierPreferences xsi:type="editmodel:UMLClassDiagramClassifierPreference" showStereotype="true" attributeSorter="Natural" methodSorter="Natural" innerClassSorter="Natural" showPublicAttributes="true" showPackageAttributes="true" showStaticAttributes="true" showPublicMethods="true" showPackageMethods="true" showStaticMethods="true" showPublicInnerClasses="true" showPackageInnerClasses="true" showStaticInnerClasses="true" showAttributeProperty="true"/>
+  </children>
+  <children xsi:type="editmodel:ClassEditModel" name="PlayerTest" location="280,1526" size="159,85" id="edu.ncsu.monopoly/PlayerTest" runTimeClassModel="testPurchaseProperty(),testSameGoCell()">
+    <children xsi:type="editmodel:CompartmentEditModel"/>
+    <children xsi:type="editmodel:CompartmentEditModel" size="136,36">
+      <children xsi:type="editmodel:MethodEditModel" name="testPurchaseProperty" id="edu.ncsu.monopoly/PlayerTest#testPurchaseProperty()"/>
+      <children xsi:type="editmodel:MethodEditModel" name="testSameGoCell" id="edu.ncsu.monopoly/PlayerTest#testSameGoCell()"/>
+    </children>
+    <children xsi:type="editmodel:CompartmentEditModel"/>
+    <classifierPreferences xsi:type="editmodel:UMLClassDiagramClassifierPreference" showStereotype="true" attributeSorter="Natural" methodSorter="Natural" innerClassSorter="Natural" showPublicAttributes="true" showPackageAttributes="true" showStaticAttributes="true" showPublicMethods="true" showPackageMethods="true" showStaticMethods="true" showPublicInnerClasses="true" showPackageInnerClasses="true" showStaticInnerClasses="true" showAttributeProperty="true"/>
+  </children>
+  <children xsi:type="editmodel:ClassEditModel" targetConnections="//@children.10/@sourceConnections.0" name="SimpleGameBoardFixture" location="50,914" size="209,175" id="edu.ncsu.monopoly/SimpleGameBoardFixture" runTimeClassModel="purchaseProperty(),playerMoney(),initializeGameBoard(),endTurn(),propertyAvailable(),numberOfPlayers(I),playerDiceRoll(I)">
+    <children xsi:type="editmodel:CompartmentEditModel"/>
+    <children xsi:type="editmodel:CompartmentEditModel" size="125,126">
+      <children xsi:type="editmodel:MethodEditModel" name="endTurn" id="edu.ncsu.monopoly/SimpleGameBoardFixture#endTurn()"/>
+      <children xsi:type="editmodel:MethodEditModel" name="initializeGameBoard" id="edu.ncsu.monopoly/SimpleGameBoardFixture#initializeGameBoard()"/>
+      <children xsi:type="editmodel:MethodEditModel" name="numberOfPlayers" id="edu.ncsu.monopoly/SimpleGameBoardFixture#numberOfPlayers(I)"/>
+      <children xsi:type="editmodel:MethodEditModel" name="playerDiceRoll" id="edu.ncsu.monopoly/SimpleGameBoardFixture#playerDiceRoll(I)"/>
+      <children xsi:type="editmodel:MethodEditModel" name="playerMoney" id="edu.ncsu.monopoly/SimpleGameBoardFixture#playerMoney()"/>
+      <children xsi:type="editmodel:MethodEditModel" name="propertyAvailable" id="edu.ncsu.monopoly/SimpleGameBoardFixture#propertyAvailable()"/>
+      <children xsi:type="editmodel:MethodEditModel" name="purchaseProperty" id="edu.ncsu.monopoly/SimpleGameBoardFixture#purchaseProperty()"/>
+    </children>
+    <children xsi:type="editmodel:CompartmentEditModel"/>
+    <classifierPreferences xsi:type="editmodel:UMLClassDiagramClassifierPreference" showStereotype="true" attributeSorter="Natural" methodSorter="Natural" innerClassSorter="Natural" showPublicAttributes="true" showPackageAttributes="true" showStaticAttributes="true" showPublicMethods="true" showPackageMethods="true" showStaticMethods="true" showPublicInnerClasses="true" showPackageInnerClasses="true" showStaticInnerClasses="true" showAttributeProperty="true"/>
+  </children>
+  <children xsi:type="editmodel:ClassEditModel" name="PayRent" location="92,1139" size="124,85" id="edu.ncsu.monopoly/PayRent" runTimeClassModel="playerBMoney(),playerAMoney()">
+    <children xsi:type="editmodel:CompartmentEditModel"/>
+    <children xsi:type="editmodel:CompartmentEditModel" size="101,36">
+      <children xsi:type="editmodel:MethodEditModel" name="playerAMoney" id="edu.ncsu.monopoly/PayRent#playerAMoney()"/>
+      <children xsi:type="editmodel:MethodEditModel" name="playerBMoney" id="edu.ncsu.monopoly/PayRent#playerBMoney()"/>
+    </children>
+    <children xsi:type="editmodel:CompartmentEditModel"/>
+    <sourceConnections xsi:type="editmodel:GeneralizationEditModel" id="edu.ncsu.monopoly/SimpleGameBoardFixture&lt;-edu.ncsu.monopoly/PayRent" source="//@children.10" target="//@children.9" targetEnd="//@children.10/@sourceConnections.0/@children.1" sourceEnd="//@children.10/@sourceConnections.0/@children.0" connectionRouterKind="Manual" anchorType="ChopBox">
+      <children xsi:type="editmodel:AssociationEndEditModel" location="-1,0" attachSource="true"/>
+      <children xsi:type="editmodel:AssociationEndEditModel"/>
+    </sourceConnections>
+    <classifierPreferences xsi:type="editmodel:UMLClassDiagramClassifierPreference" showStereotype="true" attributeSorter="Natural" methodSorter="Natural" innerClassSorter="Natural" showPublicAttributes="true" showPackageAttributes="true" showStaticAttributes="true" showPublicMethods="true" showPackageMethods="true" showStaticMethods="true" showPublicInnerClasses="true" showPackageInnerClasses="true" showStaticInnerClasses="true" showAttributeProperty="true"/>
+  </children>
+  <children xsi:type="editmodel:ClassEditModel" name="MainWindow" location="50,275" size="294,193" id="edu.ncsu.monopoly.gui/MainWindow" runTimeClassModel="movePlayer(III),update(),enablePurchaseBtn(I),updateHouseButton(I),enableEndTurnBtn(I),enablePlayerTurn(I),startGame(),setupGameBoard(Ledu.ncsu.monopoly.GameBoard;)">
+    <children xsi:type="editmodel:CompartmentEditModel"/>
+    <children xsi:type="editmodel:CompartmentEditModel" size="126,144">
+      <children xsi:type="editmodel:MethodEditModel" name="enableEndTurnBtn" id="edu.ncsu.monopoly.gui/MainWindow#enableEndTurnBtn(I)"/>
+      <children xsi:type="editmodel:MethodEditModel" name="enablePlayerTurn" id="edu.ncsu.monopoly.gui/MainWindow#enablePlayerTurn(I)"/>
+      <children xsi:type="editmodel:MethodEditModel" name="enablePurchaseBtn" id="edu.ncsu.monopoly.gui/MainWindow#enablePurchaseBtn(I)"/>
+      <children xsi:type="editmodel:MethodEditModel" name="movePlayer" id="edu.ncsu.monopoly.gui/MainWindow#movePlayer(III)"/>
+      <children xsi:type="editmodel:MethodEditModel" name="setupGameBoard" id="edu.ncsu.monopoly.gui/MainWindow#setupGameBoard(Ledu.ncsu.monopoly.GameBoard;)"/>
+      <children xsi:type="editmodel:MethodEditModel" name="startGame" id="edu.ncsu.monopoly.gui/MainWindow#startGame()"/>
+      <children xsi:type="editmodel:MethodEditModel" name="update" id="edu.ncsu.monopoly.gui/MainWindow#update()"/>
+      <children xsi:type="editmodel:MethodEditModel" name="updateHouseButton" id="edu.ncsu.monopoly.gui/MainWindow#updateHouseButton(I)"/>
+    </children>
+    <children xsi:type="editmodel:CompartmentEditModel"/>
+    <sourceConnections xsi:type="editmodel:GeneralizationEditModel" targetConnections="//@children.13/@sourceConnections.0" id="edu.ncsu.monopoly/MonopolyGUI&lt;-edu.ncsu.monopoly.gui/MainWindow" source="//@children.11" target="//@children.12" targetEnd="//@children.11/@sourceConnections.0/@children.1" sourceEnd="//@children.11/@sourceConnections.0/@children.0" connectionRouterKind="GeneralizationManhattan" anchorType="FixedAtEdge">
+      <children xsi:type="editmodel:AssociationEndEditModel" location="147,0" anchorKind="FixedAtEdge" attachSource="true"/>
+      <children xsi:type="editmodel:AssociationEndEditModel" location="74,175" anchorKind="FixedAtEdge"/>
+    </sourceConnections>
+    <classifierPreferences xsi:type="editmodel:UMLClassDiagramClassifierPreference" showStereotype="true" attributeSorter="Natural" methodSorter="Natural" innerClassSorter="Natural" showPublicAttributes="true" showPackageAttributes="true" showStaticAttributes="true" showPublicMethods="true" showPackageMethods="true" showStaticMethods="true" showPublicInnerClasses="true" showPackageInnerClasses="true" showStaticInnerClasses="true" showAttributeProperty="true"/>
+  </children>
+  <children xsi:type="editmodel:InterfaceEditModel" targetConnections="//@children.11/@sourceConnections.0" name="MonopolyGUI" location="248,50" size="149,175" id="edu.ncsu.monopoly/MonopolyGUI" runTimeClassModel="movePlayer(III),update(),updateHouseButton(I),enablePurchaseBtn(I),enableEndTurnBtn(I),enablePlayerTurn(I),startGame()">
+    <children xsi:type="editmodel:CompartmentEditModel"/>
+    <children xsi:type="editmodel:CompartmentEditModel" size="126,126">
+      <children xsi:type="editmodel:MethodEditModel" name="enableEndTurnBtn" id="edu.ncsu.monopoly/MonopolyGUI#enableEndTurnBtn(I)"/>
+      <children xsi:type="editmodel:MethodEditModel" name="enablePlayerTurn" id="edu.ncsu.monopoly/MonopolyGUI#enablePlayerTurn(I)"/>
+      <children xsi:type="editmodel:MethodEditModel" name="enablePurchaseBtn" id="edu.ncsu.monopoly/MonopolyGUI#enablePurchaseBtn(I)"/>
+      <children xsi:type="editmodel:MethodEditModel" name="movePlayer" id="edu.ncsu.monopoly/MonopolyGUI#movePlayer(III)"/>
+      <children xsi:type="editmodel:MethodEditModel" name="startGame" id="edu.ncsu.monopoly/MonopolyGUI#startGame()"/>
+      <children xsi:type="editmodel:MethodEditModel" name="update" id="edu.ncsu.monopoly/MonopolyGUI#update()"/>
+      <children xsi:type="editmodel:MethodEditModel" name="updateHouseButton" id="edu.ncsu.monopoly/MonopolyGUI#updateHouseButton(I)"/>
+    </children>
+    <children xsi:type="editmodel:CompartmentEditModel"/>
+    <classifierPreferences xsi:type="editmodel:UMLClassDiagramClassifierPreference" showStereotype="true" attributeSorter="Natural" methodSorter="Natural" innerClassSorter="Natural" showPublicAttributes="true" showPackageAttributes="true" showStaticAttributes="true" showPublicMethods="true" showPackageMethods="true" showStaticMethods="true" showPublicInnerClasses="true" showPackageInnerClasses="true" showStaticInnerClasses="true" showAttributeProperty="true"/>
+  </children>
+  <children xsi:type="editmodel:ClassEditModel" name="MockGUI" location="374,275" size="149,175" id="edu.ncsu.monopoly/MockGUI" runTimeClassModel="movePlayer(III),update(),updateHouseButton(I),enablePurchaseBtn(I),enableEndTurnBtn(I),enablePlayerTurn(I),startGame()">
+    <children xsi:type="editmodel:CompartmentEditModel"/>
+    <children xsi:type="editmodel:CompartmentEditModel" size="126,126">
+      <children xsi:type="editmodel:MethodEditModel" name="enableEndTurnBtn" id="edu.ncsu.monopoly/MockGUI#enableEndTurnBtn(I)"/>
+      <children xsi:type="editmodel:MethodEditModel" name="enablePlayerTurn" id="edu.ncsu.monopoly/MockGUI#enablePlayerTurn(I)"/>
+      <children xsi:type="editmodel:MethodEditModel" name="enablePurchaseBtn" id="edu.ncsu.monopoly/MockGUI#enablePurchaseBtn(I)"/>
+      <children xsi:type="editmodel:MethodEditModel" name="movePlayer" id="edu.ncsu.monopoly/MockGUI#movePlayer(III)"/>
+      <children xsi:type="editmodel:MethodEditModel" name="startGame" id="edu.ncsu.monopoly/MockGUI#startGame()"/>
+      <children xsi:type="editmodel:MethodEditModel" name="update" id="edu.ncsu.monopoly/MockGUI#update()"/>
+      <children xsi:type="editmodel:MethodEditModel" name="updateHouseButton" id="edu.ncsu.monopoly/MockGUI#updateHouseButton(I)"/>
+    </children>
+    <children xsi:type="editmodel:CompartmentEditModel"/>
+    <sourceConnections xsi:type="editmodel:GeneralizationEditModel" id="edu.ncsu.monopoly/MonopolyGUI&lt;-edu.ncsu.monopoly/MockGUI" source="//@children.13" target="//@children.11/@sourceConnections.0" targetEnd="//@children.13/@sourceConnections.0/@children.1" sourceEnd="//@children.13/@sourceConnections.0/@children.0" connectionRouterKind="Manual" anchorType="FixedAtEdge">
+      <children xsi:type="editmodel:AssociationEndEditModel" location="74,0" anchorKind="FixedAtEdge" attachSource="true"/>
+      <children xsi:type="editmodel:AssociationEndEditModel"/>
+    </sourceConnections>
+    <classifierPreferences xsi:type="editmodel:UMLClassDiagramClassifierPreference" showStereotype="true" attributeSorter="Natural" methodSorter="Natural" innerClassSorter="Natural" showPublicAttributes="true" showPackageAttributes="true" showStaticAttributes="true" showPublicMethods="true" showPackageMethods="true" showStaticMethods="true" showPublicInnerClasses="true" showPackageInnerClasses="true" showStaticInnerClasses="true" showAttributeProperty="true"/>
+  </children>
+  <children xsi:type="editmodel:ClassEditModel" name="SimpleGameBoard" location="213,761" size="164,29" id="edu.ncsu.monopoly/SimpleGameBoard" runTimeClassModel="">
+    <children xsi:type="editmodel:CompartmentEditModel"/>
+    <children xsi:type="editmodel:CompartmentEditModel"/>
+    <children xsi:type="editmodel:CompartmentEditModel"/>
+    <sourceConnections xsi:type="editmodel:GeneralizationEditModel" id="edu.ncsu.monopoly/GameBoard&lt;-edu.ncsu.monopoly/SimpleGameBoard" source="//@children.14" target="//@children.15/@sourceConnections.0" targetEnd="//@children.14/@sourceConnections.0/@children.1" sourceEnd="//@children.14/@sourceConnections.0/@children.0" connectionRouterKind="Manual" anchorType="FixedAtEdge">
+      <children xsi:type="editmodel:AssociationEndEditModel" location="82,0" anchorKind="FixedAtEdge" attachSource="true"/>
+      <children xsi:type="editmodel:AssociationEndEditModel"/>
+    </sourceConnections>
+    <classifierPreferences xsi:type="editmodel:UMLClassDiagramClassifierPreference" showStereotype="true" attributeSorter="Natural" methodSorter="Natural" innerClassSorter="Natural" showPublicAttributes="true" showPackageAttributes="true" showStaticAttributes="true" showPublicMethods="true" showPackageMethods="true" showStaticMethods="true" showPublicInnerClasses="true" showPackageInnerClasses="true" showStaticInnerClasses="true" showAttributeProperty="true"/>
+  </children>
+  <children xsi:type="editmodel:ClassEditModel" name="GameBoard14" location="50,761" size="133,29" id="edu.ncsu.monopoly/GameBoard14" runTimeClassModel="">
+    <children xsi:type="editmodel:CompartmentEditModel"/>
+    <children xsi:type="editmodel:CompartmentEditModel"/>
+    <children xsi:type="editmodel:CompartmentEditModel"/>
+    <sourceConnections xsi:type="editmodel:GeneralizationEditModel" targetConnections="//@children.14/@sourceConnections.0" id="edu.ncsu.monopoly/GameBoard&lt;-edu.ncsu.monopoly/GameBoard14" source="//@children.15" target="//@children.16" targetEnd="//@children.15/@sourceConnections.0/@children.1" sourceEnd="//@children.15/@sourceConnections.0/@children.0" connectionRouterKind="GeneralizationManhattan" anchorType="FixedAtEdge">
+      <children xsi:type="editmodel:AssociationEndEditModel" location="66,0" anchorKind="FixedAtEdge" attachSource="true"/>
+      <children xsi:type="editmodel:AssociationEndEditModel" location="94,193" anchorKind="FixedAtEdge"/>
+    </sourceConnections>
+    <classifierPreferences xsi:type="editmodel:UMLClassDiagramClassifierPreference" showStereotype="true" attributeSorter="Natural" methodSorter="Natural" innerClassSorter="Natural" showPublicAttributes="true" showPackageAttributes="true" showStaticAttributes="true" showPublicMethods="true" showPackageMethods="true" showStaticMethods="true" showPublicInnerClasses="true" showPackageInnerClasses="true" showStaticInnerClasses="true" showAttributeProperty="true"/>
+  </children>
+  <children xsi:type="editmodel:ClassEditModel" targetConnections="//@children.15/@sourceConnections.0" name="GameBoard" location="111,518" size="188,193" id="edu.ncsu.monopoly/GameBoard" runTimeClassModel="addCell(Ledu.ncsu.monopoly.Cell;),getCell(I),queryCellIndex(Ljava.lang.String;),getPropertyNumberForColor(Ljava.lang.String;),queryCell(Ljava.lang.String;),getPropertiesInMonopoly(Ljava.lang.String;),getCellNumber(),addCell(Ledu.ncsu.monopoly.PropertyCell;)">
+    <children xsi:type="editmodel:CompartmentEditModel"/>
+    <children xsi:type="editmodel:CompartmentEditModel" size="165,144">
+      <children xsi:type="editmodel:MethodEditModel" name="addCell" id="edu.ncsu.monopoly/GameBoard#addCell(Ledu.ncsu.monopoly.Cell;)"/>
+      <children xsi:type="editmodel:MethodEditModel" name="addCell" id="edu.ncsu.monopoly/GameBoard#addCell(Ledu.ncsu.monopoly.PropertyCell;)"/>
+      <children xsi:type="editmodel:MethodEditModel" name="getCell" id="edu.ncsu.monopoly/GameBoard#getCell(I)"/>
+      <children xsi:type="editmodel:MethodEditModel" name="getCellNumber" id="edu.ncsu.monopoly/GameBoard#getCellNumber()"/>
+      <children xsi:type="editmodel:MethodEditModel" name="getPropertiesInMonopoly" id="edu.ncsu.monopoly/GameBoard#getPropertiesInMonopoly(Ljava.lang.String;)"/>
+      <children xsi:type="editmodel:MethodEditModel" name="getPropertyNumberForColor" id="edu.ncsu.monopoly/GameBoard#getPropertyNumberForColor(Ljava.lang.String;)"/>
+      <children xsi:type="editmodel:MethodEditModel" name="queryCell" id="edu.ncsu.monopoly/GameBoard#queryCell(Ljava.lang.String;)"/>
+      <children xsi:type="editmodel:MethodEditModel" name="queryCellIndex" id="edu.ncsu.monopoly/GameBoard#queryCellIndex(Ljava.lang.String;)"/>
+    </children>
+    <children xsi:type="editmodel:CompartmentEditModel"/>
+    <classifierPreferences xsi:type="editmodel:UMLClassDiagramClassifierPreference" showStereotype="true" attributeSorter="Natural" methodSorter="Natural" innerClassSorter="Natural" showPublicAttributes="true" showPackageAttributes="true" showStaticAttributes="true" showPublicMethods="true" showPackageMethods="true" showStaticMethods="true" showPublicInnerClasses="true" showPackageInnerClasses="true" showStaticInnerClasses="true" showAttributeProperty="true"/>
+  </children>
+  <children xsi:type="editmodel:ClassEditModel" name="GoCell" location="579,689" size="105,85" id="edu.ncsu.monopoly/GoCell" runTimeClassModel="playAction(),setName(Ljava.lang.String;)">
+    <children xsi:type="editmodel:CompartmentEditModel"/>
+    <children xsi:type="editmodel:CompartmentEditModel" size="82,36">
+      <children xsi:type="editmodel:MethodEditModel" name="playAction" id="edu.ncsu.monopoly/GoCell#playAction()"/>
+      <children xsi:type="editmodel:MethodEditModel" name="setName" id="edu.ncsu.monopoly/GoCell#setName(Ljava.lang.String;)"/>
+    </children>
+    <children xsi:type="editmodel:CompartmentEditModel"/>
+    <sourceConnections xsi:type="editmodel:GeneralizationEditModel" id="edu.ncsu.monopoly/Cell&lt;-edu.ncsu.monopoly/GoCell" source="//@children.17" target="//@children.19/@sourceConnections.0" targetEnd="//@children.17/@sourceConnections.0/@children.1" sourceEnd="//@children.17/@sourceConnections.0/@children.0" connectionRouterKind="Manual" anchorType="FixedAtEdge">
+      <children xsi:type="editmodel:AssociationEndEditModel" location="52,0" anchorKind="FixedAtEdge" attachSource="true"/>
+      <children xsi:type="editmodel:AssociationEndEditModel"/>
+    </sourceConnections>
+    <classifierPreferences xsi:type="editmodel:UMLClassDiagramClassifierPreference" showStereotype="true" attributeSorter="Natural" methodSorter="Natural" innerClassSorter="Natural" showPublicAttributes="true" showPackageAttributes="true" showStaticAttributes="true" showPublicMethods="true" showPackageMethods="true" showStaticMethods="true" showPublicInnerClasses="true" showPackageInnerClasses="true" showStaticInnerClasses="true" showAttributeProperty="true"/>
+  </children>
+  <children xsi:type="editmodel:ClassEditModel" targetConnections="//@children.19/@sourceConnections.0" name="Cell" location="495,518" size="129,121" id="edu.ncsu.monopoly/Cell" runTimeClassModel="playAction(),getPrice(),available,name">
+    <children xsi:type="editmodel:CompartmentEditModel" size="106,36">
+      <children xsi:type="editmodel:AttributeEditModel" name="available" id="edu.ncsu.monopoly/Cell#available"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="name" id="edu.ncsu.monopoly/Cell#name"/>
+    </children>
+    <children xsi:type="editmodel:CompartmentEditModel" size="82,36">
+      <children xsi:type="editmodel:MethodEditModel" name="getPrice" id="edu.ncsu.monopoly/Cell#getPrice()"/>
+      <children xsi:type="editmodel:MethodEditModel" name="playAction" id="edu.ncsu.monopoly/Cell#playAction()"/>
+    </children>
+    <children xsi:type="editmodel:CompartmentEditModel"/>
+    <classifierPreferences xsi:type="editmodel:UMLClassDiagramClassifierPreference" showStereotype="true" attributeSorter="Natural" methodSorter="Natural" innerClassSorter="Natural" showPublicAttributes="true" showPackageAttributes="true" showStaticAttributes="true" showPublicMethods="true" showPackageMethods="true" showStaticMethods="true" showPublicInnerClasses="true" showPackageInnerClasses="true" showStaticInnerClasses="true" showAttributeProperty="true"/>
+  </children>
+  <children xsi:type="editmodel:ClassEditModel" name="PropertyCell" location="427,689" size="122,175" id="edu.ncsu.monopoly/PropertyCell" runTimeClassModel="housePrice,setPrice(I),playAction(),toString(),getPrice(),numHouses,rent">
+    <children xsi:type="editmodel:CompartmentEditModel" size="94,54">
+      <children xsi:type="editmodel:AttributeEditModel" name="housePrice" id="edu.ncsu.monopoly/PropertyCell#housePrice"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="numHouses" id="edu.ncsu.monopoly/PropertyCell#numHouses"/>
+      <children xsi:type="editmodel:AttributeEditModel" name="rent" id="edu.ncsu.monopoly/PropertyCell#rent"/>
+    </children>
+    <children xsi:type="editmodel:CompartmentEditModel" size="82,72">
+      <children xsi:type="editmodel:MethodEditModel" name="getPrice" id="edu.ncsu.monopoly/PropertyCell#getPrice()"/>
+      <children xsi:type="editmodel:MethodEditModel" name="playAction" id="edu.ncsu.monopoly/PropertyCell#playAction()"/>
+      <children xsi:type="editmodel:MethodEditModel" name="setPrice" id="edu.ncsu.monopoly/PropertyCell#setPrice(I)"/>
+      <children xsi:type="editmodel:MethodEditModel" name="toString" id="edu.ncsu.monopoly/PropertyCell#toString()"/>
+    </children>
+    <children xsi:type="editmodel:CompartmentEditModel"/>
+    <sourceConnections xsi:type="editmodel:GeneralizationEditModel" targetConnections="//@children.17/@sourceConnections.0" id="edu.ncsu.monopoly/Cell&lt;-edu.ncsu.monopoly/PropertyCell" source="//@children.19" target="//@children.18" targetEnd="//@children.19/@sourceConnections.0/@children.1" sourceEnd="//@children.19/@sourceConnections.0/@children.0" connectionRouterKind="GeneralizationManhattan" anchorType="FixedAtEdge">
+      <children xsi:type="editmodel:AssociationEndEditModel" location="61,0" anchorKind="FixedAtEdge" attachSource="true"/>
+      <children xsi:type="editmodel:AssociationEndEditModel" location="64,121" anchorKind="FixedAtEdge"/>
+    </sourceConnections>
+    <classifierPreferences xsi:type="editmodel:UMLClassDiagramClassifierPreference" showStereotype="true" attributeSorter="Natural" methodSorter="Natural" innerClassSorter="Natural" showPublicAttributes="true" showPackageAttributes="true" showStaticAttributes="true" showPublicMethods="true" showPackageMethods="true" showStaticMethods="true" showPublicInnerClasses="true" showPackageInnerClasses="true" showStaticInnerClasses="true" showAttributeProperty="true"/>
+  </children>
+  <diagramOptions xsi:type="options:ClassDiagramOptions"/>
+  <boardSetting snapToGeometry="true" gridEnabled="true" gridSpacing="10,10" gridOrigin="0,0" rulerUnit="pixel">
+    <leftRuler/>
+    <topRuler/>
+  </boardSetting>
+  <classDiagramPreferences xsi:type="editmodel:UMLClassDiagramPreference" attributeSorter="Natural" methodSorter="Natural" showClassStereotype="true" showPackageStereotype="true" innerClassSorter="Natural" showPublicAttributes="true" showPackageAttributes="true" showStaticAttributes="true" showPublicMethods="true" showPackageMethods="true" showStaticMethods="true" showPublicInnerClasses="true" showPackageInnerClasses="true" showStaticInnerClasses="true" showInterfaceStereotype="true" showAttributeProperty="true"/>
+</editmodel:ClassDiagramEditModel>
