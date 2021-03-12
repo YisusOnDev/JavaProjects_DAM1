@@ -49,7 +49,7 @@ public class MainApp {
 			}
 		}
 		
-		System.out.println("Animals alive in Schrodinger Box: " + stillAlive);
+		System.out.println("\nAnimals alive in Schrodinger Box: " + stillAlive);
 
 	}
 
