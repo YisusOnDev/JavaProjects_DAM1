@@ -24,10 +24,11 @@ public class SchrodingerBox<E extends Animal> {
 	public void checkAnimalStatus() {
 		if (someAnimal != null) {
 			boolean willDead = Math.random() > 0.5;
-			System.out.println("¿ WIll dead?" + willDead);
+
 			if (willDead) {
 				someAnimal.kill();
 			}
+			
 		} else {
 			System.out.println("No animals on box.");
 		}

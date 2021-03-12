@@ -41,6 +41,14 @@ public class MainApp {
 				stillAlive += 1;
 		}
 		
+		for (Animal animal : observationAnimals) {
+			if(animal.isAlive()) {
+				System.out.println(animal.getAnimalName() + " is still alive.");
+			} else {
+				System.out.println(animal.getAnimalName() + " dead.");
+			}
+		}
+		
 		System.out.println("Animals alive in Schrodinger Box: " + stillAlive);
 
 	}

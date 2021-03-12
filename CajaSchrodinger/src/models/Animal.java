@@ -24,6 +24,10 @@ public abstract class Animal {
 	public void setAnimalName(String name) {
 		this.animalName = name;
 	}
+	
+	public String getAnimalName() {
+		return animalName;
+	}
 
 	/**
 	 * Method (getter) to know if an animal is alive or not.
