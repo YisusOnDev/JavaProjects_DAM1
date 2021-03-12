@@ -8,7 +8,7 @@ public class RRCellInfoFormatter implements CellInfoFormatter {
     public String format(Cell cell) {
         RailRoadCell c = (RailRoadCell)cell;
         StringBuffer buf = new StringBuffer();
-        Player owner = cell.getOwner();
+        Player owner = cell.getLandlord();
         String ownerName = "";
         if(owner != null) {
         	ownerName = owner.getName();
