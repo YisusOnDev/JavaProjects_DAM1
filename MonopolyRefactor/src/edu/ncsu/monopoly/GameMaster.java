@@ -123,7 +123,7 @@ public class GameMaster {
 
     public void completeTrade(TradeDeal deal) {
         Player seller = getPlayer(deal.getPlayerIndex());
-        Cell property = gameBoard.queryCell(deal.getPropertyName());
+        lOwner property = gameBoard.queryCell(deal.getPropertyName());
         seller.sellProperty(property, deal.getAmount());
         getCurrentPlayer().buyProperty(property, deal.getAmount());
     }
@@ -196,7 +196,7 @@ public class GameMaster {
 	}
 	
 	public void movePlayer(Player player, int diceValue) {
-		Cell currentPosition = player.getPosition();
+		lOwner currentPosition = player.getPosition();
 		int positionIndex = gameBoard.queryCellIndex(currentPosition.getName());
 		int newIndex = (positionIndex+diceValue)%gameBoard.getCellNumber();
 		if(newIndex <= positionIndex || diceValue > gameBoard.getCellNumber()) {
@@ -209,7 +209,7 @@ public class GameMaster {
 	}
 
 	public void playerMoved(Player player) {
-		Cell cell = player.getPosition();
+		lOwner cell = player.getPosition();
 		int playerIndex = getPlayerIndex(player);
 		if(cell instanceof CardCell) {
 		    gui.setDrawCardEnabled(true);

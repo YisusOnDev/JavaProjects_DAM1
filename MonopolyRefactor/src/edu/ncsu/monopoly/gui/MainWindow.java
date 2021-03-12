@@ -17,11 +17,6 @@ import javax.swing.JPanel;
 import javax.swing.border.LineBorder;
 
 import edu.ncsu.monopoly.*;
-import edu.ncsu.monopoly.Cell;
-import edu.ncsu.monopoly.GameBoard;
-import edu.ncsu.monopoly.GameMaster;
-import edu.ncsu.monopoly.MonopolyGUI;
-import edu.ncsu.monopoly.Player;
 
 public class MainWindow extends JFrame implements MonopolyGUI{
 	JPanel eastPanel = new JPanel();
@@ -57,7 +52,7 @@ public class MainWindow extends JFrame implements MonopolyGUI{
 	
 	private void addCells(JPanel panel, List cells) {
 		for(int x=0; x<cells.size(); x++) {
-			GUICell cell = new GUICell((Cell)cells.get(x));
+			GUICell cell = new GUICell((lOwner)cells.get(x));
 			panel.add(cell);
 			guiCells.add(cell);
 		}
@@ -136,7 +131,7 @@ public class MainWindow extends JFrame implements MonopolyGUI{
     }
 	
 	private GUICell queryCell(int index) {
-		Cell cell = GameMaster.instance().getGameBoard().getCell(index);
+		lOwner cell = GameMaster.instance().getGameBoard().getCell(index);
 		for(int x = 0; x < guiCells.size(); x++) {
 			GUICell guiCell = (GUICell)guiCells.get(x);
 			if(guiCell.getCell() == cell) return guiCell;

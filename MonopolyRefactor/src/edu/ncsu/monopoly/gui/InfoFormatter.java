@@ -33,7 +33,7 @@ public class InfoFormatter {
                 CardCell.class, new CCCellInfoFormatter());
     }
 
-    public static String cellInfo(Cell cell) {
+    public static String cellInfo(lOwner cell) {
         CellInfoFormatter formatter =
                 (CellInfoFormatter) cellInfoFormatters.get(cell.getClass());
         return formatter.format(cell);

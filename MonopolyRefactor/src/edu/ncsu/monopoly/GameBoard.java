@@ -13,7 +13,7 @@ public class GameBoard {
 	private GameMaster gameMaster;
 	
 	public GameBoard() {
-		Cell go = new GoCell();
+		lOwner go = new GoCell();
 		addCell(go);
 	}
 
@@ -25,13 +25,14 @@ public class GameBoard {
         }
     }
 	
-	public void addCell(Cell cell) {
+	public void addCell(lOwner cell) {
 		cells.add(cell);
 	}
 	
 	public void addCell(PropertyCell cell) {
-		int propertyNumber = getPropertyNumberForColor(cell.getColorGroup());
-		colorGroups.put(cell.getColorGroup(), new Integer(propertyNumber + 1));
+		String colorGroup = cell.getColorGroup();
+		int propertyNumber = (int) getPropertyNumberForColor(colorGroup);
+		colorGroups.put(colorGroup, new Integer(propertyNumber + 1));
         cells.add(cell);
 	}
 
@@ -49,8 +50,8 @@ public class GameBoard {
         return card;
     }
 
-	public Cell getCell(int newIndex) {
-		return (Cell)cells.get(newIndex);
+	public lOwner getCell(int newIndex) {
+		return (lOwner)cells.get(newIndex);
 	}
 	
 	public int getCellNumber() {
@@ -59,10 +60,10 @@ public class GameBoard {
 	
 	public PropertyCell[] getPropertiesInMonopoly(String color) {
 		PropertyCell[] monopolyCells = 
-			new PropertyCell[getPropertyNumberForColor(color)];
+			new PropertyCell[(int) getPropertyNumberForColor(color)];
 		int counter = 0;
 		for (int i = 0; i < getCellNumber(); i++) {
-			Cell c = getCell(i);
+			lOwner c = getCell(i);
 			if(c instanceof PropertyCell) {
 				PropertyCell pc = (PropertyCell)c;
 				if(pc.getColorGroup().equals(color)) {
@@ -74,7 +75,7 @@ public class GameBoard {
 		return monopolyCells;
 	}
 	
-	public int getPropertyNumberForColor(String name) {
+	public float getPropertyNumberForColor(String name) {
 		Integer number = (Integer)colorGroups.get(name);
 		if(number != null) {
 			return number.intValue();
@@ -82,9 +83,9 @@ public class GameBoard {
 		return 0;
 	}
 
-	public Cell queryCell(String string) {
+	public lOwner queryCell(String string) {
 		for(int i = 0; i < cells.size(); i++){
-			Cell temp = (Cell)cells.get(i); 
+			lOwner temp = (lOwner)cells.get(i); 
 			if(temp.getName().equals(string)) {
 				return temp;
 			}
@@ -94,7 +95,7 @@ public class GameBoard {
 	
 	public int queryCellIndex(String string){
 		for(int i = 0; i < cells.size(); i++){
-			Cell temp = (Cell)cells.get(i); 
+			lOwner temp = (lOwner)cells.get(i); 
 			if(temp.getName().equals(string)) {
 				return i;
 			}
