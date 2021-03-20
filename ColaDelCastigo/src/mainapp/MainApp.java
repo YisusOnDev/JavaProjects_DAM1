@@ -8,8 +8,8 @@ public class MainApp {
 		PunishmentQueueTester tester = new PunishmentQueueTester();
 
 		// Comment or uncomment any method to check the functionality.
-		tester.addTest();
-//		tester.nullTest();
+//		tester.addTest();
+		tester.nullTest();
 //		tester.maxSizeTest();
 //		tester.clearTest();
 //		tester.clearFailTest();
