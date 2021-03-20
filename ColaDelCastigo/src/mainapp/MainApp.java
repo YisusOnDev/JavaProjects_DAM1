@@ -1,30 +1,19 @@
 package mainapp;
 
-import java.util.Comparator;
-
-import models.PunishmentQueue;
+import tests.PunishmentQueueTester;
 
 public class MainApp {
 
-	public static final Comparator<Integer> DESCENDING_COMPARATOR = new Comparator<Integer>() {
-		public int compare(Integer a, Integer b) {
-			return a - b;
-		}
-	};
-
 	public static void main(String[] args) {
+		PunishmentQueueTester tester = new PunishmentQueueTester();
 
-		PunishmentQueue<Integer> q = new PunishmentQueue<Integer>(DESCENDING_COMPARATOR);
-		q.add(1);
-		q.add(3);
-		q.add(2);
-		q.add(-1);
-		q.add(4);
-		q.add(10);
-		q.add(9);
-		q.add(7);
-		System.out.println(q);
+		// Comment or uncomment any method to check the functionality.
+		tester.addTest();
+//		tester.nullTest();
+//		tester.maxSizeTest();
+//		tester.clearTest();
+//		tester.clearFailTest();
+//		tester.addAllOk();
 
 	}
-
 }
