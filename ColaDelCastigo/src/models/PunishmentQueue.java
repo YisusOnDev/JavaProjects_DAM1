@@ -31,7 +31,7 @@ public class PunishmentQueue<E> extends PriorityQueue<E> {
 	@Override
 	public boolean add(E arg0) throws ExceededQueueSizeException, TakeYourNullOutOfHereException {
 		if (arg0 != null) {
-			if (this.size() < 10) {
+			if (this.size() < MAX_QUEUE_SIZE) {
 				super.add(arg0);
 				return true;
 			} else {
@@ -68,7 +68,7 @@ public class PunishmentQueue<E> extends PriorityQueue<E> {
 	 */
 	@Override
 	public void clear() {
-		if (this.size() < 10) {
+		if (this.size() < MAX_QUEUE_SIZE) {
 			super.clear();
 		} else {
 			throw new ElementBlockedException();
