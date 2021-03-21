@@ -74,5 +74,17 @@ public class PunishmentQueue<E> extends PriorityQueue<E> {
 			throw new ElementBlockedException();
 		}
 	}
+	
+	/**
+	 * Override
+	 */
+	@Override
+	public E remove() {
+		if (this.size() < MAX_QUEUE_SIZE) {
+			return super.remove();
+		} else {
+			throw new ElementBlockedException();
+		}
+	}
 
 }
