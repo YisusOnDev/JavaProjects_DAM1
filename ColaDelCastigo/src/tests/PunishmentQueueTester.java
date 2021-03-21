@@ -1,28 +1,28 @@
 package tests;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import models.PunishmentQueue;
 
 public class PunishmentQueueTester {
 
-	protected PunishmentQueue<Integer> q = new PunishmentQueue<Integer>(
-			(Integer n1, Integer n2) -> n1.intValue() - n2.intValue());
+	protected PunishmentQueue<String> q = new PunishmentQueue<String>((String s1, String s2) -> s2.compareTo(s1));
 
 	/**
 	 * Tester for add method of PunishmentQueue class.
 	 */
 	public void addTest() {
 		try {
-			q.add(1);
-			q.add(5);
-			q.add(2);
-			q.add(3);
-			q.add(7);
-			q.add(9);
-			q.add(4);
-			q.add(6);
-			q.add(8);
+			q.add("a");
+			q.add("f");
+			q.add("b");
+			q.add("c");
+			q.add("g");
+			q.add("i");
+			q.add("j");
+			q.add("k");
+			q.add("m");
 		} catch (RuntimeException e) {
 			e.printStackTrace();
 		}
@@ -34,11 +34,11 @@ public class PunishmentQueueTester {
 	 */
 	public void nullTest() {
 		try {
-			q.add(1);
-			q.add(5);
-			q.add(2);
-			q.add(3);
-			q.add(7);
+			q.add("a");
+			q.add("f");
+			q.add("b");
+			q.add("c");
+			q.add("g");
 			q.add(null);
 		} catch (NullPointerException e) {
 			e.printStackTrace();
@@ -51,17 +51,17 @@ public class PunishmentQueueTester {
 	 */
 	public void maxSizeTest() {
 		try {
-			q.add(1);
-			q.add(5);
-			q.add(2);
-			q.add(3);
-			q.add(7);
-			q.add(9);
-			q.add(4);
-			q.add(6);
-			q.add(8);
-			q.add(10);
-			q.add(24);
+			q.add("a");
+			q.add("f");
+			q.add("b");
+			q.add("c");
+			q.add("g");
+			q.add("i");
+			q.add("j");
+			q.add("k");
+			q.add("m");
+			q.add("o");
+			q.add("p");
 		} catch (RuntimeException e) {
 			e.printStackTrace();
 		}
@@ -72,15 +72,15 @@ public class PunishmentQueueTester {
 	 */
 	public void clearTest() {
 		try {
-			q.add(1);
-			q.add(5);
-			q.add(2);
-			q.add(3);
-			q.add(7);
-			q.add(9);
-			q.add(4);
-			q.add(6);
-			q.add(8);
+			q.add("a");
+			q.add("f");
+			q.add("b");
+			q.add("c");
+			q.add("g");
+			q.add("i");
+			q.add("j");
+			q.add("k");
+			q.add("m");
 			System.out.println(q);
 			q.clear();
 			System.out.println(q);
@@ -95,16 +95,16 @@ public class PunishmentQueueTester {
 	 */
 	public void clearFailTest() {
 		try {
-			q.add(1);
-			q.add(5);
-			q.add(2);
-			q.add(3);
-			q.add(7);
-			q.add(9);
-			q.add(4);
-			q.add(6);
-			q.add(8);
-			q.add(10);
+			q.add("a");
+			q.add("f");
+			q.add("b");
+			q.add("c");
+			q.add("g");
+			q.add("i");
+			q.add("j");
+			q.add("k");
+			q.add("m");
+			q.add("o");
 			q.clear();
 		} catch (RuntimeException e) {
 			e.printStackTrace();
@@ -115,11 +115,18 @@ public class PunishmentQueueTester {
 	 * Tester for addAll method of PunishmentQueue class.
 	 */
 	public void addAllOk() {
-		ArrayList<Integer> fullArrayTest = new ArrayList<Integer>();
+		List<String> fullArrayTest = new ArrayList<String>();
 
-		for (int i = 1; i < 11; ++i) {
-			fullArrayTest.add(i);
-		}
+		fullArrayTest.add("a");
+		fullArrayTest.add("f");
+		fullArrayTest.add("b");
+		fullArrayTest.add("c");
+		fullArrayTest.add("g");
+		fullArrayTest.add("i");
+		fullArrayTest.add("j");
+		fullArrayTest.add("k");
+		fullArrayTest.add("m");
+		fullArrayTest.add("o");
 
 		try {
 			q.addAll(fullArrayTest);
