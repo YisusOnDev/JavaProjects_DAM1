@@ -55,9 +55,6 @@ public class Lista<T> {
 			this.index = nextIndex;
 			return elementos[nextIndex];
 		}
-		// Devolverá el elemento siguiente al que apunte el
-		// index. No lo elimina. Recordad que es una lista
-		// doblemente enlazada. Por supuesto modifica el índice.
 	}
 
 	/**
