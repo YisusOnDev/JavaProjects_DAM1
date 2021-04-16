@@ -53,6 +53,12 @@ public class Read {
 		return showList;
 	}
 
+	/**
+	 * Read a csv from filesystem
+	 * 
+	 * @param filepath full path to file
+	 * @return a list with all shows loaded from file
+	 */
 	public static List<Show> readBookmarkFile(String filepath) {
 
 		List<Show> showList = new ArrayList<Show>();

@@ -80,6 +80,9 @@ public class MainView {
 		frame.setVisible(true);
 	}
 
+	/**
+	 * Sets UI components
+	 */
 	private void setUIComponents() {
 		lblWindowTitle = new JLabel("NETFLIX TITLE MANAGER");
 		lblWindowTitle.setForeground(new Color(204, 0, 0));
@@ -121,6 +124,8 @@ public class MainView {
 		String dataCol[] = { "Title", "Rating", "Rating description", "Rating level", "Release Year",
 				"User rating score", "User rating size", "Favourite" };
 		showListTableModel = new DefaultTableModel(dataCol, 0);
+
+		// Override some methods in order to use as our needs...
 		showListTable = new JTable(showListTableModel) {
 			private static final long serialVersionUID = 1L;
 
@@ -196,6 +201,9 @@ public class MainView {
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
 
+	/**
+	 * Sets UI Elements Listeners...
+	 */
 	private void setUIListeners() {
 		searchButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -233,6 +241,9 @@ public class MainView {
 
 	}
 
+	/**
+	 * Method to fill JTable with Shows contents loaded from file.
+	 */
 	private void fillShowListTable() {
 		viewingBookmarkFlag = false;
 		fullShowList = Read.getShowList();
@@ -247,6 +258,9 @@ public class MainView {
 
 	}
 
+	/**
+	 * Method to REFILL the JTable with memory data of fullShowList
+	 */
 	private void refillShowListTable() {
 		viewingBookmarkFlag = false;
 		toggleReadWriteBookMarkButtons();
@@ -260,6 +274,11 @@ public class MainView {
 		}
 	}
 
+	/**
+	 * Method to make a search with or without filters.
+	 * 
+	 * @param text text from text field
+	 */
 	private void doSearch(String text) {
 		int filterApplied = getSelectedFilters();
 
@@ -326,6 +345,11 @@ public class MainView {
 
 	}
 
+	/**
+	 * Method to get the filter to apply on search
+	 * 
+	 * @return int (Number of filter)
+	 */
 	private int getSelectedFilters() {
 		if (rdbtnTitleFilter.isSelected()) {
 			return TITLE_FILTER;
@@ -344,6 +368,12 @@ public class MainView {
 		}
 	}
 
+	/**
+	 * Method to fill JTable with filtered data
+	 * 
+	 * @param filter filtered applied
+	 * @param text   text to search with the filter
+	 */
 	private void fillFilteredShowListTable(int filter, String text) {
 		showListTableModel.setRowCount(0);
 
@@ -438,6 +468,9 @@ public class MainView {
 
 	}
 
+	/**
+	 * Method to fill JTable with only bookmarked Shows
+	 */
 	private void openBookmarkedShows() {
 		viewingBookmarkFlag = true;
 		toggleReadWriteBookMarkButtons();
@@ -452,6 +485,9 @@ public class MainView {
 		}
 	}
 
+	/**
+	 * Method to show or not the bookmark load/save buttons
+	 */
 	private void toggleReadWriteBookMarkButtons() {
 		if (viewingBookmarkFlag) {
 			btnLoadBookmark.setVisible(true);
@@ -461,7 +497,10 @@ public class MainView {
 			btnSaveBookmark.setVisible(false);
 		}
 	}
-
+	
+	/**
+	 * Method to save bookmarked shows to a file
+	 */
 	private void saveFavToFile() {
 		FileNameExtensionFilter filter = new FileNameExtensionFilter("CSV Files", "csv");
 		JFileChooser fileChooser = new JFileChooser();
