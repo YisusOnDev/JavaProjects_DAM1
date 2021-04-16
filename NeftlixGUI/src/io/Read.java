@@ -10,11 +10,15 @@ import models.Show;
 
 public class Read {
 
+	/**
+	 * Read default show list csv
+	 * 
+	 * @return an ArrayList with all shows loaded from default csv file
+	 */
 	public static List<Show> getShowList() {
 
 		List<Show> showList = new ArrayList<Show>();
 		File f = new File("assets/bettercsv2.csv");
-		boolean isString = false;
 		Scanner sc = null;
 		try {
 			sc = new Scanner(f, "UTF-8");
@@ -28,7 +32,6 @@ public class Read {
 				var stringChain = sc.nextLine();
 				var stringChains = stringChain.split(";");
 
-				String stringWithQuotes = "";
 				for (String s : stringChains) {
 					while (s.endsWith(";")) {
 						s = s.substring(0, s.length() - 1);
@@ -36,11 +39,9 @@ public class Read {
 
 					s = s.trim();
 				}
-				
-				//System.out.println(stringChains[0] + " " + stringChains[1] + " " + stringChains[2] + " "
-				//		+ stringChains[3] + " " + stringChains[4] + " " + stringChains[5]);
 
-				showList.add(new Show(stringChains[0], stringChains[1], stringChains[2], stringChains[3], stringChains[4], stringChains[5]));
+				showList.add(new Show(stringChains[0], stringChains[1], stringChains[2], stringChains[3],
+						stringChains[4], stringChains[5], stringChains[6]));
 			}
 
 		} catch (FileNotFoundException e) {
@@ -52,11 +53,10 @@ public class Read {
 		return showList;
 	}
 
-	public static <E> List<E> readFileList(String path) {
+	public static List<Show> readBookmarkFile(String filepath) {
 
-		List<E> List = new ArrayList<E>();
-		File f = new File(path);
-		boolean isString = false;
+		List<Show> showList = new ArrayList<Show>();
+		File f = new File(filepath);
 		Scanner sc = null;
 		try {
 			sc = new Scanner(f, "UTF-8");
@@ -68,29 +68,18 @@ public class Read {
 			// Read data
 			while (sc.hasNextLine()) {
 				var stringChain = sc.nextLine();
-				var stringChains = stringChain.split(",");
+				var stringChains = stringChain.split(";");
 
-				String stringWithQuotes = "";
 				for (String s : stringChains) {
-					// Escape full strings
-					if (s.startsWith("\"")) {
-						isString = true;
-					}
-					if (isString) {
-						stringWithQuotes += s + ",";
-					}
-					if (s.endsWith("\"")) {
-						isString = false;
-						s = stringWithQuotes;
-						stringWithQuotes = "";
-					}
-
-					s = s.replaceAll("\"", "");
-					while (s.endsWith(",")) {
+					while (s.endsWith(";")) {
 						s = s.substring(0, s.length() - 1);
 					}
+
 					s = s.trim();
 				}
+
+				showList.add(new Show(stringChains[0], stringChains[1], stringChains[2], stringChains[3],
+						stringChains[4], stringChains[5], stringChains[6], true));
 			}
 
 		} catch (FileNotFoundException e) {
@@ -99,6 +88,6 @@ public class Read {
 			sc.close();
 		}
 
-		return List;
+		return showList;
 	}
 }

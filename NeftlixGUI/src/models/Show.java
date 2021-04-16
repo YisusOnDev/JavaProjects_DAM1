@@ -1,17 +1,32 @@
 package models;
 
 public class Show {
-
-	private String title, rating, ratinglevel, ratingdescription, release_year, user_rating_score;
+	private String title, rating, ratinglevel, ratingdescription, release_year, user_rating_score, user_rating_size;
+	private boolean isFavourite;
 
 	public Show(String title, String rating, String ratinglevel, String ratingdescription, String release_year,
-			String user_rating_score) {
+			String user_rating_score, String user_rating_size) {
 		this.title = title;
 		this.rating = rating;
 		this.ratinglevel = ratinglevel;
 		this.ratingdescription = ratingdescription;
 		this.release_year = release_year;
 		this.user_rating_score = user_rating_score;
+		this.user_rating_size = user_rating_size;
+		this.isFavourite = false;
+
+	}
+	
+	public Show(String title, String rating, String ratinglevel, String ratingdescription, String release_year,
+			String user_rating_score, String user_rating_size, boolean isFavourite) {
+		this.title = title;
+		this.rating = rating;
+		this.ratinglevel = ratinglevel;
+		this.ratingdescription = ratingdescription;
+		this.release_year = release_year;
+		this.user_rating_score = user_rating_score;
+		this.user_rating_size = user_rating_size;
+		this.isFavourite = isFavourite;
 
 	}
 
@@ -62,6 +77,23 @@ public class Show {
 	public void setUser_rating_score(String user_rating_score) {
 		this.user_rating_score = user_rating_score;
 	}
+
+	public String getUser_rating_size() {
+		return user_rating_size;
+	}
+
+	public void setUser_rating_size(String user_rating_size) {
+		this.user_rating_size = user_rating_size;
+	}
+
+	public boolean isFavourite() {
+		return isFavourite;
+	}
+
+	public void setFavourite(boolean isFavourite) {
+		this.isFavourite = isFavourite;
+	}
+
 
 	@Override
 	public String toString() {
