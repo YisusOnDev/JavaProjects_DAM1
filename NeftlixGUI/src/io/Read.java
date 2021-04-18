@@ -88,7 +88,7 @@ public class Read {
 						stringChains[4], stringChains[5], stringChains[6], true));
 			}
 
-		} catch (FileNotFoundException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
 			sc.close();
