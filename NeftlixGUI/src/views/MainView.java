@@ -497,21 +497,51 @@ public class MainView {
 			btnSaveBookmark.setVisible(false);
 		}
 	}
-	
+
 	/**
 	 * Method to save bookmarked shows to a file
 	 */
 	private void saveFavToFile() {
 		FileNameExtensionFilter filter = new FileNameExtensionFilter("CSV Files", "csv");
-		JFileChooser fileChooser = new JFileChooser();
+		JFileChooser fileChooser = new JFileChooser() {
+			private static final long serialVersionUID = 1L;
+
+			@Override
+			public void approveSelection() {
+				File f = getSelectedFile();
+				if (f.exists() && getDialogType() == SAVE_DIALOG) {
+					int result = JOptionPane.showConfirmDialog(this, "The file exists, overwrite?", "Existing file",
+							JOptionPane.YES_NO_CANCEL_OPTION);
+					switch (result) {
+					case JOptionPane.YES_OPTION:
+						super.approveSelection();
+						return;
+					case JOptionPane.NO_OPTION:
+						return;
+					case JOptionPane.CLOSED_OPTION:
+						return;
+					case JOptionPane.CANCEL_OPTION:
+						cancelSelection();
+						return;
+					}
+				}
+				super.approveSelection();
+			}
+		};
 		fileChooser.setCurrentDirectory(new File(System.getProperty("user.home")));
 		fileChooser.setFileFilter(filter);
 		int result = fileChooser.showSaveDialog(frame);
 
 		if (result == JFileChooser.APPROVE_OPTION) {
 			File selectedFile = fileChooser.getSelectedFile();
-			String filePath = selectedFile.getAbsolutePath() + ".csv";
-			System.out.println(filePath);
+			String filePath = selectedFile.getAbsolutePath();
+					
+			if(!filePath.endsWith(".csv")) {
+				filePath += ".csv";
+			}
+
+			// System.out.println(filePath);
+
 			try {
 				File myObj = new File(filePath);
 				if (myObj.createNewFile()) {
@@ -548,27 +578,35 @@ public class MainView {
 		if (result == JFileChooser.APPROVE_OPTION) {
 			File selectedFile = fileChooser.getSelectedFile();
 			String filePath = selectedFile.getAbsolutePath();
-			System.out.println(filePath);
-			List<Show> bookmarkedShowsFile = Read.readBookmarkFile(filePath);
-			if (bookmarkedShowsFile != null) {
-				Show foundShow = null;
-				fullShowList = Read.getShowList();
-				for (Show bookShow : bookmarkedShowsFile) {
-					for (Show show : fullShowList) {
-						if (bookShow.getTitle().equals(show.getTitle())) {
-							foundShow = show;
+			if (filePath.endsWith(".csv")) {
+
+				// System.out.println(filePath);
+
+				List<Show> bookmarkedShowsFile = Read.readBookmarkFile(filePath);
+				if (bookmarkedShowsFile != null) {
+					Show foundShow = null;
+					fullShowList = Read.getShowList();
+					for (Show bookShow : bookmarkedShowsFile) {
+						for (Show show : fullShowList) {
+							if (bookShow.getTitle().equals(show.getTitle())) {
+								foundShow = show;
+							}
+						}
+						if (foundShow != null) {
+							fullShowList.remove(foundShow);
+							fullShowList.add(bookShow);
+							foundShow = null;
 						}
 					}
-					if (foundShow != null) {
-						fullShowList.remove(foundShow);
-						fullShowList.add(bookShow);
-						foundShow = null;
-					}
+
+					refillShowListTable();
+					JOptionPane.showMessageDialog(frame, "Bookmarks succesfull loaded from file.", "Bookmarks loaded",
+							JOptionPane.INFORMATION_MESSAGE);
+				} else {
+					JOptionPane.showMessageDialog(frame, "The file format is not correct. (Only supports CSV Files",
+							"File format error", JOptionPane.ERROR_MESSAGE);
 				}
 
-				refillShowListTable();
-				JOptionPane.showMessageDialog(frame, "Bookmarks succesfull loaded from file.", "Bookmarks loaded",
-						JOptionPane.INFORMATION_MESSAGE);
 			}
 		}
 	}
