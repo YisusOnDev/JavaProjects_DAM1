@@ -11,18 +11,11 @@ import utils.ConsoleHelper;
 
 public class Read {
 
-	public static List<Weather> getShowList(String path, String filename) {
-
+	public static List<Weather> readFile(String aPath) {
 		List<Weather> weatherList = new ArrayList<Weather>();
-		File f = null;
-
-		if (path.endsWith("/")) {
-			f = new File(path + filename);
-		} else {
-			f = new File(path + "/" + filename);
-		}
-
+		File f = new File(aPath);
 		Scanner sc = null;
+		
 		try {
 			sc = new Scanner(f, "UTF-8");
 
@@ -54,7 +47,7 @@ public class Read {
 					return null;
 				}
 			}
-			System.out.println(weatherList);
+			// System.out.println(weatherList);
 
 		} catch (FileNotFoundException e) {
 			System.out.println("File could not be found.");

@@ -1,5 +1,6 @@
 package utils;
 
+import java.io.File;
 import java.util.Scanner;
 
 public class ConsoleHelper {
@@ -50,6 +51,56 @@ public class ConsoleHelper {
 			}
 		}
 		return opc == 1;
+	}
+
+	public static String getPathandFileMenu(String method) {
+		String path = readString("Please insert the file path");
+		String filename = readString("Please insert the filename (WITH EXTENSION!!)");
+
+		if (!path.endsWith("/")) {
+			path += "/";
+		}
+
+		String absolutePath = path + filename;
+		if (!absolutePath.endsWith(".csv")) {
+			System.out.println("File must have a name and the extension must be CSV.");
+			getPathandFileMenu("read");
+		} else {
+			File f = new File(absolutePath);
+			if (method.equals("read") && f.exists() && !f.isDirectory()) {
+				return absolutePath;
+			} else if (method.equals("read") && !f.exists()) {
+				System.out.println("File does not exist...");
+				printMainMenu();
+			} else {
+				return absolutePath;
+			}
+		}
+
+		return null;
+
+	}
+
+	public static String readString(String what) {
+		System.out.println(what);
+		return sc.nextLine();
+	}
+
+	public static double readDouble(String what) {
+		double num = 0;
+		System.out.println(what);
+		boolean isNumber = false;
+
+		while (!isNumber) {
+			try {
+				num = Double.parseDouble(sc.nextLine());
+				isNumber = true;
+			} catch (NumberFormatException e) {
+				System.out.println("ERROR: Type a real number.");
+				System.out.print(what + ": ");
+			}
+		}
+		return num;
 	}
 
 	public static boolean checkIsDouble(String what) {
