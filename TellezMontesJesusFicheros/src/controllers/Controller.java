@@ -3,7 +3,7 @@ package controllers;
 import java.util.ArrayList;
 import java.util.List;
 
-import io.Read;
+import io.ReadWrite;
 import models.Weather;
 import utils.ConsoleHelper;
 
@@ -11,10 +11,16 @@ public class Controller {
 	protected List<Weather> readTable;
 	protected List<Weather> writeTable;
 
+	/**
+	 * Run App
+	 */
 	public void run() {
 		mainMenu();
 	}
 
+	/**
+	 * Main Menu for App
+	 */
 	private void mainMenu() {
 		do {
 			ConsoleHelper.printMainMenu();
@@ -23,7 +29,7 @@ public class Controller {
 			case 1:
 				String readPath = ConsoleHelper.getPathandFileMenu("read");
 				if (readPath != null) {
-					readTable = Read.readFile(readPath);
+					readTable = ReadWrite.readFile(readPath);
 					showReadFormat();
 				} else {
 					System.out.println("An error occured (could not load file)");
@@ -34,6 +40,18 @@ public class Controller {
 				String writePath = ConsoleHelper.getPathandFileMenu("write");
 				if (writePath != null) {
 					createWeathersLoop();
+					if (writeTable != null && writeTable.size() > -1) {
+						boolean done = ReadWrite.writeFile(writePath, writeTable);
+						if (done) {
+							System.out.println("File write succesfully");
+						} else {
+							System.out.println(
+									"An error occurred while trying to write the file (Bad path or bad file type).");
+						}
+					} else {
+						System.out.println("You need to fill with atleast 1 month data before write a new file.");
+						mainMenu();
+					}
 				} else {
 					System.out.println("An error occured...");
 					mainMenu();
@@ -45,8 +63,12 @@ public class Controller {
 
 			}
 		} while (ConsoleHelper.yesNo("Do more? Yes (1) No (0)"));
+
 	}
 
+	/**
+	 * Method that prompt you to create a entry on the weather write table (loop)
+	 */
 	private void createWeathersLoop() {
 		writeTable = new ArrayList<Weather>();
 		do {
@@ -62,6 +84,9 @@ public class Controller {
 
 	}
 
+	/**
+	 * Method that prints month info properly "formatted"
+	 */
 	private void showReadFormat() {
 		String hottestMonth = getHottestMonth();
 		String coldestMonth = getColdestMonth();
@@ -71,6 +96,9 @@ public class Controller {
 		showMaximumAVGAndMinimumMedTemp();
 	}
 
+	/**
+	 * Method that show maximum, minimum and avg temperature of all months
+	 */
 	private void showMaximumAVGAndMinimumMedTemp() {
 		int div = readTable.size() + 1;
 		double maxMed = 0.0;
@@ -85,6 +113,12 @@ public class Controller {
 				+ "Cº\nAVG Temperature: " + maxMed / minMed + "Cº");
 	}
 
+	/**
+	 * Method to get hottest (max temp) month
+	 * 
+	 * @return hottest month name
+	 */
+
 	private String getHottestMonth() {
 		double currentTemp = Double.MIN_VALUE;
 		String month = null;
@@ -97,6 +131,11 @@ public class Controller {
 		return month;
 	}
 
+	/**
+	 * Method to get coldest (minimum temp) month
+	 * 
+	 * @return coldest month name
+	 */
 	private String getColdestMonth() {
 		double currentTemp = Double.MAX_VALUE;
 		String month = null;
@@ -109,6 +148,9 @@ public class Controller {
 		return month;
 	}
 
+	/**
+	 * Method to show rainy month(s) names on a "string chain"
+	 */
 	private void showRainyMonths() {
 		String toPrint = "Rainy months: ";
 		for (Weather weather : readTable) {
@@ -124,6 +166,9 @@ public class Controller {
 		}
 	}
 
+	/**
+	 * Method to show the months with 0 rainy days
+	 */
 	private void showNonRainyMonths() {
 		String toPrint = "Non Rainy months: ";
 		for (Weather weather : readTable) {

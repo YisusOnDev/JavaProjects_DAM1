@@ -2,6 +2,8 @@ package io;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -9,13 +11,19 @@ import java.util.Scanner;
 import models.Weather;
 import utils.ConsoleHelper;
 
-public class Read {
+public class ReadWrite {
 
+	/**
+	 * Method that read a "weather" file with the given path
+	 * 
+	 * @param aPath String absolute path
+	 * @return a weather list with all file data correctly imported
+	 */
 	public static List<Weather> readFile(String aPath) {
 		List<Weather> weatherList = new ArrayList<Weather>();
 		File f = new File(aPath);
 		Scanner sc = null;
-		
+
 		try {
 			sc = new Scanner(f, "UTF-8");
 
@@ -51,11 +59,32 @@ public class Read {
 
 		} catch (FileNotFoundException e) {
 			System.out.println("File could not be found.");
-			//e.printStackTrace();
+			// e.printStackTrace();
 		} finally {
 			sc.close();
 		}
 
 		return weatherList;
+	}
+
+	/**
+	 * Method that write the weather table info into a file on the path received
+	 * 
+	 * @param route  absolute path
+	 * @param curren tList weather list with the info
+	 * @return true if succesfully written, false if anything bad occured.
+	 */
+	public static boolean writeFile(String route, List<Weather> currentList) {
+		try {
+			FileWriter myWriter = new FileWriter(route);
+
+			for (Weather w : currentList) {
+				myWriter.write(w.getMonth() + ";" + w.getMaxT() + ";" + w.getMinT() + ";" + w.getRainyDays());
+			}
+			myWriter.close();
+			return true;
+		} catch (IOException e) {
+			return false;
+		}
 	}
 }

@@ -4,6 +4,14 @@ public class Weather {
 	String month;
 	double maxT, minT, rainyDays;
 
+	/**
+	 * Constructor for create a weather line info
+	 * 
+	 * @param month     the month
+	 * @param maxT      maximum temperature
+	 * @param minT      minimum temperature
+	 * @param rainyDays count(rainy days) of the month
+	 */
 	public Weather(String month, double maxT, double minT, double rainyDays) {
 		super();
 		this.month = month;
@@ -20,38 +28,17 @@ public class Weather {
 	}
 
 	/**
-	 * @param month the month to set
-	 */
-	public void setMonth(String month) {
-		this.month = month;
-	}
-
-	/**
-	 * @return the maxT
+	 * @return the max temperature
 	 */
 	public double getMaxT() {
 		return maxT;
 	}
 
 	/**
-	 * @param maxT the maxT to set
-	 */
-	public void setMaxT(double maxT) {
-		this.maxT = maxT;
-	}
-
-	/**
-	 * @return the minT
+	 * @return the min temperature
 	 */
 	public double getMinT() {
 		return minT;
-	}
-
-	/**
-	 * @param minT the minT to set
-	 */
-	public void setMinT(double minT) {
-		this.minT = minT;
 	}
 
 	/**
@@ -59,13 +46,6 @@ public class Weather {
 	 */
 	public double getRainyDays() {
 		return rainyDays;
-	}
-
-	/**
-	 * @param rainyDays the rainyDays to set
-	 */
-	public void setRainyDays(double rainyDays) {
-		this.rainyDays = rainyDays;
 	}
 
 	@Override
