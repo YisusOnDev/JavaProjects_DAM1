@@ -9,6 +9,9 @@ import io.Read;
 public abstract class AbstractDAO {
 	protected Connection conn;
 
+	/**
+	 * Constructor for AbstractDAO, it just make the connection for all future DAO's
+	 */
 	public AbstractDAO() {
 		doConnection(getConnectionFromFile());
 	}
@@ -28,7 +31,7 @@ public abstract class AbstractDAO {
 	}
 
 	/**
-	 * Method that get MySQL connection config from a config file.
+	 * Method that get MySQL connection config from a config file
 	 */
 	private static Connection getConnectionFromFile() {
 		final String filename = "config.txt";
@@ -39,7 +42,7 @@ public abstract class AbstractDAO {
 			String dbUser = cfgDetails.get(1);
 			String dbPwd = "";
 
-			// In some cases for test purposes MySQL installation has no password.
+			// In some cases for test purposes MySQL installation has no password
 			if (2 < cfgDetails.size())
 				dbPwd = cfgDetails.get(2);
 

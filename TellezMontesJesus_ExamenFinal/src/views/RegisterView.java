@@ -19,7 +19,7 @@ import models.Usuario;
 
 public class RegisterView {
 
-	private JFrame frame;
+	private JFrame frmRegister;
 	private JTextField tfUsername;
 	private JPasswordField passwordField;
 	private JLabel lblUsername;
@@ -43,16 +43,17 @@ public class RegisterView {
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
-		frame = new JFrame();
-		frame.setBounds(100, 100, 378, 248);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.getContentPane().setLayout(null);
-		frame.setResizable(false);
+		frmRegister = new JFrame();
+		frmRegister.setTitle("Register");
+		frmRegister.setBounds(100, 100, 378, 248);
+		frmRegister.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frmRegister.getContentPane().setLayout(null);
+		frmRegister.setResizable(false);
 
 		setUIComponents();
 		setListeners();
 
-		frame.setVisible(true);
+		frmRegister.setVisible(true);
 	}
 
 	/**
@@ -60,43 +61,46 @@ public class RegisterView {
 	 */
 	private void setUIComponents() {
 		lblUsername = new JLabel("Usuario:");
+		lblUsername.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblUsername.setBounds(121, 74, 59, 14);
-		frame.getContentPane().add(lblUsername);
+		frmRegister.getContentPane().add(lblUsername);
 
 		tfUsername = new JTextField();
 		tfUsername.setBounds(190, 71, 86, 20);
-		frame.getContentPane().add(tfUsername);
+		frmRegister.getContentPane().add(tfUsername);
 		tfUsername.setColumns(10);
 
-		lblPassword = new JLabel("Clave");
+		lblPassword = new JLabel("Clave:");
+		lblPassword.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblPassword.setBounds(121, 102, 59, 14);
-		frame.getContentPane().add(lblPassword);
+		frmRegister.getContentPane().add(lblPassword);
 
 		passwordField = new JPasswordField();
 		passwordField.setBounds(190, 99, 86, 20);
-		frame.getContentPane().add(passwordField);
+		frmRegister.getContentPane().add(passwordField);
 
 		btnLogin = new JButton("Registrarse");
-		btnLogin.setBounds(83, 172, 97, 23);
-		frame.getContentPane().add(btnLogin);
+		btnLogin.setBounds(64, 172, 116, 23);
+		frmRegister.getContentPane().add(btnLogin);
 
-		lblRegister = new JLabel("Pokedex - Registro");
+		lblRegister = new JLabel("Registro");
 		lblRegister.setHorizontalAlignment(SwingConstants.CENTER);
 		lblRegister.setFont(new Font("Trebuchet MS", Font.BOLD, 16));
 		lblRegister.setBounds(50, 11, 274, 42);
-		frame.getContentPane().add(lblRegister);
+		frmRegister.getContentPane().add(lblRegister);
 
 		lblRegister2 = new JLabel("Confirmar clave:");
+		lblRegister2.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblRegister2.setBounds(80, 127, 100, 14);
-		frame.getContentPane().add(lblRegister2);
+		frmRegister.getContentPane().add(lblRegister2);
 
 		passwordField2 = new JPasswordField();
 		passwordField2.setBounds(190, 124, 86, 20);
-		frame.getContentPane().add(passwordField2);
+		frmRegister.getContentPane().add(passwordField2);
 
 		btnCancelRegister = new JButton("Cancelar");
-		btnCancelRegister.setBounds(190, 172, 89, 23);
-		frame.getContentPane().add(btnCancelRegister);
+		btnCancelRegister.setBounds(190, 172, 108, 23);
+		frmRegister.getContentPane().add(btnCancelRegister);
 	}
 
 	/**
@@ -129,6 +133,9 @@ public class RegisterView {
 		passwordField2.addKeyListener(registerLogic);
 	}
 
+	/**
+	 * Register button pressed Logic
+	 */
 	private void registerButtonPressed() {
 		String username = tfUsername.getText();
 		String password = new String(passwordField.getPassword());
@@ -138,30 +145,34 @@ public class RegisterView {
 				if (!username.isBlank()) {
 					Usuario user = new Usuario(username, password);
 					if (userDAO.insert(user)) {
-						JOptionPane.showMessageDialog(frame, "Te has registrado correctamente.", "OK",
+						JOptionPane.showMessageDialog(frmRegister, "Te has registrado correctamente.", "OK",
 								JOptionPane.INFORMATION_MESSAGE);
 						setLoginFrame();
 					} else {
-						JOptionPane.showMessageDialog(frame, "Ese usuario ya existe, por favor introduce otro", "ERROR",
-								JOptionPane.ERROR_MESSAGE);
+						JOptionPane.showMessageDialog(frmRegister, "Ese usuario ya existe, por favor introduce otro",
+								"ERROR", JOptionPane.ERROR_MESSAGE);
 					}
 				} else {
-					JOptionPane.showMessageDialog(frame, "El usuario no puede estar vacio o contener espacios en blanco", "ERROR",
+					JOptionPane.showMessageDialog(frmRegister,
+							"El usuario no puede estar vacio o contener espacios en blanco", "ERROR",
 							JOptionPane.ERROR_MESSAGE);
 				}
 			} else {
-				JOptionPane.showMessageDialog(frame, "Las claves no coinciden", "ERROR",
+				JOptionPane.showMessageDialog(frmRegister, "Las claves no coinciden", "ERROR",
 						JOptionPane.ERROR_MESSAGE);
 			}
 		} else {
-			JOptionPane.showMessageDialog(frame, "La clave no puede estar vacia o contener espacios en blanco", "ERROR",
-					JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showMessageDialog(frmRegister, "La clave no puede estar vacia o contener espacios en blanco",
+					"ERROR", JOptionPane.ERROR_MESSAGE);
 		}
 
 	}
 
+	/**
+	 * Method that set the user to LoginView again
+	 */
 	private void setLoginFrame() {
-		frame.dispose();
+		frmRegister.dispose();
 		new LoginView();
 	}
 }

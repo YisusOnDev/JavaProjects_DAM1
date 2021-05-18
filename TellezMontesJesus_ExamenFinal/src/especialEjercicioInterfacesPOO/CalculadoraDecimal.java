@@ -1,6 +1,12 @@
 package especialEjercicioInterfacesPOO;
 
-public class CalculadoraDecimal {
+public class CalculadoraDecimal implements ICalculator {
 
-	public int suma(int op1, int op2) { return op1+op2; }
+	@Override
+	/**
+	 * Method that add two DECIMAL numbers
+	 */
+	public int add(int a, int b) {
+		return (a + b);
+	}
 }

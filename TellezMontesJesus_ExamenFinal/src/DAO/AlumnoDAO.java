@@ -1,27 +1,44 @@
 package DAO;
 
-import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.util.ArrayList;
 
 import models.Alumno;
 
-public class AlumnoDAO {
-	public static ArrayList<Alumno> getAll() {
+public class AlumnoDAO extends AbstractDAO {
+
+	/**
+	 * Constructor for AlumnoDAO
+	 */
+	public AlumnoDAO() {
+		super();
+	}
+
+	/**
+	 * Method to get all existins alumnos from the db and return as an ArrayList of
+	 * Alumnos
+	 * 
+	 * @return ArrayList<Alumno> with all alumns on the db
+	 */
+	public ArrayList<Alumno> getAll() {
 		var lista = new ArrayList<Alumno>();
-		
+
 		try {
-			//TODO devuelve una lista con todos los alumnos
-			
+			Class.forName("com.mysql.cj.jdbc.Driver");
+			PreparedStatement stmt = this.conn.prepareStatement("select * from alumnos;");
+			ResultSet rs = stmt.executeQuery();
+			while (rs.next()) {
+				Alumno alumn = new Alumno(rs.getInt("id"), rs.getString("nombre"), rs.getFloat("nota"));
+				lista.add(alumn);
+			}
+			conn.close();
+
 		} catch (Exception e) {
 			System.out.println(e);
 		}
-		
+
 		return lista;
 	}
-	private static Connection getConnectionFromFile() {
-		//TODO esto lo has hecho ya en UsuarioDAO y probablemente lo hayas subido a una AbstractDAO...
-		return null;
-	}
-	
-	
+
 }

@@ -8,10 +8,19 @@ import models.Usuario;
 
 public class UsuarioDAO extends AbstractDAO {
 
+	/**
+	 * Constructor for UsuarioDAO
+	 */
 	public UsuarioDAO() {
 		super();
 	}
 
+	/**
+	 * Method that check if the username password and username exists
+	 * 
+	 * @param u Usuario
+	 * @return true if exist, false if not
+	 */
 	public boolean login(Usuario u) {
 
 		try {
@@ -31,6 +40,12 @@ public class UsuarioDAO extends AbstractDAO {
 		return false;
 	}
 
+	/**
+	 * Method to insert a new username into the database
+	 * 
+	 * @param u Usuario
+	 * @return true if has been inserted succesfully, false if not
+	 */
 	public boolean insert(Usuario u) {
 		if (exists(u))
 			return false;
@@ -52,6 +67,12 @@ public class UsuarioDAO extends AbstractDAO {
 		}
 	}
 
+	/**
+	 * Method that checks if an username exist in the database
+	 * 
+	 * @param u Usuario
+	 * @return true if exists, false if not
+	 */
 	private boolean exists(Usuario u) {
 		try {
 			Statement stmt = this.conn.createStatement();

@@ -6,8 +6,14 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-
 public class Read {
+	/**
+	 * Method that reads a SQL CONFIG file thats in into the received path and
+	 * return a list of string with database name, user and password
+	 * 
+	 * @param path file cfg path
+	 * @return List<String> with name, username and password of the database
+	 */
 	public static List<String> getSqlConfig(String path) {
 
 		List<String> cfg = new ArrayList<String>();
