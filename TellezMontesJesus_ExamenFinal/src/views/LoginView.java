@@ -23,7 +23,7 @@ public class LoginView {
 	private JLabel lblPassword;
 	private JButton btnLogin;
 	private JButton btnRegister;
-	
+
 	/**
 	 * Create the application.
 	 */
@@ -40,11 +40,11 @@ public class LoginView {
 		frmLogin.setBounds(100, 100, 450, 300);
 		frmLogin.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frmLogin.getContentPane().setLayout(null);
-		
+
 		setUIComponents();
 		setUIListeners();
 	}
-	
+
 	private void setUIComponents() {
 		lblLogin = new JLabel("Login");
 		lblLogin.setBounds(180, 33, 61, 16);
@@ -77,15 +77,21 @@ public class LoginView {
 		frmLogin.setResizable(false);
 		frmLogin.setVisible(true);
 	}
-	
+
 	private void setUIListeners() {
 		btnLogin.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				Login();
 			}
 		});
+		btnRegister.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				frmLogin.dispose();
+				new RegisterView();
+			}
+		});
 	}
-	
+
 	private void Login() {
 		UsuarioDAO UsuarioDAO = new UsuarioDAO();
 		Usuario user = new Usuario(usernameField.getText(), new String(passwordField.getPassword()));

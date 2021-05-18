@@ -44,7 +44,6 @@ public abstract class AbstractDAO {
 				dbPwd = cfgDetails.get(2);
 
 			testCon = DriverManager.getConnection("jdbc:mysql://localhost/" + dbName, dbUser, dbPwd);
-			System.out.println(testCon);
 
 		} catch (Exception e) {
 			e.printStackTrace();

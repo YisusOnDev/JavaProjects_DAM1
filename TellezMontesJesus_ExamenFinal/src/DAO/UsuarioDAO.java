@@ -2,6 +2,7 @@ package DAO;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.Statement;
 
 import models.Usuario;
 
@@ -15,7 +16,8 @@ public class UsuarioDAO extends AbstractDAO {
 
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
-			PreparedStatement stmt = this.conn.prepareStatement("select * from usuarios where username = ? and password = ?;");
+			PreparedStatement stmt = this.conn
+					.prepareStatement("select * from usuarios where username = ? and password = ?;");
 			stmt.setString(1, u.getUsername());
 			stmt.setString(2, u.getPassword());
 			ResultSet rs = stmt.executeQuery();
@@ -29,22 +31,37 @@ public class UsuarioDAO extends AbstractDAO {
 		return false;
 	}
 
-	public static boolean insert(Usuario u) {
+	public boolean insert(Usuario u) {
 		if (exists(u))
 			return false;
 		else {
-			// TODO hacer que inserte el usuario.
+			try {
+				String query = " INSERT INTO usuarios (username, password)" + " values (?, ?)";
+
+				PreparedStatement preparedStmt = this.conn.prepareStatement(query);
+				preparedStmt.setString(1, u.getUsername());
+				preparedStmt.setString(2, u.getPassword());
+
+				preparedStmt.execute();
+
+				conn.close();
+			} catch (Exception e) {
+				System.err.println(e.getMessage());
+			}
 			return true;
 		}
 	}
 
-	private static boolean exists(Usuario u) {
+	private boolean exists(Usuario u) {
 		try {
-			// TODO comprobar si un usuario (nombre de usuario) existe ya en la BD o no.
+			Statement stmt = this.conn.createStatement();
+			ResultSet rs = stmt.executeQuery("SELECT * FROM usuarios WHERE username = '" + u.getUsername() + "'");
+			return rs.next();
 
 		} catch (Exception e) {
 			System.out.println(e);
 		}
 		return false;
 	}
+
 }
