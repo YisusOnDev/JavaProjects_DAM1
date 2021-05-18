@@ -1,0 +1,3 @@
+dbName=examen
+username=root
+password=

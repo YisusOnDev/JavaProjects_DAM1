@@ -554,10 +554,10 @@ public class MainView {
 								"File error", JOptionPane.ERROR_MESSAGE);
 					}
 
-				} else {
-					JOptionPane.showMessageDialog(frame, "File already exist...", "Error on saving file",
-							JOptionPane.ERROR_MESSAGE);
-				}
+				} //else {
+					//JOptionPane.showMessageDialog(frame, "File already exist...", "Error on saving file",
+						//	JOptionPane.ERROR_MESSAGE);
+				//}
 			} catch (IOException e) {
 				JOptionPane.showMessageDialog(frame, "Error...", "Error", JOptionPane.ERROR_MESSAGE);
 				e.printStackTrace();
