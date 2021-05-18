@@ -87,7 +87,7 @@ public class WelcomeView {
 		tblResults.setAutoCreateRowSorter(true);
 
 		btnExit = new JButton("Cerrar sesion");
-		btnExit.setBounds(460, 477, 161, 23);
+		btnExit.setBounds(463, 461, 161, 23);
 		frmMenu.getContentPane().add(btnExit);
 
 		populateTable();
