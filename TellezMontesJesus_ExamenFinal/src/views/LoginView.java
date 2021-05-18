@@ -22,6 +22,7 @@ public class LoginView {
 	private JLabel lblUser;
 	private JLabel lblPassword;
 	private JButton btnLogin;
+	private JButton btnRegister;
 	
 	/**
 	 * Create the application.
@@ -39,7 +40,12 @@ public class LoginView {
 		frmLogin.setBounds(100, 100, 450, 300);
 		frmLogin.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frmLogin.getContentPane().setLayout(null);
-
+		
+		setUIComponents();
+		setUIListeners();
+	}
+	
+	private void setUIComponents() {
 		lblLogin = new JLabel("Login");
 		lblLogin.setBounds(180, 33, 61, 16);
 		frmLogin.getContentPane().add(lblLogin);
@@ -62,23 +68,32 @@ public class LoginView {
 		frmLogin.getContentPane().add(passwordField);
 
 		btnLogin = new JButton("Login");
-		btnLogin.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				if (!UsuarioDAO.login(new Usuario(usernameField.getText(), new String(passwordField.getPassword()))))
-					JOptionPane.showMessageDialog(btnLogin, "Error de inicio de sesión.");
-				else {
-					new WelcomeView();
-					frmLogin.setVisible(false);
-				}
-
-			}
-		});
 		btnLogin.setBounds(75, 199, 117, 29);
 		frmLogin.getContentPane().add(btnLogin);
 
-		JButton btnRegister = new JButton("Registro");
+		btnRegister = new JButton("Register");
 		btnRegister.setBounds(240, 199, 117, 29);
 		frmLogin.getContentPane().add(btnRegister);
+		frmLogin.setResizable(false);
 		frmLogin.setVisible(true);
+	}
+	
+	private void setUIListeners() {
+		btnLogin.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Login();
+			}
+		});
+	}
+	
+	private void Login() {
+		UsuarioDAO UsuarioDAO = new UsuarioDAO();
+		Usuario user = new Usuario(usernameField.getText(), new String(passwordField.getPassword()));
+		if (!UsuarioDAO.login(user))
+			JOptionPane.showMessageDialog(btnLogin, "Error de inicio de sesión.");
+		else {
+			new WelcomeView(user.getUsername());
+			frmLogin.setVisible(false);
+		}
 	}
 }
