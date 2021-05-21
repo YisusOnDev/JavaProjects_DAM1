@@ -45,7 +45,7 @@ public abstract class AbstractDAO {
 			// In some cases for test purposes MySQL installation has no password
 			if (2 < cfgDetails.size())
 				dbPwd = cfgDetails.get(2);
-			
+
 			System.out.println(dbPwd);
 
 			testCon = DriverManager.getConnection("jdbc:mysql://localhost/" + dbName, dbUser, dbPwd);
